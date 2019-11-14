@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2019-11-14
  */
 @RestController
-@RequestMapping("/mybatis/select-couse")
-public class SelectCouseController {
+@RequestMapping("/mybatis/select-course")
+public class SelectCourseController {
 
 }

@@ -27,12 +27,20 @@ public class Teacher implements Serializable {
      */
     private String jno;
 
+    private String password;
+
+    /**
+     * 角色
+     */
+    private String role;
+
     private String name;
 
     private String sex;
 
-    private String passwd;
-
+    /**
+     * 职称
+     */
     private String title;
 
     private LocalDate birth;

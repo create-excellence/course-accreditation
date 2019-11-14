@@ -1,7 +1,7 @@
 package com.excellent.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.excellent.mybatis.entity.SelectCouse;
+import com.excellent.mybatis.entity.SelectCourse;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.excellent.mybatis.entity.SelectCouse;
  * @author ashe
  * @since 2019-11-14
  */
-public interface SelectCouseMapper extends BaseMapper<SelectCouse> {
+public interface SelectCourseMapper extends BaseMapper<SelectCourse> {
 
 }

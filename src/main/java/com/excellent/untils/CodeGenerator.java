@@ -131,5 +131,5 @@ public class CodeGenerator {
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
     }
-
+    //course,course_class,course_target,graduation_demand,graduation_point,major,questionnaire,select_course,self_evaluation,semester,student,supporting_course,teacher
 }

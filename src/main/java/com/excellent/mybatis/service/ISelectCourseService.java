@@ -1,6 +1,6 @@
 package com.excellent.mybatis.service;
 
-import com.excellent.mybatis.entity.SelectCouse;
+import com.excellent.mybatis.entity.SelectCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author ashe
  * @since 2019-11-14
  */
-public interface ISelectCouseService extends IService<SelectCouse> {
+public interface ISelectCourseService extends IService<SelectCourse> {
 
 }
