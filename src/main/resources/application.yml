@@ -1,6 +1,11 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+#    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/course_accreditation?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=UTF-8
     username: root
     password: 123456
+
+
+
+
+# course,course_class,course_target,graduation_demand,graduation_point,major,questionnaire,select_couse,self_evaluation,semester,student,supporting_course,teacher
