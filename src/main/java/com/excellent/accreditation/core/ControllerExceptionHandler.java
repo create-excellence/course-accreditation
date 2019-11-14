@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @Description Exception handler of controller
  * @Date 21:36 2019/11/14
  */
-@RestControllerAdvice
 @Slf4j
+@RestControllerAdvice
 public class ControllerExceptionHandler {
 
     @ExceptionHandler(Exception.class)

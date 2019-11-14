@@ -1,29 +1,27 @@
 package com.excellent.accreditation.model.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.excellent.accreditation.common.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * 
+ * <p>
  *
- * @Author evildoer
+ * </p>
+ *
+ * @author ashe
+ * @since 2019-11-14
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Teacher implements Serializable {
+public class Teacher extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
 
     /**
      * 工号
@@ -51,10 +49,6 @@ public class Teacher implements Serializable {
     private String graduateSchool;
 
     private String graduateMajor;
-
-    private LocalDateTime createTime;
-
-    private LocalDateTime updateTime;
 
     private LocalDateTime loginTime;
 

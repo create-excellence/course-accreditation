@@ -1,28 +1,24 @@
 package com.excellent.accreditation.model.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.excellent.accreditation.common.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 /**
- * 
+ * <p>
  *
- * @Author evildoer
+ * </p>
+ *
+ * @author ashe
+ * @since 2019-11-14
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Questionnaire implements Serializable {
+public class Questionnaire extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
 
     private String name;
 
@@ -31,10 +27,6 @@ public class Questionnaire implements Serializable {
     private Integer totalSocre;
 
     private String describe;
-
-    private LocalDateTime createTime;
-
-    private LocalDateTime updateTime;
 
 
 }

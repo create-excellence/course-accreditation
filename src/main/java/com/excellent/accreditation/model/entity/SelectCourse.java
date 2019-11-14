@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDate;
-
 /**
  * <p>
  *
@@ -18,13 +16,19 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class Semester extends BaseEntity {
+public class SelectCourse extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private String name;
+    /**
+     * 课程班级Id
+     */
+    private Integer courseClassId;
 
-    private LocalDate startTime;
+    /**
+     * 学生Id
+     */
+    private Integer studentId;
 
 
 }
