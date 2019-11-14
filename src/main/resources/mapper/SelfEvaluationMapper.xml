@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.excellent.dao.SelfEvaluationMapper">
+<mapper namespace="com.excellent.accreditation.dao.SelfEvaluationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.excellent.accreditation.model.entity.SelfEvaluation">
+        <id column="id" property="id"/>
+        <result column="student_id" property="studentId"/>
+        <result column="course_target_id" property="courseTargetId"/>
+        <result column="answer" property="answer"/>
+        <result column="score" property="score"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, student_id, course_target_id, answer, score, create_time, update_time
+    </sql>
 
 </mapper>

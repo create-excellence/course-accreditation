@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.excellent.dao.StudentMapper">
+<mapper namespace="com.excellent.accreditation.dao.StudentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.excellent.accreditation.model.entity.Student">
+        <id column="id" property="id"/>
+        <result column="sno" property="sno"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="grade" property="grade"/>
+        <result column="major_id" property="majorId"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="login_time" property="loginTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, sno, password, name, sex, grade, major_id, status, create_time, update_time, login_time
+    </sql>
 
 </mapper>

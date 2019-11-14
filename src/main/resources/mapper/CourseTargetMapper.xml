@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.excellent.dao.CourseTargetMapper">
+<mapper namespace="com.excellent.accreditation.dao.CourseTargetMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.excellent.accreditation.model.entity.CourseTarget">
+        <id column="id" property="id"/>
+        <result column="questionnaire_id" property="questionnaireId"/>
+        <result column="title" property="title"/>
+        <result column="point_id" property="pointId"/>
+        <result column="options" property="options"/>
+        <result column="describe" property="describe"/>
+        <result column="options_score" property="optionsScore"/>
+        <result column="total_score" property="totalScore"/>
+        <result column="sequence" property="sequence"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, questionnaire_id, title, point_id, options, describe, options_score, total_score, sequence, create_time, update_time
+    </sql>
 
 </mapper>
