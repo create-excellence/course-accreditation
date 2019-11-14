@@ -1,7 +1,6 @@
 package com.excellent.mybatis.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
+import com.excellent.common.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -15,9 +14,9 @@ import lombok.experimental.Accessors;
  * @since 2019-11-14
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class CourseClass implements Serializable {
+public class CourseClass extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -49,10 +48,6 @@ public class CourseClass implements Serializable {
      * 0-开课 1-未开课
      */
     private Integer status;
-
-    private LocalDateTime createTime;
-
-    private LocalDateTime updateTime;
 
 
 }

@@ -1,4 +1,4 @@
-package com.excellent.mybatis.entity;
+package com.excellent.entity;
 
 import com.excellent.common.BaseEntity;
 import lombok.Data;
@@ -16,19 +16,13 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class SelectCourse extends BaseEntity {
+public class Major extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 课程班级Id
-     */
-    private Integer courseClassId;
+    private String name;
 
-    /**
-     * 学生Id
-     */
-    private Integer studentId;
+    private String code;
 
 
 }
