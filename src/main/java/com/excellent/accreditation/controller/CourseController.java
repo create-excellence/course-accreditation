@@ -5,6 +5,7 @@ import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.service.ICourseService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class CourseController {
 
     private final ICourseService courseService;
 
+    @Autowired
     public CourseController(ICourseService courseService) {
         this.courseService = courseService;
     }
