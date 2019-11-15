@@ -1,11 +1,24 @@
 server:
   port: 8888
+  version: v1
 spring:
   datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/course_accreditation?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=UTF-8
     username: root
     password: 123456
+web:
+  # Swagger相关配置
+  swagger:
+    basePackage: com.excellent.accreditation
+    title: ACCREDITATION VUE API
+    description: ACCREDITATION VUE API Document.
+    version: 1.0
+    author: evildoer
+    url: https://baidu.com
+    email: 123456@qq.com
+    license: Apache 2.0
+    licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.html
 
 
 

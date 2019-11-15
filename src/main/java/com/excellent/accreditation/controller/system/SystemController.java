@@ -1,4 +1,4 @@
-package com.excellent.accreditation.manage;
+package com.excellent.accreditation.controller.system;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2019-11-14
  */
 @RestController
-@RequestMapping("/{version}/system")
+@RequestMapping("/${server.version}/system")
 public class SystemController {
 
     // 访问路径为 http://localhost:8888/v1/system/test

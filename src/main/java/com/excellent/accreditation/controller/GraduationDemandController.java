@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2019-11-14
  */
 @RestController
-@RequestMapping("/{version}/graduation-demand")
+@RequestMapping("/${server.version}/graduation-demand")
 public class GraduationDemandController {
 
 }
