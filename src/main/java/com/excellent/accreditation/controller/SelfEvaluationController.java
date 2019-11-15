@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2019-11-14
  */
 @RestController
-@RequestMapping("/{version}/self-evaluation")
+@RequestMapping("/${server.version}/self-evaluation")
 public class SelfEvaluationController {
 
 }

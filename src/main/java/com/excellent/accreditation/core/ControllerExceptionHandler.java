@@ -20,9 +20,8 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ServerResponse handleGlobalException(Exception e) {
-        ServerResponse serverResponse = handleBaseException(e);
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        return serverResponse.createByErrorCodeMessage(status.value(), status.getReasonPhrase());
+        return ServerResponse.createByErrorCodeMessage(status.value(), status.getReasonPhrase());
     }
 
 
