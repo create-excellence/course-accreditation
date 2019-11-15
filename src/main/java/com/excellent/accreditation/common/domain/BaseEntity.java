@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class BaseEntity {
-    @TableId(value = "id",type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     private LocalDateTime updateTime;

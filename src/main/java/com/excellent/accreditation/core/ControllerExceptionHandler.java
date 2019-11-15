@@ -31,9 +31,7 @@ public class ControllerExceptionHandler {
 
         log.error("Captured an exception", t);
 
-        ServerResponse<T> serverResponse = ServerResponse.createByErrorMessage(t.getMessage());
-
-        return serverResponse;
+        return ServerResponse.createByErrorMessage(t.getMessage());
     }
 }
 

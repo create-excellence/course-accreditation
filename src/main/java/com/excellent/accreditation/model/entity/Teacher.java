@@ -1,6 +1,6 @@
 package com.excellent.accreditation.model.entity;
 
-import com.excellent.accreditation.common.BaseEntity;
+import com.excellent.accreditation.common.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

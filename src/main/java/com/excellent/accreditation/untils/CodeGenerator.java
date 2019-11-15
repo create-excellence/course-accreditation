@@ -123,7 +123,7 @@ public class CodeGenerator {
 //        strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         // 写于父类中的公共字段
         strategy.setSuperEntityColumns("id","update_time","create_time");
-        strategy.setSuperEntityClass("com.excellent.accreditation.common.BaseEntity");
+        strategy.setSuperEntityClass("com.excellent.accreditation.common.domain.BaseEntity");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
