@@ -18,15 +18,19 @@ public class PermissionAspect {
     * @Date: 2019/11/15
     */
 
-    @Pointcut("execution(* *com.excellent.accreditation.controller.*(..))")
+    @Pointcut("execution(public * com.excellent.accreditation.controller.*.*(..)) within(com.excellent.accreditation.controller.*)")
     private void point() {
     }//切入点签名
 
 
-    @Before(value = "point() &&@annotation(permission)")
-    public boolean rolePermission(JoinPoint joinPoint,Permission permission){
+    @Before(value = "point()&&@annotation(permission)")
+    public void rolePermission(JoinPoint joinPoint,Permission permission){
+        String role ="";
         String[] roles =permission.roles();
-        return false;
+        for (int i = 0; i <roles.length ; i++) {
+
+        }
+       throw new RuntimeException("权限不足");
     }
 
 }

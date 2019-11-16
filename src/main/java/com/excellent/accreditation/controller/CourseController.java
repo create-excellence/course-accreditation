@@ -1,12 +1,14 @@
 package com.excellent.accreditation.controller;
 
 
+import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.service.ICourseService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -110,10 +112,11 @@ public class CourseController {
      **/
     @GetMapping("{id:\\d+}")
     @ApiOperation("通过id查找课程")
+    @Permission
     public ServerResponse query(@PathVariable("id") Integer id) {
         Course course = courseService.getById(id);
         if (course != null)
-            return ServerResponse.createBySuccess();
+            return ServerResponse.createBySuccess(course);
 
         return ServerResponse.createByErrorMessage("课程不存在");
     }
