@@ -1,11 +1,19 @@
 package com.excellent.accreditation.common.domain;
 
 public class Const {
-    public static String CURRENT_USER = "current_user";
+    /**
+     * @Author 安羽兮
+     * @Description 用户角色
+     * @Date 17:18 2019/11/18
+     * @Param
+     * @Return
+     **/
+    public static final String ADMIN = "admin";
 
-    public static String Teacher = "teacher";
+    public static final String TEACHER = "teacher";
 
-    public static String Manager = "manage";
+    public static final String STUDENT = "student";
+
 
     public enum  BATCH_STUDENT_STATUS{
 
