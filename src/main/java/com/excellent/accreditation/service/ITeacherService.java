@@ -8,4 +8,5 @@ import com.excellent.accreditation.model.entity.Teacher;
  */
 public interface ITeacherService extends IService<Teacher> {
 
+    Teacher getByCode(String code);
 }

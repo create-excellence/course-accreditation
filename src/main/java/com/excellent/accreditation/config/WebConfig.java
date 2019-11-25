@@ -1,6 +1,9 @@
 package com.excellent.accreditation.config;
 
 
+import com.excellent.accreditation.manage.UserManage;
+import com.excellent.accreditation.service.IStudentService;
+import com.excellent.accreditation.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +27,12 @@ import java.util.Collections;
 public class WebConfig {
     @Autowired
     private WebProperties properties;
+
+    @Bean
+    public UserManage userManage(IStudentService studentService,
+                                 ITeacherService teacherService) {
+        return new UserManage(studentService, teacherService);
+    }
 
     @Bean
     public Docket swaggerApi() {
