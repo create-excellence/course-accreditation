@@ -9,8 +9,6 @@ import com.excellent.accreditation.model.vo.UserVo;
 import com.excellent.accreditation.service.IStudentService;
 import com.excellent.accreditation.service.ITeacherService;
 
-import java.util.List;
-
 /**
  * @ClassName UserManage
  * @Description TODO
@@ -42,20 +40,16 @@ public class UserManage {
         Teacher teacher = teacherService.getByCode(code);
         if (student != null) {          // 学生登录
             QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("sno", code);       // 通过学号登录
-            queryWrapper.eq("password", password);
-            List<Student> students = studentService.list(queryWrapper);
-            if (students.size() == 1) {
-                return UserVo.convert(students.get(0));
-            }
+            queryWrapper.eq("sno", code)       // 通过学号登录
+                    .eq("password", password);
+            Student s = studentService.getOne(queryWrapper);
+            return UserVo.convert(s);
         } else if (teacher != null) {  // 教师登录
             QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("jno", code);       // 通过工号登录
-            queryWrapper.eq("password", password);
-            List<Teacher> teachers = teacherService.list(queryWrapper);
-            if (teachers.size() == 1) {
-                return UserVo.convert(teachers.get(0));
-            }
+            queryWrapper.eq("jno", code)       // 通过工号登录
+                    .eq("password", password);
+            Teacher t = teacherService.getOne(queryWrapper);
+            return UserVo.convert(t);
         }
         // 登录失败
         return null;

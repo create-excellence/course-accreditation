@@ -27,6 +27,8 @@ public class UserVo {
 
     private String sex;
 
+    private String avatar;
+
     /**
      * 正常-0
      */
@@ -44,6 +46,8 @@ public class UserVo {
         userVo.role = Const.STUDENT;
         userVo.name = student.getName();
         userVo.sex = student.getSex();
+        userVo.avatar = "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif";
+//        userVo.avatar = student.getAvatar();      // 头像呢？
         userVo.status = 0;
         userVo.updateTime = student.getUpdateTime();
         userVo.createTime = student.getCreateTime();
@@ -56,6 +60,7 @@ public class UserVo {
         userVo.role = Const.TEACHER;
         userVo.name = teacher.getName();
         userVo.sex = teacher.getSex();
+        userVo.avatar = teacher.getTitle();
         userVo.status = 0;
         userVo.updateTime = teacher.getUpdateTime();
         userVo.createTime = teacher.getCreateTime();

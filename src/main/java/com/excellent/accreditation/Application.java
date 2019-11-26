@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-//@CrossOrigin
 @SpringBootApplication
 @MapperScan("com.excellent.accreditation.dao")
 @EnableAspectJAutoProxy
