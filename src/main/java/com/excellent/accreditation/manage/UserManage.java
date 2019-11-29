@@ -3,15 +3,11 @@ package com.excellent.accreditation.manage;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
-import com.excellent.accreditation.dao.CourseTargetMapper;
-import com.excellent.accreditation.dao.GraduationDemandMapper;
-import com.excellent.accreditation.model.entity.CourseTarget;
 import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.entity.Teacher;
 import com.excellent.accreditation.model.vo.UserVo;
 import com.excellent.accreditation.service.IStudentService;
 import com.excellent.accreditation.service.ITeacherService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @ClassName UserManage
@@ -25,10 +21,6 @@ public class UserManage {
     private final IStudentService studentService;
 
     private final ITeacherService teacherService;
-
-    @Autowired
-    CourseTargetMapper courseTargetMapper;
-
 
 
     public UserManage(IStudentService studentService,
@@ -45,7 +37,6 @@ public class UserManage {
      * @Return com.excellent.accreditation.model.vo.UserVo
      **/
     public UserVo login(String code, String password) {
-        CourseTarget courseTarget=courseTargetMapper.selectById(1);
         Student student = studentService.getByCode(code);
         Teacher teacher = teacherService.getByCode(code);
         if (student != null) {          // 学生登录
