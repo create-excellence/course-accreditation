@@ -3,15 +3,15 @@
 
  Source Server         : local
  Source Server Type    : MySQL
- Source Server Version : 50553
+ Source Server Version : 50723
  Source Host           : localhost:3306
  Source Schema         : course_accreditation
 
  Target Server Type    : MySQL
- Target Server Version : 50553
+ Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 14/11/2019 13:57:12
+ Date: 29/11/2019 18:25:34
 */
 
 SET NAMES utf8mb4;
@@ -27,8 +27,8 @@ CREATE TABLE `course`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `credit` double(12, 1) NULL DEFAULT NULL,
   `nature` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `create_time` datetime NULL DEFAULT NULL,
-  `update_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
@@ -45,15 +45,15 @@ CREATE TABLE `course_class`  (
   `start_week` int(11) NULL DEFAULT NULL,
   `end_week` int(11) NULL DEFAULT NULL,
   `status` int(11) NULL DEFAULT NULL COMMENT '0-开课 1-未开课',
-  `create_time` datetime NULL DEFAULT NULL,
-  `update_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `学期`(`semester_id`) USING BTREE,
   INDEX `课程`(`course_id`) USING BTREE,
   INDEX `教师`(`teacher_id`) USING BTREE,
   CONSTRAINT `学期` FOREIGN KEY (`semester_id`) REFERENCES `semester` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `课程` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `教师` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `教师` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `课程` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
@@ -66,17 +66,17 @@ CREATE TABLE `course_target`  (
   `title` varchar(1500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `point_id` int(11) NULL DEFAULT NULL COMMENT '指标点序号',
   `options` varchar(1500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '选项',
-  `describe` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `describes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
   `options_score` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '选项得分',
   `total_score` int(11) NULL DEFAULT NULL COMMENT '总分',
   `sequence` int(11) NULL DEFAULT NULL COMMENT '序号',
-  `create_time` datetime NULL DEFAULT NULL,
-  `update_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `问卷`(`questionnaire_id`) USING BTREE,
   INDEX `毕业指标点`(`point_id`) USING BTREE,
-  CONSTRAINT `问卷` FOREIGN KEY (`questionnaire_id`) REFERENCES `questionnaire` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `毕业指标点` FOREIGN KEY (`point_id`) REFERENCES `graduation_point` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `毕业指标点` FOREIGN KEY (`point_id`) REFERENCES `graduation_point` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `问卷` FOREIGN KEY (`questionnaire_id`) REFERENCES `questionnaire` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
@@ -88,8 +88,8 @@ CREATE TABLE `graduation_demand`  (
   `major_id` int(11) NULL DEFAULT NULL,
   `no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '毕业要求编号',
   `content` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '必要要求内容',
-  `create_time` datetime NULL DEFAULT NULL,
-  `update_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `专业`(`major_id`) USING BTREE,
   CONSTRAINT `专业` FOREIGN KEY (`major_id`) REFERENCES `major` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -104,8 +104,8 @@ CREATE TABLE `graduation_point`  (
   `no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `graduation_demand_id` int(11) NULL DEFAULT NULL,
   `content` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `create_time` datetime NULL DEFAULT NULL,
-  `update_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `毕业要求`(`graduation_demand_id`) USING BTREE,
   CONSTRAINT `毕业要求` FOREIGN KEY (`graduation_demand_id`) REFERENCES `graduation_demand` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -119,10 +119,15 @@ CREATE TABLE `major`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `create_time` datetime NULL DEFAULT NULL,
-  `update_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of major
+-- ----------------------------
+INSERT INTO `major` VALUES (1, '31231', '131', '2019-11-20 17:40:02', NULL);
 
 -- ----------------------------
 -- Table structure for questionnaire
@@ -132,14 +137,19 @@ CREATE TABLE `questionnaire`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `course_class_id` int(11) NULL DEFAULT NULL,
-  `total_socre` int(11) NULL DEFAULT NULL,
-  `describe` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `create_time` datetime NULL DEFAULT NULL,
-  `update_time` datetime NULL DEFAULT NULL,
+  `total_score` int(11) NULL DEFAULT NULL,
+  `describes` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `课程班级`(`course_class_id`) USING BTREE,
   CONSTRAINT `课程班级` FOREIGN KEY (`course_class_id`) REFERENCES `course_class` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of questionnaire
+-- ----------------------------
+INSERT INTO `questionnaire` VALUES (3, '31', NULL, 10, '32131', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for select_couse
@@ -149,8 +159,8 @@ CREATE TABLE `select_couse`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `course_class_id` int(11) NULL DEFAULT NULL COMMENT '课程班级Id',
   `student_id` int(11) NULL DEFAULT NULL COMMENT '学生Id',
-  `create_time` datetime NULL DEFAULT NULL,
-  `update_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `学生`(`student_id`) USING BTREE,
   INDEX `对应课号课程`(`course_class_id`) USING BTREE,
@@ -168,8 +178,8 @@ CREATE TABLE `self_evaluation`  (
   `course_target_id` int(11) NULL DEFAULT NULL,
   `answer` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评价档次',
   `score` int(11) NULL DEFAULT NULL COMMENT '得分',
-  `create_time` datetime NULL DEFAULT NULL,
-  `update_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `student_id`(`student_id`) USING BTREE,
   INDEX `课程目标`(`course_target_id`) USING BTREE,
@@ -185,8 +195,8 @@ CREATE TABLE `semester`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `start_time` date NULL DEFAULT NULL,
-  `create_time` datetime NULL DEFAULT NULL,
-  `update_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
@@ -203,9 +213,9 @@ CREATE TABLE `student`  (
   `grade` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `major_id` int(11) NULL DEFAULT NULL,
   `status` int(11) NULL DEFAULT NULL COMMENT '正常-0',
-  `create_time` datetime NULL DEFAULT NULL,
-  `update_time` datetime NULL DEFAULT NULL,
-  `login_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
+  `login_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `major_id`(`major_id`) USING BTREE,
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`major_id`) REFERENCES `major` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -218,14 +228,14 @@ DROP TABLE IF EXISTS `supporting_course`;
 CREATE TABLE `supporting_course`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `graduation_point_id` int(11) NULL DEFAULT NULL,
-  `couse_id` int(11) NULL DEFAULT NULL,
-  `create_time` datetime NULL DEFAULT NULL,
-  `update_time` datetime NULL DEFAULT NULL,
+  `course_id` int(11) NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `graduation_point_id`(`graduation_point_id`) USING BTREE,
-  INDEX `couse_id`(`couse_id`) USING BTREE,
+  INDEX `couse_id`(`course_id`) USING BTREE,
   CONSTRAINT `supporting_course_ibfk_1` FOREIGN KEY (`graduation_point_id`) REFERENCES `graduation_point` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `supporting_course_ibfk_2` FOREIGN KEY (`couse_id`) REFERENCES `course` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `supporting_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
@@ -243,9 +253,9 @@ CREATE TABLE `teacher`  (
   `birth` date NULL DEFAULT NULL,
   `graduate_school` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `graduate_major` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `create_time` datetime NULL DEFAULT NULL,
-  `update_time` datetime NULL DEFAULT NULL,
-  `login_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
+  `login_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 

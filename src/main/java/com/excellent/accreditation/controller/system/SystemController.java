@@ -34,10 +34,6 @@ public class SystemController {
 
     @PostMapping("login")
     @ApiOperation("登录")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "code", value = "工号或学号", required = true, paramType = "form"),
-            @ApiImplicitParam(name = "password", value = "密码", required = true, paramType = "form")
-    })
     public ServerResponse login(@RequestBody @NonNull LoginForm loginForm) {
         UserVo userVo = userManage.login(loginForm.getCode(), loginForm.getPassword());
         // 操作成功

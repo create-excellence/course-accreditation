@@ -1,6 +1,8 @@
 package com.excellent.accreditation.model.entity;
 
 import com.excellent.accreditation.common.domain.BaseEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -16,14 +18,14 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
+@ApiModel
 public class GraduationPoint extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
+    @ApiModelProperty("指标点编号")
     private String no;
-
+    @ApiModelProperty("毕业要求Id")
     private Integer graduationDemandId;
-
+    @ApiModelProperty("指标点编号")
     private String content;
 
 
