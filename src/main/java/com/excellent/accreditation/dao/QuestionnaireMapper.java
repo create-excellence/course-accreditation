@@ -5,7 +5,12 @@ import com.excellent.accreditation.model.entity.Questionnaire;
 import org.springframework.stereotype.Repository;
 
 /**
- * @Author evildoer
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author ashe
+ * @since 2019-11-29
  */
 @Repository
 public interface QuestionnaireMapper extends BaseMapper<Questionnaire> {

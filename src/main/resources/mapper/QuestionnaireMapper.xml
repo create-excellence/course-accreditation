@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.excellent.accreditation.dao.QuestionnaireMapper">
-
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.excellent.accreditation.model.entity.Questionnaire">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="course_class_id" property="courseClassId"/>
-        <result column="total_socre" property="totalSocre"/>
+        <result column="total_score" property="totalScore"/>
         <result column="describe" property="describe"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
@@ -15,7 +14,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, course_class_id, total_socre, describe, create_time, update_time
+        id, name, course_class_id, total_score, describe, create_time, update_time
     </sql>
 
 </mapper>
