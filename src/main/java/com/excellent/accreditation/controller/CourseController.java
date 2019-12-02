@@ -3,6 +3,7 @@ package com.excellent.accreditation.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.service.ICourseService;
@@ -103,23 +104,23 @@ public class CourseController {
         return ServerResponse.createByErrorMessage("课程更新失败");
     }
 
-//    /**
-//     * @Author 安羽兮
-//     * @Description 通过id查找课程
-//     * @Date 10:23 2019/11/15
-//     * @Param [id]
-//     * @Return com.excellent.accreditation.common.domain.ServerResponse
-//     **/
-//    @GetMapping
-//    @ApiOperation("通过id查找课程")
-//    @Permission
-//    public ServerResponse query(Integer id) {
-//        Course course = courseService.getById(id);
-//        if (course != null)
-//            return ServerResponse.createBySuccess(course);
-//
-//        return ServerResponse.createByErrorMessage("课程不存在");
-//    }
+    /**
+     * @Author 安羽兮
+     * @Description 通过id查找课程
+     * @Date 10:23 2019/11/15
+     * @Param [id]
+     * @Return com.excellent.accreditation.common.domain.ServerResponse
+     **/
+    @GetMapping
+    @ApiOperation("通过id查找课程")
+    @Permission
+    public ServerResponse<Course> query(Integer id) {
+        Course course = courseService.getById(id);
+        if (course != null)
+            return ServerResponse.createBySuccess(course);
+
+        return ServerResponse.createByErrorMessage("课程不存在");
+    }
 
     /**
      * @Author 安羽兮
@@ -130,7 +131,7 @@ public class CourseController {
      **/
     @GetMapping
     @ApiOperation("分页查询课程")
-    public ServerResponse queryCourse(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+    public ServerResponse<IPage<Course>> queryCourse(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                                       @RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
         Page<Course> p = new Page<>(page, pageSize);
         IPage<Course> course = courseService.page(p);
