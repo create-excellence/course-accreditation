@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : root
+ Source Server         : local
  Source Server Type    : MySQL
- Source Server Version : 50725
+ Source Server Version : 50723
  Source Host           : localhost:3306
  Source Schema         : course_accreditation
 
  Target Server Type    : MySQL
- Target Server Version : 50725
+ Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 01/12/2019 16:22:22
+ Date: 02/12/2019 13:22:26
 */
 
 SET NAMES utf8mb4;
@@ -30,13 +30,7 @@ CREATE TABLE `course`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of course
--- ----------------------------
-INSERT INTO `course` VALUES (1, '123', 'java', NULL, NULL, NULL, NULL);
-INSERT INTO `course` VALUES (2, '124', 'c#', NULL, NULL, NULL, NULL);
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for course_class
@@ -72,7 +66,7 @@ CREATE TABLE `course_target`  (
   `title` varchar(1500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `point_id` int(11) NULL DEFAULT NULL COMMENT '指标点序号',
   `options` varchar(1500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '选项',
-  `describe` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `describes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
   `options_score` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '选项得分',
   `total_score` int(11) NULL DEFAULT NULL COMMENT '总分',
   `sequence` int(11) NULL DEFAULT NULL COMMENT '序号',
@@ -128,7 +122,12 @@ CREATE TABLE `major`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of major
+-- ----------------------------
+INSERT INTO `major` VALUES (1, '31231', '131', '2019-11-20 17:40:02', NULL);
 
 -- ----------------------------
 -- Table structure for questionnaire
@@ -138,14 +137,19 @@ CREATE TABLE `questionnaire`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `course_class_id` int(11) NULL DEFAULT NULL,
-  `total_socre` int(11) NULL DEFAULT NULL,
-  `describe` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `total_score` int(11) NULL DEFAULT NULL,
+  `describes` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `课程班级`(`course_class_id`) USING BTREE,
   CONSTRAINT `课程班级` FOREIGN KEY (`course_class_id`) REFERENCES `course_class` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of questionnaire
+-- ----------------------------
+INSERT INTO `questionnaire` VALUES (3, '31', NULL, 10, '32131', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for select_couse
@@ -205,6 +209,7 @@ CREATE TABLE `student`  (
   `sno` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `sex` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `grade` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `major_id` int(11) NULL DEFAULT NULL,
@@ -220,7 +225,7 @@ CREATE TABLE `student`  (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES (1, '123', '123456', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `student` VALUES (1, '123', '123456', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for supporting_course
@@ -229,14 +234,14 @@ DROP TABLE IF EXISTS `supporting_course`;
 CREATE TABLE `supporting_course`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `graduation_point_id` int(11) NULL DEFAULT NULL,
-  `couse_id` int(11) NULL DEFAULT NULL,
+  `course_id` int(11) NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `graduation_point_id`(`graduation_point_id`) USING BTREE,
-  INDEX `couse_id`(`couse_id`) USING BTREE,
+  INDEX `couse_id`(`course_id`) USING BTREE,
   CONSTRAINT `supporting_course_ibfk_1` FOREIGN KEY (`graduation_point_id`) REFERENCES `graduation_point` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `supporting_course_ibfk_2` FOREIGN KEY (`couse_id`) REFERENCES `course` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `supporting_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
@@ -249,6 +254,7 @@ CREATE TABLE `teacher`  (
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `role` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色',
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `sex` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '职称',
   `birth` date NULL DEFAULT NULL,

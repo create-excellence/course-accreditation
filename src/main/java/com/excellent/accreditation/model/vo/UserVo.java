@@ -1,5 +1,6 @@
 package com.excellent.accreditation.model.vo;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.entity.Teacher;
@@ -16,6 +17,8 @@ import java.time.LocalDateTime;
  **/
 @Data
 public class UserVo {
+
+    private static  final String DEFAULT_AVATAR  = "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif";
 
     private static final long serialVersionUID = 1L;
 
@@ -46,8 +49,7 @@ public class UserVo {
         userVo.role = Const.STUDENT;
         userVo.name = student.getName();
         userVo.sex = student.getSex();
-        userVo.avatar = "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif";
-//        userVo.avatar = student.getAvatar();      // 头像呢？
+        userVo.avatar = StringUtils.isNotEmpty(student.getAvatar()) ?student.getAvatar():DEFAULT_AVATAR;
         userVo.status = 0;
         userVo.updateTime = student.getUpdateTime();
         userVo.createTime = student.getCreateTime();
@@ -58,9 +60,9 @@ public class UserVo {
         UserVo userVo = new UserVo();
         userVo.id = teacher.getId();
         userVo.role = Const.TEACHER;
-        userVo.name = teacher.getName();
         userVo.sex = teacher.getSex();
-        userVo.avatar = teacher.getTitle();
+        userVo.name = teacher.getName();
+        userVo.avatar = StringUtils.isNotEmpty(teacher.getAvatar()) ?teacher.getAvatar():DEFAULT_AVATAR;
         userVo.status = 0;
         userVo.updateTime = teacher.getUpdateTime();
         userVo.createTime = teacher.getCreateTime();

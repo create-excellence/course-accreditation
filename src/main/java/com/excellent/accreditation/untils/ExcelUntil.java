@@ -23,7 +23,6 @@ public class ExcelUntil {
         Row row=null;
         //判断是否为excel类型文件
 
-
         if(null==file||null==file.getOriginalFilename()||(!file.getOriginalFilename().endsWith(".xls")&&!file.getOriginalFilename().endsWith(".xlsx")))
         {
             System.out.println("文件不是excel类型");
@@ -41,6 +40,7 @@ public class ExcelUntil {
             e.printStackTrace();
             return null;
         }
+
         if(file.getOriginalFilename().endsWith(".xls")){
             try
             {
@@ -62,20 +62,15 @@ public class ExcelUntil {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
                 return null;
-
             }
 
         }
 
-
-
         Sheet sheet = wb.getSheetAt(0);
-
         // 得到总行数
         int rowNum = sheet.getLastRowNum();
         row = sheet.getRow(0);
         int colNum = row.getPhysicalNumberOfCells();
-
         // 正文内容应该从第二行开始,第一行为表头的标题
         for (int i = 1; i <= rowNum; i++) {
             row = sheet.getRow(i);

@@ -47,6 +47,8 @@ public class Teacher extends BaseEntity {
      */
     @ApiModelProperty("职称")
     private String title;
+    @ApiModelProperty("头像")
+    private String avatar;
     @ApiModelProperty("出生日期")
     private LocalDate birth;
     @ApiModelProperty("毕业学校")

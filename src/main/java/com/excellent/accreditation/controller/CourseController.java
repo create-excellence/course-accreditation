@@ -40,7 +40,7 @@ public class CourseController {
      * @Param [course]
      * @Return com.excellent.accreditation.common.domain.ServerResponse
      **/
-    @PostMapping("/create")
+    @PostMapping
     @ApiOperation("添加课程")
     public ServerResponse create(@RequestBody @NonNull Course course) {
         boolean result = courseService.saveOrUpdate(course);
@@ -129,7 +129,7 @@ public class CourseController {
      * @Param [page, pageSize]
      * @Return com.excellent.accreditation.common.domain.ServerResponse
      **/
-    @GetMapping
+    @GetMapping("/list")
     @ApiOperation("分页查询课程")
     public ServerResponse<IPage<Course>> queryCourse(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                                       @RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {

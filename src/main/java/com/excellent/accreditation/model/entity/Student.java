@@ -29,6 +29,8 @@ public class Student extends BaseEntity {
     private String password;
     @ApiModelProperty("姓名")
     private String name;
+    @ApiModelProperty("头像")
+    private String avatar;
     @ApiModelProperty("性别")
     private String sex;
     @ApiModelProperty("年级")
