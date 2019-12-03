@@ -4,7 +4,9 @@ package com.excellent.accreditation.config;
 import com.excellent.accreditation.manage.UserManage;
 import com.excellent.accreditation.service.IStudentService;
 import com.excellent.accreditation.service.ITeacherService;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -15,6 +17,8 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 
 /**
@@ -54,4 +58,16 @@ public class WebConfig {
                 new Contact(swagger.getAuthor(), swagger.getUrl(), swagger.getEmail()),
                 swagger.getLicense(), swagger.getLicenseUrl(), Collections.emptyList());
     }
+
+
+    @Bean
+    public LocalDateTimeSerializer localDateTimeDeserializer() {
+        return new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
+        return builder -> builder.serializerByType(LocalDateTime.class, localDateTimeDeserializer());
+    }
+
 }

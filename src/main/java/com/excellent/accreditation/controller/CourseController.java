@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * <p>
@@ -43,12 +46,13 @@ public class CourseController {
     @PostMapping
     @ApiOperation("添加课程")
     public ServerResponse create(@RequestBody @NonNull Course course) {
-        boolean result = courseService.saveOrUpdate(course);
-        // 操作成功
-        if (result)
-            return ServerResponse.createBySuccess("课程添加成功");
-
-        return ServerResponse.createByErrorMessage("课程添加失败");
+        course.setCreateTime(LocalDateTime.now());
+        course.setUpdateTime(LocalDateTime.now());
+//        boolean result = courseService.creatCourse(course);
+//        // 操作成功
+//        if (result)
+//            return ServerResponse.createBySuccess("课程添加成功");
+        return courseService.creatCourse(course);
     }
 
     /**
@@ -97,6 +101,7 @@ public class CourseController {
     public ServerResponse updateById(@PathVariable("id") Integer id,
                                      @RequestBody Course course) {
         course.setId(id);
+        course.setUpdateTime(LocalDateTime.now());
         boolean result = courseService.updateById(course);
         if (result)
             return ServerResponse.createBySuccess();
