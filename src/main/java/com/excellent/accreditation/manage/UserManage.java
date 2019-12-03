@@ -1,6 +1,7 @@
 package com.excellent.accreditation.manage;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.excellent.accreditation.common.authentication.JWTUtil;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Student;
@@ -44,13 +45,15 @@ public class UserManage {
             queryWrapper.eq("sno", code)       // 通过学号登录
                     .eq("password", password);
             Student s = studentService.getOne(queryWrapper);
-            return UserVo.convert(s);
+            String token = JWTUtil.encryptToken(JWTUtil.sign(Const.STUDENT, password));
+            return UserVo.convert(s, token);
         } else if (teacher != null) {  // 教师登录
             QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("jno", code)       // 通过工号登录
                     .eq("password", password);
             Teacher t = teacherService.getOne(queryWrapper);
-            return UserVo.convert(t);
+            String token = JWTUtil.encryptToken(JWTUtil.sign(Const.TEACHER, password));
+            return UserVo.convert(t, token);
         }
         // 登录失败
         return null;

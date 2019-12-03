@@ -129,20 +129,13 @@ public class CourseController {
     /**
      * @Author 安羽兮
      * @Description 分页查询课程
-     * @Date 21:20 2019/11/30
-     * @Param [page, pageSize]
-     * @Return com.excellent.accreditation.common.domain.ServerResponse
-     **/
-
-    /**
-     * @Author 安羽兮
-     * @Description 分页查询课程
      * @Date 16:52 2019/12/3
      * @Param [courseQuery]
      * @Return com.excellent.accreditation.common.domain.ServerResponse
      **/
     @GetMapping("/list")
     @ApiOperation("分页查询课程")
+    @Permission
     public ServerResponse queryCourse(CourseQuery courseQuery) {
         IPage<Course> list = courseService.pageByQuery(courseQuery);
         if (list != null)

@@ -1,10 +1,7 @@
-package com.excellent.accreditation.config;
+package com.excellent.accreditation.config.properties;
 
 import lombok.Data;
 
-/**
- * @Author MrBird
- */
 @Data
 public class SwaggerProperties {
     private String basePackage;

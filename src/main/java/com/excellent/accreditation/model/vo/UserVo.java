@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 public class UserVo {
 
-    private static  final String DEFAULT_AVATAR  = "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif";
+    private static final String DEFAULT_AVATAR = "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif";
 
     private static final long serialVersionUID = 1L;
 
@@ -37,11 +37,25 @@ public class UserVo {
      */
     private Integer status;
 
+    private String token;
+
     private LocalDateTime loginTime;
 
     private LocalDateTime updateTime;
 
     private LocalDateTime createTime;
+
+    public static UserVo convert(Student student, String token) {
+        UserVo userVo = convert(student);
+        userVo.setToken(token);
+        return userVo;
+    }
+
+    public static UserVo convert(Teacher teacher, String token) {
+        UserVo userVo = convert(teacher);
+        userVo.setToken(token);
+        return userVo;
+    }
 
     public static UserVo convert(Student student) {
         UserVo userVo = new UserVo();
@@ -49,7 +63,7 @@ public class UserVo {
         userVo.role = Const.STUDENT;
         userVo.name = student.getName();
         userVo.sex = student.getSex();
-        userVo.avatar = StringUtils.isNotEmpty(student.getAvatar()) ?student.getAvatar():DEFAULT_AVATAR;
+        userVo.avatar = StringUtils.isNotEmpty(student.getAvatar()) ? student.getAvatar() : DEFAULT_AVATAR;
         userVo.status = 0;
         userVo.updateTime = student.getUpdateTime();
         userVo.createTime = student.getCreateTime();
@@ -62,7 +76,7 @@ public class UserVo {
         userVo.role = Const.TEACHER;
         userVo.sex = teacher.getSex();
         userVo.name = teacher.getName();
-        userVo.avatar = StringUtils.isNotEmpty(teacher.getAvatar()) ?teacher.getAvatar():DEFAULT_AVATAR;
+        userVo.avatar = StringUtils.isNotEmpty(teacher.getAvatar()) ? teacher.getAvatar() : DEFAULT_AVATAR;
         userVo.status = 0;
         userVo.updateTime = teacher.getUpdateTime();
         userVo.createTime = teacher.getCreateTime();
