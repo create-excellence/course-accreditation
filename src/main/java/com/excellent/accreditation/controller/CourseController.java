@@ -2,20 +2,18 @@ package com.excellent.accreditation.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Course;
+import com.excellent.accreditation.model.form.CourseQuery;
 import com.excellent.accreditation.service.ICourseService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * <p>
@@ -53,7 +51,7 @@ public class CourseController {
         // 操作成功
         if (result)
             return ServerResponse.createBySuccess("课程添加成功");
-       return ServerResponse.createBySuccessMessage("课程添加失败");
+        return ServerResponse.createBySuccessMessage("课程添加失败");
     }
 
     /**
@@ -135,14 +133,20 @@ public class CourseController {
      * @Param [page, pageSize]
      * @Return com.excellent.accreditation.common.domain.ServerResponse
      **/
+
+    /**
+     * @Author 安羽兮
+     * @Description 分页查询课程
+     * @Date 16:52 2019/12/3
+     * @Param [courseQuery]
+     * @Return com.excellent.accreditation.common.domain.ServerResponse
+     **/
     @GetMapping("/list")
     @ApiOperation("分页查询课程")
-    public ServerResponse<IPage<Course>> queryCourse(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-                                      @RequestParam(value = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
-        Page<Course> p = new Page<>(page, pageSize);
-        IPage<Course> course = courseService.page(p);
-        if (course != null)
-            return ServerResponse.createBySuccess(course);
+    public ServerResponse queryCourse(CourseQuery courseQuery) {
+        IPage<Course> list = courseService.pageByQuery(courseQuery);
+        if (list != null)
+            return ServerResponse.createBySuccess(list);
 
         return ServerResponse.createByErrorMessage("课程不存在");
     }

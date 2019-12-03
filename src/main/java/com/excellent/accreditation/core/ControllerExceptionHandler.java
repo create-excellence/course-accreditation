@@ -1,7 +1,6 @@
 package com.excellent.accreditation.core;
 
 import com.excellent.accreditation.common.domain.ServerResponse;
-import com.excellent.accreditation.common.exception.CommonException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,8 +25,6 @@ public class ControllerExceptionHandler {
         return ServerResponse.createByErrorMessage(e.getMessage());
     }
 
-
-
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ServerResponse handleGlobalException(Exception e) {
@@ -35,7 +32,6 @@ public class ControllerExceptionHandler {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         return ServerResponse.createByErrorCodeMessage(status.value(), e.getMessage());
     }
-
 
     private <T> ServerResponse<T> handleBaseException(Throwable t) {
         Assert.notNull(t, "Throwable must not be null");
