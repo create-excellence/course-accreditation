@@ -15,6 +15,7 @@ public abstract class CommonException extends RuntimeException {
      */
     private Object errorData;
 
+
     public CommonException(String message) {
         super(message);
     }
@@ -24,7 +25,7 @@ public abstract class CommonException extends RuntimeException {
     }
 
     @NonNull
-    public abstract HttpStatus getStatus();
+    public  abstract HttpStatus getStatus();
 
     @Nullable
     public Object getErrorData() {

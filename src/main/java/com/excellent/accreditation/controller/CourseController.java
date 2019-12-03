@@ -48,11 +48,12 @@ public class CourseController {
     public ServerResponse create(@RequestBody @NonNull Course course) {
         course.setCreateTime(LocalDateTime.now());
         course.setUpdateTime(LocalDateTime.now());
-//        boolean result = courseService.creatCourse(course);
-//        // 操作成功
-//        if (result)
-//            return ServerResponse.createBySuccess("课程添加成功");
-        return courseService.creatCourse(course);
+        courseService.checkCode(course.getCode());
+        boolean result = courseService.save(course);
+        // 操作成功
+        if (result)
+            return ServerResponse.createBySuccess("课程添加成功");
+       return ServerResponse.createBySuccessMessage("课程添加失败");
     }
 
     /**

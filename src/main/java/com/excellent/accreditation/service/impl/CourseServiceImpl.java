@@ -3,6 +3,7 @@ package com.excellent.accreditation.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.ServerResponse;
+import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.CourseMapper;
 import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.service.ICourseService;
@@ -22,7 +23,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     *@Author: ashe
     *@date: 2019/12/3
     */
-    @Override
     public ServerResponse creatCourse(Course course) {
         QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("code",course.getCode());
@@ -35,4 +35,20 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         return ServerResponse.createByErrorMessage("添加课程失败");
     }
 
+
+    /**
+    *@Description: 检查课程code唯一
+    *@Param: [code]
+    *@return: void
+    *@Author: ashe
+    *@date: 2019/12/3
+    */
+    @Override
+    public void checkCode(String code) {
+        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("code",code);
+        if(super.getOne(queryWrapper)!=null){
+            throw new UniqueException("课程代码不能重复");
+        }
+    }
 }

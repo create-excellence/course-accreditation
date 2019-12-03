@@ -9,7 +9,7 @@ import com.excellent.accreditation.model.entity.Course;
  */
 public interface ICourseService extends IService<Course> {
 
-     ServerResponse creatCourse(Course course);
+     void checkCode(String code);
 
 
 }
