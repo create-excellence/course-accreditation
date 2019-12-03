@@ -13,6 +13,9 @@ public class Const {
     public static final String TEACHER = "teacher";
 
     public static final String STUDENT = "student";
+
+    public static final String PASSWORD = "It's a secret!";
+
     /**
      * @Author 安羽兮
      * @Description Token

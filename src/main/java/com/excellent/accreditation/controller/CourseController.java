@@ -44,7 +44,7 @@ public class CourseController {
      **/
     @PostMapping
     @ApiOperation("添加课程")
-    @Permission(roles = {Const.TEACHER, Const.ADMIN})
+    @Permission
     public ServerResponse create(@RequestBody @NonNull Course course) {
         course.setCreateTime(LocalDateTime.now());
         course.setUpdateTime(LocalDateTime.now());
@@ -65,7 +65,7 @@ public class CourseController {
      **/
     @DeleteMapping("/{id:\\d+}")
     @ApiOperation("通过id删除课程")
-    @Permission(roles = {Const.ADMIN})
+    @Permission
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = courseService.removeById(id);
         if (result)
@@ -83,7 +83,7 @@ public class CourseController {
      **/
     @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除课程")
-    @Permission(roles = {Const.ADMIN})
+    @Permission
     public ServerResponse deleteByIds(@NonNull Collection<Integer> ids) {
         boolean result = courseService.removeByIds(ids);
         if (result)
@@ -101,14 +101,14 @@ public class CourseController {
      **/
     @PutMapping("/{id:\\d+}")
     @ApiOperation("通过id更新课程")
-    @Permission(roles = {Const.ADMIN})
+    @Permission
     public ServerResponse updateById(@PathVariable("id") Integer id,
                                      @RequestBody Course course) {
         course.setId(id);
         course.setUpdateTime(LocalDateTime.now());
         boolean result = courseService.updateById(course);
         if (result)
-            return ServerResponse.createBySuccess();
+            return ServerResponse.createBySuccess("课程更新成功");
 
         return ServerResponse.createByErrorMessage("课程更新失败");
     }
