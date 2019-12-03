@@ -3,6 +3,7 @@ package com.excellent.accreditation.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.excellent.accreditation.common.annotation.Permission;
+import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.model.form.CourseQuery;
@@ -43,6 +44,7 @@ public class CourseController {
      **/
     @PostMapping
     @ApiOperation("添加课程")
+    @Permission(roles = {Const.TEACHER, Const.ADMIN})
     public ServerResponse create(@RequestBody @NonNull Course course) {
         course.setCreateTime(LocalDateTime.now());
         course.setUpdateTime(LocalDateTime.now());
@@ -63,6 +65,7 @@ public class CourseController {
      **/
     @DeleteMapping("/{id:\\d+}")
     @ApiOperation("通过id删除课程")
+    @Permission(roles = {Const.ADMIN})
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = courseService.removeById(id);
         if (result)
@@ -80,6 +83,7 @@ public class CourseController {
      **/
     @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除课程")
+    @Permission(roles = {Const.ADMIN})
     public ServerResponse deleteByIds(@NonNull Collection<Integer> ids) {
         boolean result = courseService.removeByIds(ids);
         if (result)
@@ -97,6 +101,7 @@ public class CourseController {
      **/
     @PutMapping("/{id:\\d+}")
     @ApiOperation("通过id更新课程")
+    @Permission(roles = {Const.ADMIN})
     public ServerResponse updateById(@PathVariable("id") Integer id,
                                      @RequestBody Course course) {
         course.setId(id);
