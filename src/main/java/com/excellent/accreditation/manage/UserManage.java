@@ -45,14 +45,14 @@ public class UserManage {
             queryWrapper.eq("sno", code)       // 通过学号登录
                     .eq("password", password);
             Student s = studentService.getOne(queryWrapper);
-            String token = JWTUtil.encryptToken(JWTUtil.sign(Const.STUDENT, password));
+            String token = JWTUtil.encryptToken(JWTUtil.sign(code, password));
             return UserVo.convert(s, token);
         } else if (teacher != null) {  // 教师登录
             QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("jno", code)       // 通过工号登录
                     .eq("password", password);
             Teacher t = teacherService.getOne(queryWrapper);
-            String token = JWTUtil.encryptToken(JWTUtil.sign(Const.TEACHER, password));
+            String token = JWTUtil.encryptToken(JWTUtil.sign(code, password));
             return UserVo.convert(t, token);
         }
         // 登录失败
@@ -94,5 +94,19 @@ public class UserManage {
         }
         // 登录失败
         return ServerResponse.createByErrorMessage("注册失败");
+    }
+
+    public String getRoleByCode(String code) {
+        Student student = studentService.getByCode(code);
+        Teacher teacher = teacherService.getByCode(code);
+        if (student != null) {
+            return Const.STUDENT;
+        } else if (teacher != null) {
+            // 教师的Role为管理员
+            if (Const.ADMIN.equals(teacher.getRole()))
+                return Const.ADMIN;
+            return Const.TEACHER;
+        }
+        return null;
     }
 }

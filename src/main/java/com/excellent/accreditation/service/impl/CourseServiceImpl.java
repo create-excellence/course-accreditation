@@ -14,8 +14,12 @@ import com.excellent.accreditation.dao.CourseMapper;
 import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.model.form.CourseQuery;
 import com.excellent.accreditation.service.ICourseService;
+<<<<<<< HEAD
 import com.excellent.accreditation.untils.EmptyCheckUtils;
 import com.excellent.accreditation.untils.ExcelUntils;
+=======
+import com.excellent.accreditation.untils.ExcelUtils;
+>>>>>>> abd58e61be8cc5f99c7d8126831910aa39eab850
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,10 +60,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public List<ExcelResult> saveBachByExcel(MultipartFile file) {
         List<Map<Integer, String>> list;
         try {
-            list= ExcelUntils.readExcelContentByList(file);
+            list = ExcelUtils.readExcelContentByList(file);
         } catch (IOException e) {
             throw new ExcelException("读取Excel失败");
         }
+<<<<<<< HEAD
        List<ExcelResult> excelResults=new ArrayList<>();
        list.forEach(data -> {
            ExcelResult excelResult = new ExcelResult();
