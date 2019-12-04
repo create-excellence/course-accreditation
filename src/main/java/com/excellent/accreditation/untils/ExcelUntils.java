@@ -1,6 +1,7 @@
 package com.excellent.accreditation.untils;
 
 
+import com.excellent.accreditation.common.exception.ExcelException;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -10,13 +11,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class ExcelUntil {
-    public static List<Map<Integer, String>> readExcelContentByList(MultipartFile file) {
+
+public class ExcelUntils {
+    public static List<Map<Integer, String>> readExcelContentByList(MultipartFile file) throws IOException {
 
         List<Map<Integer, String>> list = new ArrayList<Map<Integer,String>>();
         Workbook wb = null;
@@ -25,45 +24,18 @@ public class ExcelUntil {
 
         if(null==file||null==file.getOriginalFilename()||(!file.getOriginalFilename().endsWith(".xls")&&!file.getOriginalFilename().endsWith(".xlsx")))
         {
-            System.out.println("文件不是excel类型");
-            return null;
+            throw new ExcelException("请上传excel类型文件!");
         }
-
         InputStream  fis =null;
-        try
-        {
             //获取一个绝对地址的流
-            fis =file.getInputStream();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-            return null;
-        }
+        fis =file.getInputStream();
 
         if(file.getOriginalFilename().endsWith(".xls")){
-            try
-            {
                 //2003版本的excel，用.xls结尾
                 wb = new HSSFWorkbook(fis);//得到工作簿
-
-            }
-            catch (Exception e){
-                e.printStackTrace();
-                return null;
-            }
         }else{
-            try
-            {
-                //2007版本的excel，用.xlsx结尾
+            //新版本的excel，用.xlsx结尾
                 wb = new XSSFWorkbook(fis);//得到工作簿
-            } catch (IOException e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                return null;
-            }
-
         }
 
         Sheet sheet = wb.getSheetAt(0);

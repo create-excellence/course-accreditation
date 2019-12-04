@@ -6,15 +6,21 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.exception.DatabaseException;
+import com.excellent.accreditation.common.exception.ExcelException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.CourseMapper;
 import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.model.form.CourseQuery;
 import com.excellent.accreditation.service.ICourseService;
+import com.excellent.accreditation.untils.ExcelUntils;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -37,8 +43,22 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         boolean result = this.save(course);
         // 操作成功
         if (result)
-            return result;
+            return true;
         throw new DatabaseException("未知异常, 数据库操作失败");
+    }
+
+
+    @Override
+    public boolean saveBachByExcel(MultipartFile file) {
+        List<Map<Integer, String>> list;
+        try {
+            list= ExcelUntils.readExcelContentByList(file);
+        } catch (IOException e) {
+            throw new ExcelException("读取Excel失败");
+        }
+       list.forEach(data -> {
+       });
+        return false;
     }
 
 
