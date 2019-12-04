@@ -4,11 +4,17 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.excellent.accreditation.common.authentication.JWTUtil;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
+import com.excellent.accreditation.common.exception.AuthenticationException;
 import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.entity.Teacher;
 import com.excellent.accreditation.model.vo.UserVo;
 import com.excellent.accreditation.service.IStudentService;
 import com.excellent.accreditation.service.ITeacherService;
+import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @ClassName UserManage
@@ -53,7 +59,9 @@ public class UserManage {
                     .eq("password", password);
             Teacher t = teacherService.getOne(queryWrapper);
             String token = JWTUtil.encryptToken(JWTUtil.sign(code, password));
-            return UserVo.convert(t, token);
+            UserVo userVo = UserVo.convert(t, token);
+            userVo.setRole(this.getRoleByCode(code));
+            return userVo;
         }
         // 登录失败
         return null;
@@ -96,6 +104,29 @@ public class UserManage {
         return ServerResponse.createByErrorMessage("注册失败");
     }
 
+    /**
+     * @Author 安羽兮
+     * @Description 通过token获取code
+     * @Date 19:45 2019/12/4
+     * @Param []
+     * @Return java.lang.String
+     **/
+    public String getCodeByToken() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String token = request.getHeader(Const.TOKEN);
+        if (StringUtils.isEmpty(token))
+            throw new AuthenticationException("请登录后访问！");
+        token = JWTUtil.decryptToken(token);            // 解密token
+        return JWTUtil.getName(token);
+    }
+
+    /**
+     * @Author 安羽兮
+     * @Description 通过code判断用户角色
+     * @Date 19:45 2019/12/4
+     * @Param [code]
+     * @Return java.lang.String
+     **/
     public String getRoleByCode(String code) {
         Student student = studentService.getByCode(code);
         Teacher teacher = teacherService.getByCode(code);

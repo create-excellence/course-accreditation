@@ -1,13 +1,13 @@
 package com.excellent.accreditation.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.form.StudentQuery;
 import com.excellent.accreditation.service.IMajorService;
 import com.excellent.accreditation.service.IStudentService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -139,7 +139,7 @@ public class StudentController {
     @ApiOperation("分页查询学生")
     @Permission
     public ServerResponse queryStudent(StudentQuery studentQuery) {
-        IPage<Student> list = studentService.pageByQuery(studentQuery);
+        PageInfo<Student> list = studentService.pageByQuery(studentQuery);
         if (list != null)
             return ServerResponse.createBySuccess(list);
 

@@ -1,9 +1,7 @@
 package com.excellent.accreditation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.exception.DatabaseException;
@@ -12,6 +10,8 @@ import com.excellent.accreditation.dao.TeacherMapper;
 import com.excellent.accreditation.model.entity.Teacher;
 import com.excellent.accreditation.model.form.TeacherQuery;
 import com.excellent.accreditation.service.ITeacherService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -41,21 +41,22 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     }
 
     @Override
-    public IPage<Teacher> pageByQuery(TeacherQuery teacherQuery) {
-        Page<Teacher> page = new Page<>(teacherQuery.getCurrent(), teacherQuery.getSize());
+    public PageInfo<Teacher> pageByQuery(TeacherQuery query) {
         LambdaQueryWrapper<Teacher> queryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotEmpty(teacherQuery.getJno()))
-            queryWrapper.like(Teacher::getJno, teacherQuery.getJno());
-        if (StringUtils.isNotEmpty(teacherQuery.getTitle()))
-            queryWrapper.like(Teacher::getTitle, teacherQuery.getTitle());
-        IPage<Teacher> teachers = this.page(page, queryWrapper);
-        List<Teacher> list = new ArrayList<>();
-        teachers.getRecords().forEach(teacher -> {
+        if (StringUtils.isNotEmpty(query.getJno()))
+            queryWrapper.like(Teacher::getJno, query.getJno());
+        if (StringUtils.isNotEmpty(query.getTitle()))
+            queryWrapper.like(Teacher::getTitle, query.getTitle());
+        PageHelper.startPage(query.getCurrent(), query.getSize());
+        List<Teacher> list = this.list(queryWrapper);
+        PageInfo<Teacher> pageInfo = new PageInfo<>(list);
+        List<Teacher> teachers = new ArrayList<>();
+        pageInfo.getList().forEach(teacher -> {
             // 隐藏密码
-            list.add(teacher.setPassword(Const.PASSWORD));
+            teachers.add(teacher.setPassword(Const.PASSWORD));
         });
-        teachers.setRecords(list);
-        return teachers;
+        pageInfo.setList(list);
+        return pageInfo;
     }
 
     @Override

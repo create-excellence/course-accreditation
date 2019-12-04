@@ -1,12 +1,12 @@
 package com.excellent.accreditation.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Teacher;
 import com.excellent.accreditation.model.form.TeacherQuery;
 import com.excellent.accreditation.service.ITeacherService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -137,7 +137,7 @@ public class TeacherController {
     @GetMapping("/list")
     @ApiOperation("分页查询教师")
     public ServerResponse queryTeacher(TeacherQuery teacherQuery) {
-        IPage<Teacher> list = teacherService.pageByQuery(teacherQuery);
+        PageInfo<Teacher> list = teacherService.pageByQuery(teacherQuery);
         if (list != null)
             return ServerResponse.createBySuccess(list);
 

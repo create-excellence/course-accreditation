@@ -1,9 +1,7 @@
 package com.excellent.accreditation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.UniqueException;
@@ -12,10 +10,13 @@ import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.form.StudentQuery;
 import com.excellent.accreditation.service.IMajorService;
 import com.excellent.accreditation.service.IStudentService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Author evildoer
@@ -46,15 +47,16 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
-    public IPage<Student> pageByQuery(StudentQuery studentQuery) {
-        Page<Student> page = new Page<>(studentQuery.getCurrent(), studentQuery.getSize());
+    public PageInfo<Student> pageByQuery(StudentQuery query) {
         LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotEmpty(studentQuery.getSno()))
-            queryWrapper.like(Student::getSno, studentQuery.getSno());
-        if (StringUtils.isNotEmpty(studentQuery.getName()))
-            queryWrapper.like(Student::getName, studentQuery.getName());
-        return this.page(page, queryWrapper);
-
+        if (StringUtils.isNotEmpty(query.getSno()))
+            queryWrapper.like(Student::getSno, query.getSno());
+        if (StringUtils.isNotEmpty(query.getName()))
+            queryWrapper.like(Student::getName, query.getName());
+        PageHelper.startPage(query.getCurrent(), query.getSize());
+        List<Student> list = this.list(queryWrapper);
+        PageInfo<Student> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override

@@ -1,5 +1,9 @@
 package com.excellent.accreditation.model.base;
 
+import lombok.Data;
+
+import java.io.Serializable;
+
 /**
  * @ClassName PageBase
  * @Description TODO
@@ -7,7 +11,10 @@ package com.excellent.accreditation.model.base;
  * @Date 2019/12/315:52
  * @Version 1.0
  **/
-public class BasePage {
+@Data
+public class BasePage implements Serializable {
+
+    private static final long serialVersionUID = -4869594085374385813L;
 
     /**
      * 总数
@@ -16,34 +23,10 @@ public class BasePage {
     /**
      * 每页显示条数，默认 10
      */
-    private long size = 10;
+    private int size = 10;
 
     /**
      * 当前页
      */
-    private long current = 1;
-
-    public long getTotal() {
-        return total;
-    }
-
-    public void setTotal(long total) {
-        this.total = total;
-    }
-
-    public long getSize() {
-        return size;
-    }
-
-    public void setSize(long size) {
-        this.size = size;
-    }
-
-    public long getCurrent() {
-        return current;
-    }
-
-    public void setCurrent(long current) {
-        this.current = current;
-    }
+    private int current = 1;
 }

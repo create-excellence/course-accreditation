@@ -1,9 +1,7 @@
 package com.excellent.accreditation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ExcelResult;
@@ -16,6 +14,8 @@ import com.excellent.accreditation.model.form.CourseQuery;
 import com.excellent.accreditation.service.ICourseService;
 import com.excellent.accreditation.untils.EmptyCheckUtils;
 import com.excellent.accreditation.untils.ExcelUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,29 +60,29 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         } catch (IOException e) {
             throw new ExcelException("读取Excel失败");
         }
-       List<ExcelResult> excelResults=new ArrayList<>();
-       list.forEach(data -> {
-           ExcelResult excelResult = new ExcelResult();
-       try {
-           excelResult.setNo(Integer.parseInt(data.get(0)));
-           EmptyCheckUtils.checkExcelMap(data,4);
-           String name =data.get(1);
-           String code =data.get(2);
-           Double credit=Double.parseDouble(data.get(3));
-           String nature=data.get(4);
-           this.checkCode(code);
-           Course course =new Course(name,code,credit,nature);
-           if (super.save(course)){
-               excelResult.setStatus(Const.SUCCESS_INCREASE);
-               excelResult.setMessage("添加成功");
-           }
-       }catch (NumberFormatException e){
-           excelResult.setMessage("无法将部分字段转为数字类型");
-       }catch (UniqueException | ExcelException e){
-           excelResult.setMessage(e.getMessage());
-       }
-           excelResults.add(excelResult);
-       });
+        List<ExcelResult> excelResults = new ArrayList<>();
+        list.forEach(data -> {
+            ExcelResult excelResult = new ExcelResult();
+            try {
+                excelResult.setNo(Integer.parseInt(data.get(0)));
+                EmptyCheckUtils.checkExcelMap(data, 4);
+                String name = data.get(1);
+                String code = data.get(2);
+                Double credit = Double.parseDouble(data.get(3));
+                String nature = data.get(4);
+                this.checkCode(code);
+                Course course = new Course(name, code, credit, nature);
+                if (super.save(course)) {
+                    excelResult.setStatus(Const.SUCCESS_INCREASE);
+                    excelResult.setMessage("添加成功");
+                }
+            } catch (NumberFormatException e) {
+                excelResult.setMessage("无法将部分字段转为数字类型");
+            } catch (UniqueException | ExcelException e) {
+                excelResult.setMessage(e.getMessage());
+            }
+            excelResults.add(excelResult);
+        });
         return excelResults;
     }
 
@@ -104,15 +104,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public IPage<Course> pageByQuery(@NonNull CourseQuery courseQuery) {
-        Page<Course> page = new Page<>(courseQuery.getCurrent(), courseQuery.getSize());
+    public PageInfo<Course> pageByQuery(@NonNull CourseQuery query) {
         LambdaQueryWrapper<Course> queryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotEmpty(courseQuery.getCode()))
-            queryWrapper.like(Course::getCode, courseQuery.getCode());
-        if (StringUtils.isNotEmpty(courseQuery.getName()))
-            queryWrapper.like(Course::getName, courseQuery.getName());
-        if (StringUtils.isNotEmpty(courseQuery.getNature()))
-            queryWrapper.eq(Course::getNature, courseQuery.getNature());
-        return this.page(page, queryWrapper);
+        if (StringUtils.isNotEmpty(query.getCode()))
+            queryWrapper.like(Course::getCode, query.getCode());
+        if (StringUtils.isNotEmpty(query.getName()))
+            queryWrapper.like(Course::getName, query.getName());
+        if (StringUtils.isNotEmpty(query.getNature()))
+            queryWrapper.eq(Course::getNature, query.getNature());
+        PageHelper.startPage(query.getCurrent(), query.getSize());
+        List<Course> list = this.list(queryWrapper);
+        PageInfo<Course> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

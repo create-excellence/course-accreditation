@@ -4,7 +4,9 @@ package com.excellent.accreditation.controller;
 import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Semester;
+import com.excellent.accreditation.model.form.SemesterQuery;
 import com.excellent.accreditation.service.ISemesterService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -123,21 +125,21 @@ public class SemesterController {
         return ServerResponse.createByErrorMessage("学期不存在");
     }
 
-//    /**
-//     * @Author 安羽兮
-//     * @Description 分页查询学期
-//     * @Date 16:52 2019/12/3
-//     * @Param [semesterQuery]
-//     * @Return com.excellent.accreditation.common.domain.ServerResponse
-//     **/
-//    @GetMapping("/list")
-//    @ApiOperation("分页查询学期")
-//    @Permission
-//    public ServerResponse querySemester(SemesterQuery semesterQuery) {
-//        IPage<Semester> list = semesterService.pageByQuery(semesterQuery);
-//        if (list != null)
-//            return ServerResponse.createBySuccess(list);
-//
-//        return ServerResponse.createByErrorMessage("学期不存在");
-//    }
+    /**
+     * @Author 安羽兮
+     * @Description 分页查询学期
+     * @Date 16:52 2019/12/3
+     * @Param [semesterQuery]
+     * @Return com.excellent.accreditation.common.domain.ServerResponse
+     **/
+    @GetMapping("/list")
+    @ApiOperation("分页查询学期")
+    @Permission
+    public ServerResponse querySemester(SemesterQuery semesterQuery) {
+        PageInfo<Semester> list = semesterService.pageByQuery(semesterQuery);
+        if (list != null)
+            return ServerResponse.createBySuccess(list);
+
+        return ServerResponse.createByErrorMessage("学期不存在");
+    }
 }

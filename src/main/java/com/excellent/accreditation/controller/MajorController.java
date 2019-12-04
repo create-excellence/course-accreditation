@@ -1,12 +1,12 @@
 package com.excellent.accreditation.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Major;
 import com.excellent.accreditation.model.form.MajorQuery;
 import com.excellent.accreditation.service.IMajorService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -136,7 +136,7 @@ public class MajorController {
     @ApiOperation("分页查询专业")
     @Permission
     public ServerResponse queryMajor(MajorQuery majorQuery) {
-        IPage<Major> list = majorService.pageByQuery(majorQuery);
+        PageInfo<Major> list = majorService.pageByQuery(majorQuery);
         if (list != null)
             return ServerResponse.createBySuccess(list);
 

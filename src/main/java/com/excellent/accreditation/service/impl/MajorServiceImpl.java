@@ -1,9 +1,7 @@
 package com.excellent.accreditation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.exception.ConfictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
@@ -12,9 +10,12 @@ import com.excellent.accreditation.dao.MajorMapper;
 import com.excellent.accreditation.model.entity.Major;
 import com.excellent.accreditation.model.form.MajorQuery;
 import com.excellent.accreditation.service.IMajorService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Author evildoer
@@ -39,14 +40,16 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
     }
 
     @Override
-    public IPage<Major> pageByQuery(MajorQuery majorQuery) {
-        Page<Major> page = new Page<>(majorQuery.getCurrent(), majorQuery.getSize());
+    public PageInfo<Major> pageByQuery(MajorQuery query) {
         LambdaQueryWrapper<Major> queryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotEmpty(majorQuery.getCode()))
-            queryWrapper.like(Major::getCode, majorQuery.getCode());
-        if (StringUtils.isNotEmpty(majorQuery.getName()))
-            queryWrapper.like(Major::getName, majorQuery.getName());
-        return this.page(page, queryWrapper);
+        if (StringUtils.isNotEmpty(query.getCode()))
+            queryWrapper.like(Major::getCode, query.getCode());
+        if (StringUtils.isNotEmpty(query.getName()))
+            queryWrapper.like(Major::getName, query.getName());
+        PageHelper.startPage(query.getCurrent(), query.getSize());
+        List<Major> list = this.list(queryWrapper);
+        PageInfo<Major> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
     @Override

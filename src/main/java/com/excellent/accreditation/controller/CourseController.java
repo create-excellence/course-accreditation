@@ -1,12 +1,12 @@
 package com.excellent.accreditation.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.model.form.CourseQuery;
 import com.excellent.accreditation.service.ICourseService;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -134,9 +134,9 @@ public class CourseController {
      **/
     @GetMapping("/list")
     @ApiOperation("分页查询课程")
-    @Permission
+//    @Permission
     public ServerResponse queryCourse(CourseQuery courseQuery) {
-        IPage<Course> list = courseService.pageByQuery(courseQuery);
+        PageInfo<Course> list = courseService.pageByQuery(courseQuery);
         if (list != null)
             return ServerResponse.createBySuccess(list);
 
@@ -148,7 +148,6 @@ public class CourseController {
     @ApiOperation("批量添加课程")
 //    @Permission
     public ServerResponse batchSave(MultipartFile file) {
-
         return ServerResponse.createBySuccess(courseService.saveBachByExcel(file));
     }
 }

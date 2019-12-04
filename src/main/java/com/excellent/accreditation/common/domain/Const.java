@@ -2,11 +2,8 @@ package com.excellent.accreditation.common.domain;
 
 public class Const {
     /**
-     * @Author 安羽兮
      * @Description 用户角色
      * @Date 17:18 2019/11/18
-     * @Param
-     * @Return
      **/
     public static final String ADMIN = "admin";
 
@@ -18,7 +15,6 @@ public class Const {
 
 
     /**
-     * @Author 安羽兮
      * @Description Token
      * @Date 19:29 2019/12/3
      **/
@@ -27,11 +23,11 @@ public class Const {
     public static final String TOKEN_CACHE_PREFIX = "excellent.cache.token";
 
     /**
-    *@Description:Excel操作结果状态
-    *@Author: ashe
-    *@Date: 2019/12/4
-    */
-    public static final Integer SUCCESS_INCREASE =0;
+     * @Description:Excel操作结果状态
+     * @Author: ashe
+     * @Date: 2019/12/4
+     */
+    public static final Integer SUCCESS_INCREASE = 0;
 
     public static final Integer FAIL_INCREASE = 1;
 

@@ -20,6 +20,13 @@ web:
     license: Apache 2.0
     licenseUrl: https://www.apache.org/licenses/LICENSE-2.0.html
 
+#pagehelper分页插件配置
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
 
 
 

@@ -1,8 +1,6 @@
 package com.excellent.accreditation.common.aop;
 
 import com.excellent.accreditation.common.annotation.Permission;
-import com.excellent.accreditation.common.authentication.JWTUtil;
-import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.exception.AuthenticationException;
 import com.excellent.accreditation.manage.UserManage;
 import org.aspectj.lang.JoinPoint;
@@ -11,10 +9,6 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Aspect
 @Component
@@ -46,10 +40,7 @@ public class PermissionAspect {
     }
 
     private String getRole() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String token = request.getHeader(Const.TOKEN);
-        token = JWTUtil.decryptToken(token);            // 解密token
-        String code = JWTUtil.getName(token);
+        String code = userManage.getCodeByToken();
         return userManage.getRoleByCode(code);
     }
 }
