@@ -12,7 +12,7 @@ import com.excellent.accreditation.dao.CourseMapper;
 import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.model.form.CourseQuery;
 import com.excellent.accreditation.service.ICourseService;
-import com.excellent.accreditation.untils.ExcelUntils;
+import com.excellent.accreditation.untils.ExcelUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,12 +52,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public boolean saveBachByExcel(MultipartFile file) {
         List<Map<Integer, String>> list;
         try {
-            list= ExcelUntils.readExcelContentByList(file);
+            list = ExcelUtils.readExcelContentByList(file);
         } catch (IOException e) {
             throw new ExcelException("读取Excel失败");
         }
-       list.forEach(data -> {
-       });
+        list.forEach(data -> {
+        });
         return false;
     }
 

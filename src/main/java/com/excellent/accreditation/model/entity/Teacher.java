@@ -33,7 +33,7 @@ public class Teacher extends BaseEntity {
     private String password;
 
     /**
-     * 角色
+     * 角色：teacher或者admin
      */
     @ApiModelProperty("角色")
     private String role;
