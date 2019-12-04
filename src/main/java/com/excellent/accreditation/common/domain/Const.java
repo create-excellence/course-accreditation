@@ -16,6 +16,7 @@ public class Const {
 
     public static final String PASSWORD = "It's a secret!";
 
+
     /**
      * @Author 安羽兮
      * @Description Token
@@ -24,6 +25,15 @@ public class Const {
     public static final String TOKEN = "Authentication";
 
     public static final String TOKEN_CACHE_PREFIX = "excellent.cache.token";
+
+    /**
+    *@Description:Excel操作结果状态
+    *@Author: ashe
+    *@Date: 2019/12/4
+    */
+    public static final Integer SUCCESS_INCREASE =0;
+
+    public static final Integer FAIL_INCREASE = 1;
 
 
     public enum BATCH_STUDENT_STATUS {

@@ -67,7 +67,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
 
         // 操作成功
         if (result)
-            return result;
+            return true;
         throw new DatabaseException("未知异常, 数据库操作失败");
     }
 }

@@ -143,11 +143,12 @@ public class CourseController {
         return ServerResponse.createByErrorMessage("课程不存在");
     }
 
+
     @PostMapping("/batchSave")
     @ApiOperation("批量添加课程")
 //    @Permission
     public ServerResponse batchSave(MultipartFile file) {
-        courseService.saveBachByExcel(file);
-        return ServerResponse.createByErrorMessage("课程不存在");
+
+        return ServerResponse.createBySuccess(courseService.saveBachByExcel(file));
     }
 }
