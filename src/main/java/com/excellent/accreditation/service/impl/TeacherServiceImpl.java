@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
+import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.TeacherMapper;
 import com.excellent.accreditation.model.entity.Teacher;
@@ -13,6 +14,7 @@ import com.excellent.accreditation.model.form.TeacherQuery;
 import com.excellent.accreditation.service.ITeacherService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,5 +56,18 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         });
         teachers.setRecords(list);
         return teachers;
+    }
+
+    @Override
+    public boolean create(Teacher teacher) {
+        teacher.setCreateTime(LocalDateTime.now());
+        teacher.setUpdateTime(LocalDateTime.now());
+        this.checkJno(teacher.getJno());            // 工号必须唯一
+        boolean result = this.save(teacher);
+
+        // 操作成功
+        if (result)
+            return result;
+        throw new DatabaseException("未知异常, 数据库操作失败");
     }
 }

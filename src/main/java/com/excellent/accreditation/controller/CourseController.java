@@ -3,7 +3,6 @@ package com.excellent.accreditation.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.excellent.accreditation.common.annotation.Permission;
-import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.model.form.CourseQuery;
@@ -46,14 +45,8 @@ public class CourseController {
     @ApiOperation("添加课程")
     @Permission
     public ServerResponse create(@RequestBody @NonNull Course course) {
-        course.setCreateTime(LocalDateTime.now());
-        course.setUpdateTime(LocalDateTime.now());
-        courseService.checkCode(course.getCode());
-        boolean result = courseService.save(course);
-        // 操作成功
-        if (result)
-            return ServerResponse.createBySuccess("课程添加成功");
-        return ServerResponse.createBySuccessMessage("课程添加失败");
+        courseService.create(course);
+        return ServerResponse.createBySuccess("课程添加成功");
     }
 
     /**

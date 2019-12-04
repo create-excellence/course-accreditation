@@ -13,4 +13,6 @@ public interface ICourseService extends IService<Course> {
     void checkCode(String code);
 
     IPage<Course> pageByQuery(CourseQuery courseQuery);
+
+    boolean create(Course course);
 }

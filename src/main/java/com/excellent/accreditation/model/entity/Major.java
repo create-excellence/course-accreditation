@@ -25,6 +25,4 @@ public class Major extends BaseEntity {
     private String name;
     @ApiModelProperty("专业代码")
     private String code;
-
-
 }

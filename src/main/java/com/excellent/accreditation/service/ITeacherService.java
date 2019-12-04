@@ -15,4 +15,6 @@ public interface ITeacherService extends IService<Teacher> {
     void checkJno(String jno);
 
     IPage<Teacher> pageByQuery(TeacherQuery teacherQuery);
+
+    boolean create(Teacher teacher);
 }

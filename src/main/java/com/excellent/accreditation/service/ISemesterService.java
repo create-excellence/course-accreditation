@@ -7,5 +7,7 @@ import com.excellent.accreditation.model.entity.Semester;
  * @Author evildoer
  */
 public interface ISemesterService extends IService<Semester> {
+    void checkName(String name);
 
+    boolean create(Semester semester);
 }

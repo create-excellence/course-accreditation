@@ -17,7 +17,7 @@ import java.util.Collection;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author ashe
@@ -42,18 +42,12 @@ public class TeacherController {
      * @Return: com.excellent.accreditation.common.domain.ServerResponse
      * @Author: Nemo
      * @Date: 20:07 2019/12/3
-    **/
+     **/
     @PostMapping
     @ApiOperation("添加教师")
     public ServerResponse create(@RequestBody @NonNull Teacher teacher) {
-        teacher.setCreateTime(LocalDateTime.now());
-        teacher.setUpdateTime(LocalDateTime.now());
-        teacherService.checkJno(teacher.getJno());
-        boolean result = teacherService.save(teacher);
-        // 操作成功
-        if (result)
-            return ServerResponse.createBySuccess("教师添加成功");
-        return ServerResponse.createBySuccessMessage("教师添加失败");
+        teacherService.create(teacher);
+        return ServerResponse.createBySuccess("教师添加成功");
     }
 
     /**
@@ -63,7 +57,7 @@ public class TeacherController {
      * @Return: com.excellent.accreditation.common.domain.ServerResponse
      * @Author: Nemo
      * @Date: 20:07 2019/12/3
-    **/
+     **/
     @DeleteMapping("/{id:\\d+}")
     @ApiOperation("通过id删除教师")
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
@@ -81,7 +75,7 @@ public class TeacherController {
      * @Return: com.excellent.accreditation.common.domain.ServerResponse
      * @Author: Nemo
      * @Date: 20:07 2019/12/3
-    **/
+     **/
     @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除教师")
     public ServerResponse deleteByIds(@NonNull Collection<Integer> ids) {
@@ -99,7 +93,7 @@ public class TeacherController {
      * @Return: com.excellent.accreditation.common.domain.ServerResponse
      * @Author: Nemo
      * @Date: 20:08 2019/12/3
-    **/
+     **/
     @PutMapping("/{id:\\d+}")
     @ApiOperation("通过id更新教师")
     public ServerResponse updateById(@PathVariable("id") Integer id,
@@ -120,7 +114,7 @@ public class TeacherController {
      * @Return: com.excellent.accreditation.common.domain.ServerResponse<com.excellent.accreditation.model.entity.Teacher>
      * @Author: Nemo
      * @Date: 20:08 2019/12/3
-    **/
+     **/
     @GetMapping
     @ApiOperation("通过id查找教师")
     @Permission
@@ -139,7 +133,7 @@ public class TeacherController {
      * @Return: com.excellent.accreditation.common.domain.ServerResponse
      * @Author: Nemo
      * @Date: 20:08 2019/12/3
-    **/
+     **/
     @GetMapping("/list")
     @ApiOperation("分页查询教师")
     public ServerResponse queryTeacher(TeacherQuery teacherQuery) {

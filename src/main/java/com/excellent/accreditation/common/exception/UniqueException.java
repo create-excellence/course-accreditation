@@ -12,12 +12,13 @@ public class UniqueException extends CommonException {
     public UniqueException(String message) {
         super(message);
     }
+
     public UniqueException(String message, Throwable cause) {
         super(message, cause);
     }
 
     @Override
-    public   HttpStatus getStatus() {
+    public HttpStatus getStatus() {
         return HttpStatus.OK;
     }
 }
