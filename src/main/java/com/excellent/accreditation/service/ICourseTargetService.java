@@ -8,4 +8,5 @@ import com.excellent.accreditation.model.entity.CourseTarget;
  */
 public interface ICourseTargetService extends IService<CourseTarget> {
 
+    void checkCourseTarget(Integer courseTargetId);
 }

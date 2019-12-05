@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author ashe
@@ -29,6 +29,4 @@ public class Questionnaire extends BaseEntity {
     private Integer totalScore;
     @ApiModelProperty("问卷描述")
     private String describes;
-
-
 }

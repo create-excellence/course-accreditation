@@ -35,6 +35,4 @@ public class GraduationDemand extends BaseEntity {
      */
     @ApiModelProperty("毕业要求内容")
     private String content;
-
-
 }

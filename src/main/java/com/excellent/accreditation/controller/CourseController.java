@@ -134,7 +134,7 @@ public class CourseController {
      **/
     @GetMapping("/list")
     @ApiOperation("分页查询课程")
-//    @Permission
+    @Permission
     public ServerResponse queryCourse(CourseQuery courseQuery) {
         PageInfo<Course> list = courseService.pageByQuery(courseQuery);
         if (list != null)
@@ -146,7 +146,7 @@ public class CourseController {
 
     @PostMapping("/batchSave")
     @ApiOperation("批量添加课程")
-//    @Permission
+    @Permission
     public ServerResponse batchSave(MultipartFile file) {
         return ServerResponse.createBySuccess(courseService.saveBachByExcel(file));
     }

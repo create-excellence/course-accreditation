@@ -25,7 +25,7 @@ public class SelfEvaluation extends BaseEntity {
     private Integer studentId;
 
 
-    @ApiModelProperty("专业名称")
+    @ApiModelProperty("课程目标")
     private Integer courseTargetId;
 
     /**
@@ -39,6 +39,4 @@ public class SelfEvaluation extends BaseEntity {
      */
     @ApiModelProperty("得分")
     private Integer score;
-
-
 }

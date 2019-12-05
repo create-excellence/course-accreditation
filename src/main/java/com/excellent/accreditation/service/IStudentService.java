@@ -11,6 +11,8 @@ import com.github.pagehelper.PageInfo;
  */
 public interface IStudentService extends IService<Student> {
 
+    void checkStudent(Integer studentId);
+
     Student getByCode(String code);
 
     void checkCode(String sno);

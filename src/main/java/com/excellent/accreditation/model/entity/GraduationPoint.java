@@ -25,8 +25,6 @@ public class GraduationPoint extends BaseEntity {
     private String no;
     @ApiModelProperty("毕业要求Id")
     private Integer graduationDemandId;
-    @ApiModelProperty("指标点编号")
+    @ApiModelProperty("指标点内容")
     private String content;
-
-
 }

@@ -63,6 +63,4 @@ public class CourseTarget extends BaseEntity {
      */
     @ApiModelProperty("序号")
     private Integer sequence;
-
-
 }
