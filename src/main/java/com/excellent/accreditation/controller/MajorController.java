@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -141,5 +142,19 @@ public class MajorController {
             return ServerResponse.createBySuccess(list);
 
         return ServerResponse.createByErrorMessage("专业不存在");
+    }
+
+    /**
+    *@Description: 通过excel批量添加专业
+    *@Param: [file]
+    *@Return: com.excellent.accreditation.common.domain.ServerResponse
+    *@Author: ashe
+    *@Date: 2019/12/5
+    */
+    @PostMapping("/batchSave")
+    @ApiOperation("批量添加课程")
+    @Permission
+    public ServerResponse batchSave(MultipartFile file) {
+        return ServerResponse.createBySuccess(majorService.saveBachByExcel(file));
     }
 }

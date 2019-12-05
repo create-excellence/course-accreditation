@@ -16,7 +16,7 @@ import java.util.Map;
 
 
 public class ExcelUtils {
-    public static List<Map<Integer, String>> readExcelContentByList(MultipartFile file) throws IOException {
+    private static List<Map<Integer, String>> readExcelContentByList(MultipartFile file) throws IOException {
 
         List<Map<Integer, String>> list = new ArrayList<Map<Integer, String>>();
         Workbook wb = null;
@@ -103,5 +103,15 @@ public class ExcelUtils {
             }
         }
         return wb;
+    }
+
+    public static List<Map<Integer, String>> readExcelGetList(MultipartFile file){
+        List<Map<Integer, String>> list;
+        try {
+            list = readExcelContentByList(file);
+        } catch (IOException e) {
+            throw new ExcelException("读取Excel失败");
+        }
+        return list;
     }
 }

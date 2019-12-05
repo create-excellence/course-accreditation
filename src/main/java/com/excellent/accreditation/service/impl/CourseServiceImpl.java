@@ -54,24 +54,20 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public List<ExcelResult> saveBachByExcel(MultipartFile file) {
-        List<Map<Integer, String>> list;
-        try {
-            list = ExcelUtils.readExcelContentByList(file);
-        } catch (IOException e) {
-            throw new ExcelException("读取Excel失败");
-        }
+        List<Map<Integer, String>> list=ExcelUtils.readExcelGetList(file);
         List<ExcelResult> excelResults = new ArrayList<>();
         list.forEach(data -> {
             ExcelResult excelResult = new ExcelResult();
             try {
-                excelResult.setNo(Integer.parseInt(data.get(0)));
-                EmptyCheckUtils.checkExcelMap(data, 4);
+                EmptyCheckUtils.checkExcelMapAndSetNo(data,excelResult, 4);
                 String name = data.get(1);
                 String code = data.get(2);
                 Double credit = Double.parseDouble(data.get(3));
                 String nature = data.get(4);
                 this.checkCode(code);
                 Course course = new Course(name, code, credit, nature);
+                course.setUpdateTime(LocalDateTime.now());
+                course.setCreateTime(LocalDateTime.now());
                 if (super.save(course)) {
                     excelResult.setStatus(Const.SUCCESS_INCREASE);
                     excelResult.setMessage("添加成功");
