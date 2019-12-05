@@ -31,13 +31,13 @@ public class ControllerExceptionHandler {
         return ServerResponse.createByErrorMessage(e.getMessage());
     }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ServerResponse handleGlobalException(Exception e) {
-        System.out.println(e.getMessage());
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        return ServerResponse.createByErrorCodeMessage(status.value(), e.getMessage());
-    }
+//    @ExceptionHandler(Exception.class)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    public ServerResponse handleGlobalException(Exception e) {
+//        System.out.println(e.getMessage());
+//        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+//        return ServerResponse.createByErrorCodeMessage(status.value(), e.getMessage());
+//    }
 
     private <T> ServerResponse<T> handleBaseException(Throwable t) {
         Assert.notNull(t, "Throwable must not be null");

@@ -6,7 +6,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.exception.ConfictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.UniqueException;
+import com.excellent.accreditation.dao.MajorMapper;
 import com.excellent.accreditation.dao.StudentMapper;
+import com.excellent.accreditation.model.entity.Major;
 import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.form.StudentQuery;
 import com.excellent.accreditation.model.vo.StudentVo;
@@ -69,7 +71,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         PageInfo<StudentVo> result = new PageInfo<>(new ArrayList<>());
         pageInfo.getList().forEach(student -> {
             StudentVo studentVo = StudentVo.convert(student);
-            studentVo.setMajor(majorService.getById(student.getMajorId()).getName());
+            Major major = majorService.getById(student.getMajorId());
+            if(major!=null){
+                studentVo.setMajor(major.getName());
+            }
             result.getList().add(studentVo);
         });
         return result;
