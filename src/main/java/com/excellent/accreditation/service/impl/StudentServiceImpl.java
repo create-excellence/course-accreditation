@@ -53,7 +53,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             queryWrapper.like(Student::getSno, query.getSno());
         if (StringUtils.isNotEmpty(query.getName()))
             queryWrapper.like(Student::getName, query.getName());
-        PageHelper.startPage(query.getCurrent(), query.getSize());
+        PageHelper.startPage(query.getPage(), query.getPageSize());
         List<Student> list = this.list(queryWrapper);
         PageInfo<Student> pageInfo = new PageInfo<>(list);
         return pageInfo;

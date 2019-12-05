@@ -23,10 +23,10 @@ public class BasePage implements Serializable {
     /**
      * 每页显示条数，默认 10
      */
-    private int size = 10;
+    private int pageSize = 10;
 
     /**
      * 当前页
      */
-    private int current = 1;
+    private int page = 1;
 }

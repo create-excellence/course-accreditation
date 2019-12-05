@@ -46,7 +46,7 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
             queryWrapper.like(Major::getCode, query.getCode());
         if (StringUtils.isNotEmpty(query.getName()))
             queryWrapper.like(Major::getName, query.getName());
-        PageHelper.startPage(query.getCurrent(), query.getSize());
+        PageHelper.startPage(query.getPage(), query.getPageSize());
         List<Major> list = this.list(queryWrapper);
         PageInfo<Major> pageInfo = new PageInfo<>(list);
         return pageInfo;

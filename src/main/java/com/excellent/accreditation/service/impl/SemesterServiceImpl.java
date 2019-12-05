@@ -49,7 +49,7 @@ public class SemesterServiceImpl extends ServiceImpl<SemesterMapper, Semester> i
         LambdaQueryWrapper<Semester> queryWrapper = new LambdaQueryWrapper<>();
         if (StringUtils.isNotEmpty(query.getSemester()))
             queryWrapper.like(Semester::getName, query.getSemester());
-        PageHelper.startPage(query.getCurrent(), query.getSize());
+        PageHelper.startPage(query.getPage(), query.getPageSize());
         List<Semester> list = this.list(queryWrapper);
         PageInfo<Semester> pageInfo = new PageInfo<>(list);
         return pageInfo;

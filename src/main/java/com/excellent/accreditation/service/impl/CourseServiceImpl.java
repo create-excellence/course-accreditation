@@ -112,7 +112,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             queryWrapper.like(Course::getName, query.getName());
         if (StringUtils.isNotEmpty(query.getNature()))
             queryWrapper.eq(Course::getNature, query.getNature());
-        PageHelper.startPage(query.getCurrent(), query.getSize());
+        PageHelper.startPage(query.getPage(), query.getPageSize());
         List<Course> list = this.list(queryWrapper);
         PageInfo<Course> pageInfo = new PageInfo<>(list);
         return pageInfo;
