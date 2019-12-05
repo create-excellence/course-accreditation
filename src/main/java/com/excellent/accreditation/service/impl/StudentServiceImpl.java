@@ -8,6 +8,7 @@ import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.StudentMapper;
 import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.form.StudentQuery;
+import com.excellent.accreditation.model.vo.StudentVo;
 import com.excellent.accreditation.service.IMajorService;
 import com.excellent.accreditation.service.IStudentService;
 import com.github.pagehelper.PageHelper;
@@ -16,6 +17,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +49,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
-    public PageInfo<Student> pageByQuery(StudentQuery query) {
+    public PageInfo<StudentVo> pageByQuery(StudentQuery query) {
         LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<>();
         if (StringUtils.isNotEmpty(query.getSno()))
             queryWrapper.like(Student::getSno, query.getSno());
@@ -56,7 +58,13 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         PageHelper.startPage(query.getPage(), query.getPageSize());
         List<Student> list = this.list(queryWrapper);
         PageInfo<Student> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        PageInfo<StudentVo> result = new PageInfo<>(new ArrayList<>());
+        pageInfo.getList().forEach(student -> {
+            StudentVo studentVo = StudentVo.convert(student);
+            studentVo.setMajor(majorService.getById(student.getMajorId()).getName());
+            result.getList().add(studentVo);
+        });
+        return result;
     }
 
     @Override

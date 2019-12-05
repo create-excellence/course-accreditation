@@ -3,6 +3,7 @@ package com.excellent.accreditation.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.form.StudentQuery;
+import com.excellent.accreditation.model.vo.StudentVo;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -14,7 +15,7 @@ public interface IStudentService extends IService<Student> {
 
     void checkCode(String sno);
 
-    PageInfo<Student> pageByQuery(StudentQuery studentQuery);
+    PageInfo<StudentVo> pageByQuery(StudentQuery studentQuery);
 
     boolean create(Student student);
 }

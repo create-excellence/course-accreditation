@@ -5,6 +5,7 @@ import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.form.StudentQuery;
+import com.excellent.accreditation.model.vo.StudentVo;
 import com.excellent.accreditation.service.IMajorService;
 import com.excellent.accreditation.service.IStudentService;
 import com.github.pagehelper.PageInfo;
@@ -139,7 +140,7 @@ public class StudentController {
     @ApiOperation("分页查询学生")
     @Permission
     public ServerResponse queryStudent(StudentQuery studentQuery) {
-        PageInfo<Student> list = studentService.pageByQuery(studentQuery);
+        PageInfo<StudentVo> list = studentService.pageByQuery(studentQuery);
         if (list != null)
             return ServerResponse.createBySuccess(list);
 
