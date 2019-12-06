@@ -3,13 +3,22 @@ package com.excellent.accreditation.common.aop;
 import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.exception.AuthenticationException;
 import com.excellent.accreditation.manage.UserManage;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
+
+@Slf4j
 @Aspect
 @Component
 public class PermissionAspect {
@@ -43,4 +52,31 @@ public class PermissionAspect {
         String code = userManage.getCodeByToken();
         return userManage.getRoleByCode(code);
     }
+
+    @Around("point()")
+    public void printLog(ProceedingJoinPoint joinPoint) {
+        // Get request attribute
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = Objects.requireNonNull(requestAttributes).getRequest();
+
+        log.info("Request URL: [{}], URI: [{}], Request Method: [{}], IP: [{}]",
+                request.getRequestURL(),
+                request.getRequestURI(),
+                request.getMethod(),
+                getClientIp(request));
+    }
+
+    private String getClientIp(HttpServletRequest request) {
+        String remoteAddress = "";
+
+        if (request != null) {
+            remoteAddress = request.getHeader("X-FORWARDED-FOR");
+            if (remoteAddress == null || "".equals(remoteAddress)) {
+                remoteAddress = request.getRemoteAddr();
+            }
+        }
+
+        return remoteAddress;
+    }
+
 }
