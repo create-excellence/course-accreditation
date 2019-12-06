@@ -39,6 +39,7 @@ public class PermissionAspect {
     //切入点签名
     @Before(value = "point()&&@annotation(permission)")
     public void rolePermission(JoinPoint joinPoint, Permission permission) {
+        printLog();
         String role = getRole();
         String[] roles = permission.roles();
         for (String r : roles) {
@@ -53,8 +54,7 @@ public class PermissionAspect {
         return userManage.getRoleByCode(code);
     }
 
-    @Around("point()")
-    public void printLog(ProceedingJoinPoint joinPoint) {
+    public void printLog() {
         // Get request attribute
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = Objects.requireNonNull(requestAttributes).getRequest();
