@@ -1,12 +1,21 @@
 server:
   port: 8888
   version: v1
+
 spring:
   datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/course_accreditation?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=UTF-8
-    username: root
-    password: 123456
+    dynamic:
+      # 是否开启 SQL日志输出，生产环境建议关闭，有性能损耗
+      p6spy: true
+      # 配置默认数据源
+      primary: primary
+      datasource:
+        primary:
+          username: root
+          password: 123456
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/course_accreditation?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=UTF-8
+
 web:
   # Swagger相关配置
   swagger:
@@ -27,6 +36,10 @@ pagehelper:
     supportMethodsArguments: true
     params: count=countSql
 
+#mybatis plus 设置
+mybatis-plus:
+  global-config:
+    banner: false
 
 
 

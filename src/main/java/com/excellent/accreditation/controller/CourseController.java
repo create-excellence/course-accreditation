@@ -8,6 +8,7 @@ import com.excellent.accreditation.model.form.CourseQuery;
 import com.excellent.accreditation.service.ICourseService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ import java.util.Collection;
  * @author ashe
  * @since 2019-11-14
  */
+@Slf4j
 @RestController
 @RequestMapping("/${server.version}/course")
 public class CourseController {
@@ -135,7 +137,7 @@ public class CourseController {
      **/
     @GetMapping("/list")
     @ApiOperation("分页查询课程")
-    @Permission
+//    @Permission
     public ServerResponse queryCourse(CourseQuery courseQuery) {
         PageInfo<Course> list = courseService.pageByQuery(courseQuery);
         if (list != null)
