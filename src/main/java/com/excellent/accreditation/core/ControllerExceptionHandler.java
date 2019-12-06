@@ -1,7 +1,7 @@
 package com.excellent.accreditation.core;
 
 import com.excellent.accreditation.common.domain.ServerResponse;
-import com.excellent.accreditation.common.exception.ConfictException;
+import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(ConfictException.class)
+    @ExceptionHandler(ConflictException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ServerResponse handleUniqueException(ConfictException e) {
+    public ServerResponse handleUniqueException(ConflictException e) {
         return ServerResponse.createByErrorMessage(e.getMessage());
     }
 

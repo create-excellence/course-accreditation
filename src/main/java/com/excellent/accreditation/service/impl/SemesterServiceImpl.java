@@ -3,6 +3,7 @@ package com.excellent.accreditation.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.SemesterMapper;
@@ -53,5 +54,12 @@ public class SemesterServiceImpl extends ServiceImpl<SemesterMapper, Semester> i
         List<Semester> list = this.list(queryWrapper);
         PageInfo<Semester> pageInfo = new PageInfo<>(list);
         return pageInfo;
+    }
+
+    @Override
+    public void checkSemester(Integer semester) {
+        if (this.getById(semester) == null) {
+            throw new ConflictException("学期不存在");
+        }
     }
 }

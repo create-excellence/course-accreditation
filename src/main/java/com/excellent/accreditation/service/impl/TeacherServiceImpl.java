@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
+import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.TeacherMapper;
@@ -70,5 +71,12 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         if (result)
             return true;
         throw new DatabaseException("未知异常, 数据库操作失败");
+    }
+
+    @Override
+    public void checkTeacher(Integer teacherId) {
+        if (this.getById(teacherId) == null) {
+            throw new ConflictException("老师不存在");
+        }
     }
 }

@@ -3,7 +3,7 @@ package com.excellent.accreditation.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.excellent.accreditation.common.exception.ConfictException;
+import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.GraduationDemandMapper;
@@ -43,7 +43,7 @@ public class GraduationDemandServiceImpl extends ServiceImpl<GraduationDemandMap
     @Override
     public void checkGraduationDemand(Integer graduationDemandId) {
         if (this.getById(graduationDemandId) == null) {
-            throw new ConfictException("毕业要求不存在");
+            throw new ConflictException("毕业要求不存在");
         }
     }
 

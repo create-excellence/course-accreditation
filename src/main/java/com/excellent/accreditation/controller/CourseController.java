@@ -100,6 +100,7 @@ public class CourseController {
                                      @RequestBody Course course) {
         course.setId(id);
         course.setUpdateTime(LocalDateTime.now());
+        courseService.checkCode(course.getCode());
         boolean result = courseService.updateById(course);
         if (result)
             return ServerResponse.createBySuccess("课程更新成功");

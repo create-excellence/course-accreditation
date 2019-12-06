@@ -3,10 +3,9 @@ package com.excellent.accreditation.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.excellent.accreditation.common.exception.ConfictException;
+import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.UniqueException;
-import com.excellent.accreditation.dao.MajorMapper;
 import com.excellent.accreditation.dao.StudentMapper;
 import com.excellent.accreditation.model.entity.Major;
 import com.excellent.accreditation.model.entity.Student;
@@ -38,7 +37,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Override
     public void checkStudent(Integer studentId) {
         if (this.getById(studentId) == null) {
-            throw new ConfictException("学生不存在");
+            throw new ConflictException("学生不存在");
         }
     }
 

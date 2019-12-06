@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ExcelResult;
+import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.ExcelException;
 import com.excellent.accreditation.common.exception.UniqueException;
@@ -80,6 +81,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
             excelResults.add(excelResult);
         });
         return excelResults;
+    }
+
+    @Override
+    public void checkCourse(Integer courseId) {
+        if (this.getById(courseId) == null) {
+            throw new ConflictException("课程不存在");
+        }
     }
 
 

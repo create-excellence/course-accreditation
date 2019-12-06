@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ExcelResult;
-import com.excellent.accreditation.common.exception.ConfictException;
+import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.ExcelException;
 import com.excellent.accreditation.common.exception.UniqueException;
@@ -45,7 +45,7 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
     @Override
     public void checkMajor(Integer majorId) {
         if (this.getById(majorId) == null) {
-            throw new ConfictException("专业不存在");
+            throw new ConflictException("专业不存在");
         }
     }
 

@@ -14,4 +14,6 @@ public interface ISemesterService extends IService<Semester> {
     boolean create(Semester semester);
 
     PageInfo<Semester> pageByQuery(SemesterQuery semesterQuery);
+
+    void  checkSemester(Integer semester);
 }

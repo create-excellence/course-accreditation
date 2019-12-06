@@ -17,4 +17,6 @@ public interface ITeacherService extends IService<Teacher> {
     PageInfo<Teacher> pageByQuery(TeacherQuery teacherQuery);
 
     boolean create(Teacher teacher);
+
+    void checkTeacher(Integer teacherId);
 }

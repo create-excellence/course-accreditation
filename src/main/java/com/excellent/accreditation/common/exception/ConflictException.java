@@ -7,12 +7,12 @@ import org.springframework.http.HttpStatus;
  * @Description 冲突异常
  * @Date 9:10 2019/12/4
  **/
-public class ConfictException extends CommonException {
-    public ConfictException(String message) {
+public class ConflictException extends CommonException {
+    public ConflictException(String message) {
         super(message);
     }
 
-    public ConfictException(String message, Throwable cause) {
+    public ConflictException(String message, Throwable cause) {
         super(message, cause);
     }
 
