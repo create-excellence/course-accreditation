@@ -1,12 +1,12 @@
 package com.excellent.accreditation.model.vo;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.entity.Teacher;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @ClassName UserVo
@@ -24,7 +24,7 @@ public class UserVo {
 
     private Integer id;
 
-    private String role;
+    private List<String> role;
 
     private String name;
 
@@ -60,7 +60,6 @@ public class UserVo {
     public static UserVo convert(Student student) {
         UserVo userVo = new UserVo();
         userVo.id = student.getId();
-        userVo.role = Const.STUDENT;
         userVo.name = student.getName();
         userVo.sex = student.getSex();
         userVo.avatar = StringUtils.isNotEmpty(student.getAvatar()) ? student.getAvatar() : DEFAULT_AVATAR;
@@ -73,7 +72,6 @@ public class UserVo {
     public static UserVo convert(Teacher teacher) {
         UserVo userVo = new UserVo();
         userVo.id = teacher.getId();
-        userVo.role = Const.TEACHER;
         userVo.sex = teacher.getSex();
         userVo.name = teacher.getName();
         userVo.avatar = StringUtils.isNotEmpty(teacher.getAvatar()) ? teacher.getAvatar() : DEFAULT_AVATAR;

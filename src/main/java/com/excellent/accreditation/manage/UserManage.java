@@ -1,13 +1,16 @@
 package com.excellent.accreditation.manage;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.excellent.accreditation.common.authentication.JWTUtil;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.common.exception.AuthenticationException;
+import com.excellent.accreditation.model.entity.Role;
 import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.entity.Teacher;
 import com.excellent.accreditation.model.vo.UserVo;
+import com.excellent.accreditation.service.IRoleService;
 import com.excellent.accreditation.service.IStudentService;
 import com.excellent.accreditation.service.ITeacherService;
 import org.springframework.util.StringUtils;
@@ -15,6 +18,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ClassName UserManage
@@ -25,13 +30,17 @@ import javax.servlet.http.HttpServletRequest;
  **/
 public class UserManage {
 
+    private final IRoleService roleService;
+
     private final IStudentService studentService;
 
     private final ITeacherService teacherService;
 
 
-    public UserManage(IStudentService studentService,
+    public UserManage(IRoleService roleService,
+                      IStudentService studentService,
                       ITeacherService teacherService) {
+        this.roleService = roleService;
         this.studentService = studentService;
         this.teacherService = teacherService;
     }
@@ -52,7 +61,9 @@ public class UserManage {
                     .eq("password", password);
             Student s = studentService.getOne(queryWrapper);
             String token = JWTUtil.encryptToken(JWTUtil.sign(code, password));
-            return UserVo.convert(s, token);
+            UserVo userVo = UserVo.convert(s, token);
+            userVo.setRole(this.getRolesByCode(code));
+            return userVo;
         } else if (teacher != null) {  // 教师登录
             QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("jno", code)       // 通过工号登录
@@ -60,7 +71,7 @@ public class UserManage {
             Teacher t = teacherService.getOne(queryWrapper);
             String token = JWTUtil.encryptToken(JWTUtil.sign(code, password));
             UserVo userVo = UserVo.convert(t, token);
-            userVo.setRole(this.getRoleByCode(code));
+            userVo.setRole(this.getRolesByCode(code));
             return userVo;
         }
         // 登录失败
@@ -76,25 +87,24 @@ public class UserManage {
      **/
     public UserVo getUserInfo() {
         String code = getCodeByToken();
-        String role = getRoleByCode(code);
+        Student student = studentService.getByCode(code);
+        Teacher teacher = teacherService.getByCode(code);
+        List<String> roles = getRolesByCode(code);
 
-        if (Const.STUDENT.equals(role)) {
-            // 学生
-            Student student = studentService.getByCode(code);
+        if (student != null) {
             // 重新签署token
             String token = JWTUtil.encryptToken(JWTUtil.sign(code, student.getPassword()));
             UserVo userVo = UserVo.convert(student, token);
-            userVo.setRole(role);
+            userVo.setRole(roles);
             return userVo;
-        } else {
-            // 老师或管理员
-            Teacher teacher = teacherService.getByCode(code);
+        } else if (teacher != null) {
             // 重新签署token
             String token = JWTUtil.encryptToken(JWTUtil.sign(code, teacher.getPassword()));
             UserVo userVo = UserVo.convert(teacher, token);
-            userVo.setRole(role);
+            userVo.setRole(roles);
             return userVo;
         }
+        throw new AuthenticationException("用户token异常！");
     }
 
     /**
@@ -157,17 +167,18 @@ public class UserManage {
      * @Param [code]
      * @Return java.lang.String
      **/
-    public String getRoleByCode(String code) {
-        Student student = studentService.getByCode(code);
-        Teacher teacher = teacherService.getByCode(code);
-        if (student != null) {
-            return Const.STUDENT;
-        } else if (teacher != null) {
-            // 教师的Role为管理员
-            if (Const.ADMIN.equals(teacher.getRole()))
-                return Const.ADMIN;
-            return Const.TEACHER;
+    public List<String> getRolesByCode(String code) {
+        LambdaQueryWrapper<Role> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Role::getCode, code);
+        List<String> roles = new ArrayList<>();
+        List<Role> list = roleService.list(queryWrapper);
+        if (list == null) {
+            throw new AuthenticationException("用户未分配角色, 请联系管理员！");
         }
-        return null;
+        list.forEach(r -> {
+            roleService.checkRole(r.getRole());
+            roles.add(r.getRole());
+        });
+        return roles;
     }
 }
