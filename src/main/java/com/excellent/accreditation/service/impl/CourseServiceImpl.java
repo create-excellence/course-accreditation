@@ -44,7 +44,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public boolean create(Course course) {
         course.setCreateTime(LocalDateTime.now());
         course.setUpdateTime(LocalDateTime.now());
-        this.checkCode(course.getCode());                  // 课程代码必须唯一
+        this.checkCode(course.getCode(),null);                  // 课程代码必须唯一
         boolean result = this.save(course);
         // 操作成功
         if (result)
@@ -65,7 +65,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 String code = data.get(2);
                 Double credit = Double.parseDouble(data.get(3));
                 String nature = data.get(4);
-                this.checkCode(code);
+                this.checkCode(code,null);
                 Course course = new Course(name, code, credit, nature);
                 course.setUpdateTime(LocalDateTime.now());
                 course.setCreateTime(LocalDateTime.now());
@@ -99,10 +99,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
      * @date: 2019/12/3
      */
     @Override
-    public void checkCode(@NonNull String code) {
+    public void checkCode(@NonNull String code,Integer courseId) {
         LambdaQueryWrapper<Course> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Course::getCode, code);
-        if (super.getOne(queryWrapper) != null) {
+        Course course =super.getOne(queryWrapper);
+        if ( course!= null && !course.getId().equals(courseId)) {
+            // 如果code已存在还要检查是否当前更新的是否为同一条记录,若不同则抛出异常
             throw new UniqueException("课程代码不能重复");
         }
     }

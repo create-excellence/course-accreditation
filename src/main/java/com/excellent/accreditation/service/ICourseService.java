@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface ICourseService extends IService<Course> {
 
-    void checkCode(String code);
+    void checkCode(String code,Integer courseId);
 
     PageInfo<Course> pageByQuery(CourseQuery query);
 

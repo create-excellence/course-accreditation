@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface ICourseClassService extends IService<CourseClass> {
 
-    void checkNo(String No);
+    void checkNo(String No,Integer courseClassId);
 
     PageInfo<CourseClass> pageByQuery(CourseClassQuery query);
 
