@@ -3,6 +3,7 @@ package com.excellent.accreditation.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.dao.GraduationPointMapper;
 import com.excellent.accreditation.model.entity.GraduationPoint;
@@ -51,5 +52,12 @@ public class GraduationPointServiceImpl extends ServiceImpl<GraduationPointMappe
         List<GraduationPoint> list = this.list(queryWrapper);
         PageInfo<GraduationPoint> pageInfo = new PageInfo<>(list);
         return pageInfo;
+    }
+
+    @Override
+    public void checkGraduationPoint(Integer graduationPointId) {
+        if (this.getById(graduationPointId) == null) {
+            throw new ConflictException("毕业指标点不存在");
+        }
     }
 }

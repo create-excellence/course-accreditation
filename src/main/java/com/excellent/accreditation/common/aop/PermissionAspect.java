@@ -52,14 +52,15 @@ public class PermissionAspect {
      * @Return boolean
      **/
     private boolean checkPermission(List<String> userRoles, String[] roles) {
-        userRoles.forEach(role -> {
+        for (String role:userRoles) {
             for (String r : roles) {
                 // 用户只要有一个角色满足条件即可
                 if (role.equals(r)) {
-                    return;
+                    return true ;
                 }
             }
-        });
+
+        }
         throw new AuthenticationException("权限不足");
     }
 

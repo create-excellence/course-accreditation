@@ -13,4 +13,6 @@ public interface IQuestionnaireService extends IService<Questionnaire> {
     boolean create(Questionnaire questionnaire);
 
     PageInfo<Questionnaire> pageByQuery(QuestionnaireQuery questionnaireQuery);
+
+    void  checkQuestionnaire(Integer questionnaireId);
 }

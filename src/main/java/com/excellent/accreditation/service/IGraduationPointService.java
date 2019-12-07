@@ -13,4 +13,6 @@ public interface IGraduationPointService extends IService<GraduationPoint> {
     boolean create(GraduationPoint graduationPoint);
 
     PageInfo<GraduationPoint> pageByQuery(GraduationPointQuery graduationPointQuery);
+
+    void checkGraduationPoint(Integer graduationPointId);
 }

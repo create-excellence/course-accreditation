@@ -2,6 +2,7 @@ package com.excellent.accreditation.controller;
 
 
 import com.excellent.accreditation.common.annotation.Permission;
+import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.CourseTarget;
 import com.excellent.accreditation.model.form.CourseTargetQuery;
@@ -100,6 +101,7 @@ public class CourseTargetController {
                                      @RequestBody CourseTarget courseClass) {
         courseClass.setId(id);
         courseClass.setUpdateTime(LocalDateTime.now());
+        courseTargetService.check(courseClass, Const.UPDATE);
         boolean result = courseTargetService.updateById(courseClass);
         if (result)
             return ServerResponse.createBySuccess("课程目标更新成功");
@@ -108,7 +110,7 @@ public class CourseTargetController {
     }
 
     /**
-     *@Description: 通过id查找开课班级
+     *@Description: 通过id查找课程目标
      *@Param: [id]
      *@Return: com.excellent.accreditation.common.domain.ServerResponse<com.excellent.accreditation.model.entity.CourseTarget>
      *@Author: ashe

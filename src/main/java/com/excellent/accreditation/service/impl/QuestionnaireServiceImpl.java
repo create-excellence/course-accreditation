@@ -3,6 +3,7 @@ package com.excellent.accreditation.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.dao.QuestionnaireMapper;
 import com.excellent.accreditation.model.entity.Questionnaire;
@@ -43,5 +44,12 @@ public class QuestionnaireServiceImpl extends ServiceImpl<QuestionnaireMapper, Q
         List<Questionnaire> list = this.list(queryWrapper);
         PageInfo<Questionnaire> pageInfo = new PageInfo<>(list);
         return pageInfo;
+    }
+
+    @Override
+    public void checkQuestionnaire(Integer questionnaireId) {
+        if (this.getById(questionnaireId) == null) {
+            throw new ConflictException("问卷不存在");
+        }
     }
 }
