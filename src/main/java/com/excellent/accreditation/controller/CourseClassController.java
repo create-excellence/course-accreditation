@@ -2,6 +2,7 @@ package com.excellent.accreditation.controller;
 
 
 import com.excellent.accreditation.common.annotation.Permission;
+import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.model.entity.CourseClass;
@@ -102,6 +103,7 @@ public class CourseClassController {
                                      @RequestBody CourseClass courseClass) {
         courseClass.setId(id);
         courseClass.setUpdateTime(LocalDateTime.now());
+        courseClassService.check(courseClass, Const.UPDATE);
         boolean result = courseClassService.updateById(courseClass);
         if (result)
             return ServerResponse.createBySuccess("课程更新成功");

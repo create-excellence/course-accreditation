@@ -31,6 +31,17 @@ public class Const {
 
     public static final Integer FAIL_INCREASE = 1;
 
+    /**
+     * @Description:数据库操作
+     * @Author: ashe
+     * @Date: 2019/12/6
+     */
+
+    public static final Integer CREATE = 0;
+
+    public static final Integer UPDATE = 1;
+
+
 
     public enum BATCH_STUDENT_STATUS {
 

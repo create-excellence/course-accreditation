@@ -3,6 +3,7 @@ package com.excellent.accreditation.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ExcelResult;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.UniqueException;
@@ -64,7 +65,7 @@ public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, Cours
 
     @Override
     public boolean create(CourseClass courseClass) {
-        this.check(courseClass);
+        this.check(courseClass,Const.CREATE);
         courseClass.setCreateTime(LocalDateTime.now());
         courseClass.setUpdateTime(LocalDateTime.now());
         if (this.save(courseClass)){
@@ -80,11 +81,20 @@ public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, Cours
         return null;
     }
 
+    @Override
+    public void check (CourseClass courseClass,Integer type){
+        if(type.equals(Const.CREATE)||courseClass.getNo()!=null){
+            this.checkNo(courseClass.getNo());
+        }
+        if(type.equals(Const.CREATE)||courseClass.getTeacherId()!=null){
+            teacherService.checkTeacher(courseClass.getTeacherId());
+        }
+        if(type.equals(Const.CREATE)||courseClass.getSemesterId()!=null){
+            semesterService.checkSemester(courseClass.getSemesterId());
+        }
+        if(type.equals(Const.CREATE)||courseClass.getCourseId()!=null){
+            courseService.checkCourse(courseClass.getCourseId());
+        }
 
-    private void check (CourseClass courseClass){
-        this.checkNo(courseClass.getNo());
-        teacherService.checkTeacher(courseClass.getTeacherId());
-        semesterService.checkSemester(courseClass.getSemesterId());
-        courseService.checkCourse(courseClass.getCourseId());
     }
 }

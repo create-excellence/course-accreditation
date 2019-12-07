@@ -15,12 +15,9 @@ import javax.validation.constraints.Size;
 @Data
 public class CourseTargetQuery extends BasePage {
 
-    @Size(max = 25, message = "编号的字符长度不能超过 {max}")
-    private String code;
 
-    @Size(max = 25, message = "课程名称的字符长度不能超过 {max}")
-    private String name;
+    @Size(max = 25, message = "指标点的字符长度不能超过 {max}")
+    private String pointName;
 
-    @Size(max = 25, message = "课程性质的字符长度不能超过 {max}")
-    private String nature;
+
 }
