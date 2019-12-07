@@ -69,6 +69,36 @@ public class UserManage {
 
     /**
      * @Author 安羽兮
+     * @Description 通过token获取用户信息
+     * @Date 11:33 2019/12/7
+     * @Param []
+     * @Return com.excellent.accreditation.model.vo.UserVo
+     **/
+    public UserVo getUserInfo() {
+        String code = getCodeByToken();
+        String role = getRoleByCode(code);
+
+        if (Const.STUDENT.equals(role)) {
+            // 学生
+            Student student = studentService.getByCode(code);
+            // 重新签署token
+            String token = JWTUtil.encryptToken(JWTUtil.sign(code, student.getPassword()));
+            UserVo userVo = UserVo.convert(student, token);
+            userVo.setRole(role);
+            return userVo;
+        } else {
+            // 老师或管理员
+            Teacher teacher = teacherService.getByCode(code);
+            // 重新签署token
+            String token = JWTUtil.encryptToken(JWTUtil.sign(code, teacher.getPassword()));
+            UserVo userVo = UserVo.convert(teacher, token);
+            userVo.setRole(role);
+            return userVo;
+        }
+    }
+
+    /**
+     * @Author 安羽兮
      * @Description 注册
      * @Date 19:10 2019/11/25
      * @Param [code, password, role]
@@ -100,7 +130,7 @@ public class UserManage {
                 return ServerResponse.createByErrorMessage("此工号已被注册");
             }
         }
-        // 登录失败
+        // 注册失败
         return ServerResponse.createByErrorMessage("注册失败");
     }
 
