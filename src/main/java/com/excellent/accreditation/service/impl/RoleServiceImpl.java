@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
-import com.excellent.accreditation.common.exception.AuthenticationException;
+import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.dao.RoleMapper;
 import com.excellent.accreditation.model.entity.Role;
@@ -54,7 +54,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
             if (r.equals(role))
                 return;
         }
-        throw new AuthenticationException("用户角色分配异常！");
+        throw new ConflictException("用户角色分配异常！");
     }
 
     /**
@@ -72,7 +72,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
             return Const.STUDENT;
         if (teacher != null)
             return Const.TEACHER;
-        throw new AuthenticationException("用户角色分配异常！");
+        throw new ConflictException("用户不存在！");
     }
 
     @Override
@@ -82,7 +82,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         checkRole(role.getRole());
         // 防止给学生分配老师角色
         if (!expect.equals(role.getRole()) && !Const.ADMIN.equals(role.getRole())) {
-            throw new AuthenticationException("用户角色分配异常！");
+            throw new ConflictException("用户角色分配异常！");
         }
 
         role.setCreateTime(LocalDateTime.now());
