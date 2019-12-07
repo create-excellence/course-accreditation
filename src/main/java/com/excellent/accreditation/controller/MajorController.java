@@ -28,7 +28,6 @@ import java.util.Collection;
 @RequestMapping("/${server.version}/major")
 public class MajorController {
 
-
     private final IMajorService majorService;
 
     @Autowired
@@ -145,14 +144,14 @@ public class MajorController {
     }
 
     /**
-    *@Description: 通过excel批量添加专业
-    *@Param: [file]
-    *@Return: com.excellent.accreditation.common.domain.ServerResponse
-    *@Author: ashe
-    *@Date: 2019/12/5
-    */
+     * @Description: 通过excel批量添加专业
+     * @Param: [file]
+     * @Return: com.excellent.accreditation.common.domain.ServerResponse
+     * @Author: ashe
+     * @Date: 2019/12/5
+     */
     @PostMapping("/batchSave")
-    @ApiOperation("批量添加课程")
+    @ApiOperation("批量添加专业")
     @Permission
     public ServerResponse batchSave(MultipartFile file) {
         return ServerResponse.createBySuccess(majorService.saveBachByExcel(file));

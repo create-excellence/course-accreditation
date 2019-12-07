@@ -15,7 +15,12 @@ import java.util.Date;
 @Slf4j
 public class JWTUtil {
 
-    private static final long EXPIRE_TIME = 3600 * 1000;
+    /**
+     * @Author 安羽兮
+     * @Description token过期时间 单位 秒
+     * @Date 12:48 2019/12/7
+     **/
+    private static final long EXPIRE_TIME = 1000 * 60 * 60;
 
     /**
      * 校验 token是否正确

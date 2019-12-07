@@ -1,84 +1,694 @@
-2019-12-07 12:42:39.981  INFO 6440 --- [main] com.excellent.accreditation.Application  : Starting Application on DESKTOP-5IPCNTB with PID 6440 (started by ashe in C:\work\创优中心\course-accreditation)
-2019-12-07 12:42:39.986  INFO 6440 --- [main] com.excellent.accreditation.Application  : No active profile set, falling back to default profiles: default
-2019-12-07 12:42:40.759  INFO 6440 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-12-07 12:42:40.829  INFO 6440 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-12-07 12:42:40.831  INFO 6440 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$fc319609] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-12-07 12:42:40.839  INFO 6440 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-12-07 12:42:40.842  INFO 6440 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-12-07 12:42:41.023  INFO 6440 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
-2019-12-07 12:42:41.031  INFO 6440 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-12-07 12:42:41.031  INFO 6440 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
-2019-12-07 12:42:41.103  INFO 6440 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-12-07 12:42:41.103  INFO 6440 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1087 ms
-2019-12-07 12:42:41.177  INFO 6440 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource detect P6SPY plugin and enabled it
-2019-12-07 12:42:41.182  INFO 6440 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Starting...
-2019-12-07 12:42:41.276  INFO 6440 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Start completed.
-2019-12-07 12:42:41.276  INFO 6440 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource - load a datasource named [primary] success
-2019-12-07 12:42:41.276  INFO 6440 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource initial loaded [1] datasource,primary datasource named [primary]
-2019-12-07 12:42:42.178  INFO 6440 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
-2019-12-07 12:42:42.266  INFO 6440 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-12-07 12:42:42.412  INFO 6440 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
-2019-12-07 12:42:42.422  INFO 6440 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
-2019-12-07 12:42:42.461  INFO 6440 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
-2019-12-07 12:42:42.565  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_1
-2019-12-07 12:42:42.566  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_1
-2019-12-07 12:42:42.568  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_1
-2019-12-07 12:42:42.573  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_1
-2019-12-07 12:42:42.575  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryCourseUsingGET_1
-2019-12-07 12:42:42.577  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_1
-2019-12-07 12:42:42.581  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_2
-2019-12-07 12:42:42.583  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_2
-2019-12-07 12:42:42.585  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_2
-2019-12-07 12:42:42.589  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_2
-2019-12-07 12:42:42.591  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryCourseUsingGET_2
-2019-12-07 12:42:42.594  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_2
-2019-12-07 12:42:42.598  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_3
-2019-12-07 12:42:42.599  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_3
-2019-12-07 12:42:42.600  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_3
-2019-12-07 12:42:42.604  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_3
-2019-12-07 12:42:42.608  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_3
-2019-12-07 12:42:42.611  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_4
-2019-12-07 12:42:42.612  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_4
-2019-12-07 12:42:42.614  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_4
-2019-12-07 12:42:42.617  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_4
-2019-12-07 12:42:42.621  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_4
-2019-12-07 12:42:42.623  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: batchSaveUsingPOST_1
-2019-12-07 12:42:42.626  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_5
-2019-12-07 12:42:42.628  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_5
-2019-12-07 12:42:42.629  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_5
-2019-12-07 12:42:42.633  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_5
-2019-12-07 12:42:42.638  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_5
-2019-12-07 12:42:42.641  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_6
-2019-12-07 12:42:42.642  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_6
-2019-12-07 12:42:42.644  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_6
-2019-12-07 12:42:42.646  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_6
-2019-12-07 12:42:42.650  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_6
-2019-12-07 12:42:42.653  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_7
-2019-12-07 12:42:42.654  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_7
-2019-12-07 12:42:42.655  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_7
-2019-12-07 12:42:42.658  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_7
-2019-12-07 12:42:42.662  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_7
-2019-12-07 12:42:42.665  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_8
-2019-12-07 12:42:42.667  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_8
-2019-12-07 12:42:42.668  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_8
-2019-12-07 12:42:42.670  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_8
-2019-12-07 12:42:42.674  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_8
-2019-12-07 12:42:42.678  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_9
-2019-12-07 12:42:42.679  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_9
-2019-12-07 12:42:42.681  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_9
-2019-12-07 12:42:42.684  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_9
-2019-12-07 12:42:42.687  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_9
-2019-12-07 12:42:42.698  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_10
-2019-12-07 12:42:42.699  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_10
-2019-12-07 12:42:42.701  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_10
-2019-12-07 12:42:42.705  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_10
-2019-12-07 12:42:42.708  INFO 6440 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_10
-2019-12-07 12:42:42.736  INFO 6440 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8888 (http) with context path ''
-2019-12-07 12:42:42.738  INFO 6440 --- [main] com.excellent.accreditation.Application  : Started Application in 3.049 seconds (JVM running for 3.595)
-2019-12-07 12:42:43.554  INFO 6440 --- [http-nio-8888-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-12-07 12:42:43.555  INFO 6440 --- [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-12-07 12:42:43.561  INFO 6440 --- [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
-2019-12-07 12:42:48.735  INFO 6440 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
-2019-12-07 12:42:48.735  INFO 6440 --- [http-nio-8888-exec-9] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
-2019-12-07 12:42:51.060  INFO 6440 --- [http-nio-8888-exec-2] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
-2019-12-07 12:42:51.066  INFO 6440 --- [http-nio-8888-exec-10] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:00:09.609  INFO 8688 --- [http-nio-8888-exec-4] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:00:17.853  INFO 8688 --- [http-nio-8888-exec-6] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:00:21.431  INFO 8688 --- [http-nio-8888-exec-7] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:00:22.769  INFO 8688 --- [http-nio-8888-exec-9] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:00:23.767  INFO 8688 --- [http-nio-8888-exec-2] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:00:30.721  INFO 8688 --- [http-nio-8888-exec-5] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:00:37.398  INFO 8688 --- [http-nio-8888-exec-10] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:00:40.532  INFO 8688 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:03:11.361  INFO 8688 --- [http-nio-8888-exec-2] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:03:11.391  INFO 8688 --- [http-nio-8888-exec-5] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:03:16.514  INFO 8688 --- [http-nio-8888-exec-10] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:03:24.962  INFO 8688 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:03:24.963  INFO 8688 --- [http-nio-8888-exec-4] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:03:30.161  INFO 8688 --- [http-nio-8888-exec-6] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 00:03:38.287  INFO 8688 --- [http-nio-8888-exec-7] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:25:13.965  INFO 12756 --- [main] com.excellent.accreditation.Application  : Starting Application on ayxworxfr with PID 12756 (I:\web\project-todo\course-accreditation\target\classes started by 安羽兮 in I:\web\project-todo\course-accreditation)
+2019-12-07 11:25:14.083  INFO 12756 --- [main] com.excellent.accreditation.Application  : No active profile set, falling back to default profiles: default
+2019-12-07 11:25:17.964  INFO 12756 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 11:25:18.294  INFO 12756 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 11:25:18.303  INFO 12756 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$7c07ff78] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 11:25:18.339  INFO 12756 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 11:25:18.357  INFO 12756 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 11:25:18.937  INFO 12756 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2019-12-07 11:25:18.955  INFO 12756 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-07 11:25:18.956  INFO 12756 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-07 11:25:19.153  INFO 12756 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-07 11:25:19.154  INFO 12756 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4907 ms
+2019-12-07 11:25:19.423  INFO 12756 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource detect P6SPY plugin and enabled it
+2019-12-07 11:25:19.446  INFO 12756 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Starting...
+2019-12-07 11:25:20.110  INFO 12756 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Start completed.
+2019-12-07 11:25:20.111  INFO 12756 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource - load a datasource named [primary] success
+2019-12-07 11:25:20.112  INFO 12756 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource initial loaded [1] datasource,primary datasource named [primary]
+2019-12-07 11:25:22.846  INFO 12756 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2019-12-07 11:25:23.039  INFO 12756 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-07 11:25:23.343  INFO 12756 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2019-12-07 11:25:23.370  INFO 12756 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2019-12-07 11:25:23.450  INFO 12756 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2019-12-07 11:25:23.742  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_1
+2019-12-07 11:25:23.744  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_1
+2019-12-07 11:25:23.749  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_1
+2019-12-07 11:25:23.760  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_1
+2019-12-07 11:25:23.768  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryCourseUsingGET_1
+2019-12-07 11:25:23.773  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_1
+2019-12-07 11:25:23.782  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_2
+2019-12-07 11:25:23.786  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_2
+2019-12-07 11:25:23.789  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_2
+2019-12-07 11:25:23.796  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_2
+2019-12-07 11:25:23.804  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_2
+2019-12-07 11:25:23.810  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_3
+2019-12-07 11:25:23.814  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_3
+2019-12-07 11:25:23.817  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_3
+2019-12-07 11:25:23.823  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_3
+2019-12-07 11:25:23.831  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_3
+2019-12-07 11:25:23.834  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: batchSaveUsingPOST_1
+2019-12-07 11:25:23.839  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_4
+2019-12-07 11:25:23.843  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_4
+2019-12-07 11:25:23.845  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_4
+2019-12-07 11:25:23.852  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_4
+2019-12-07 11:25:23.861  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_4
+2019-12-07 11:25:23.869  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_5
+2019-12-07 11:25:23.871  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_5
+2019-12-07 11:25:23.874  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_5
+2019-12-07 11:25:23.881  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_5
+2019-12-07 11:25:23.891  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_5
+2019-12-07 11:25:23.899  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_6
+2019-12-07 11:25:23.902  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_6
+2019-12-07 11:25:23.906  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_6
+2019-12-07 11:25:23.916  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_6
+2019-12-07 11:25:23.923  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_6
+2019-12-07 11:25:23.928  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_7
+2019-12-07 11:25:23.930  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_7
+2019-12-07 11:25:23.932  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_7
+2019-12-07 11:25:23.937  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_7
+2019-12-07 11:25:23.945  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_7
+2019-12-07 11:25:23.959  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_8
+2019-12-07 11:25:23.964  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_8
+2019-12-07 11:25:23.968  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_8
+2019-12-07 11:25:23.982  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_8
+2019-12-07 11:25:23.994  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_8
+2019-12-07 11:25:24.047  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_9
+2019-12-07 11:25:24.053  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_9
+2019-12-07 11:25:24.058  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_9
+2019-12-07 11:25:24.071  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_9
+2019-12-07 11:25:24.082  INFO 12756 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_9
+2019-12-07 11:25:24.155  INFO 12756 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8888 (http) with context path ''
+2019-12-07 11:25:24.160  INFO 12756 --- [main] com.excellent.accreditation.Application  : Started Application in 11.661 seconds (JVM running for 21.1)
+2019-12-07 11:40:57.701  INFO 2848 --- [main] com.excellent.accreditation.Application  : Starting Application on ayxworxfr with PID 2848 (I:\web\project-todo\course-accreditation\target\classes started by 安羽兮 in I:\web\project-todo\course-accreditation)
+2019-12-07 11:40:57.706  INFO 2848 --- [main] com.excellent.accreditation.Application  : No active profile set, falling back to default profiles: default
+2019-12-07 11:41:00.145  INFO 2848 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 11:41:00.330  INFO 2848 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 11:41:00.334  INFO 2848 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$77222292] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 11:41:00.359  INFO 2848 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 11:41:00.382  INFO 2848 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 11:41:00.771  INFO 2848 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2019-12-07 11:41:00.795  INFO 2848 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-07 11:41:00.795  INFO 2848 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-07 11:41:00.936  INFO 2848 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-07 11:41:00.936  INFO 2848 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3111 ms
+2019-12-07 11:41:01.094  INFO 2848 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource detect P6SPY plugin and enabled it
+2019-12-07 11:41:01.103  INFO 2848 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Starting...
+2019-12-07 11:41:01.506  INFO 2848 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Start completed.
+2019-12-07 11:41:01.506  INFO 2848 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource - load a datasource named [primary] success
+2019-12-07 11:41:01.506  INFO 2848 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource initial loaded [1] datasource,primary datasource named [primary]
+2019-12-07 11:41:03.294  INFO 2848 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2019-12-07 11:41:03.458  INFO 2848 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-07 11:41:03.762  INFO 2848 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2019-12-07 11:41:03.793  INFO 2848 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2019-12-07 11:41:03.896  INFO 2848 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2019-12-07 11:41:04.156  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_1
+2019-12-07 11:41:04.158  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_1
+2019-12-07 11:41:04.161  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_1
+2019-12-07 11:41:04.169  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_1
+2019-12-07 11:41:04.176  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryCourseUsingGET_1
+2019-12-07 11:41:04.181  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_1
+2019-12-07 11:41:04.198  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_2
+2019-12-07 11:41:04.208  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_2
+2019-12-07 11:41:04.211  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_2
+2019-12-07 11:41:04.230  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_2
+2019-12-07 11:41:04.251  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_2
+2019-12-07 11:41:04.262  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_3
+2019-12-07 11:41:04.264  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_3
+2019-12-07 11:41:04.268  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_3
+2019-12-07 11:41:04.276  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_3
+2019-12-07 11:41:04.283  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_3
+2019-12-07 11:41:04.286  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: batchSaveUsingPOST_1
+2019-12-07 11:41:04.292  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_4
+2019-12-07 11:41:04.295  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_4
+2019-12-07 11:41:04.297  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_4
+2019-12-07 11:41:04.304  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_4
+2019-12-07 11:41:04.312  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_4
+2019-12-07 11:41:04.318  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_5
+2019-12-07 11:41:04.320  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_5
+2019-12-07 11:41:04.323  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_5
+2019-12-07 11:41:04.329  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_5
+2019-12-07 11:41:04.336  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_5
+2019-12-07 11:41:04.342  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_6
+2019-12-07 11:41:04.344  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_6
+2019-12-07 11:41:04.346  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_6
+2019-12-07 11:41:04.355  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_6
+2019-12-07 11:41:04.363  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_6
+2019-12-07 11:41:04.384  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_7
+2019-12-07 11:41:04.388  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_7
+2019-12-07 11:41:04.397  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_7
+2019-12-07 11:41:04.410  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_7
+2019-12-07 11:41:04.423  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_7
+2019-12-07 11:41:04.441  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_8
+2019-12-07 11:41:04.445  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_8
+2019-12-07 11:41:04.447  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_8
+2019-12-07 11:41:04.464  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_8
+2019-12-07 11:41:04.474  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_8
+2019-12-07 11:41:04.498  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_9
+2019-12-07 11:41:04.500  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_9
+2019-12-07 11:41:04.502  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_9
+2019-12-07 11:41:04.509  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_9
+2019-12-07 11:41:04.517  INFO 2848 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_9
+2019-12-07 11:41:04.576  INFO 2848 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8888 (http) with context path ''
+2019-12-07 11:41:04.581  INFO 2848 --- [main] com.excellent.accreditation.Application  : Started Application in 8.421 seconds (JVM running for 10.494)
+2019-12-07 11:42:58.675  INFO 2848 --- [http-nio-8888-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-07 11:42:58.678  INFO 2848 --- [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-12-07 11:42:58.722  INFO 2848 --- [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 43 ms
+2019-12-07 11:43:44.968  INFO 2848 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:43:44.968  INFO 2848 --- [http-nio-8888-exec-2] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:43:44.968  INFO 2848 --- [http-nio-8888-exec-1] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:43:50.562  INFO 2848 --- [http-nio-8888-exec-5] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:44:03.185  INFO 2848 --- [http-nio-8888-exec-7] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:44:03.185  INFO 2848 --- [http-nio-8888-exec-8] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:44:03.213  INFO 2848 --- [http-nio-8888-exec-9] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:44:07.622  INFO 2848 --- [http-nio-8888-exec-1] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:44:13.431  INFO 2848 --- [http-nio-8888-exec-2] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:44:14.641  INFO 2848 --- [http-nio-8888-exec-4] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:45:13.313  INFO 2848 --- [http-nio-8888-exec-7] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:45:13.317  INFO 2848 --- [http-nio-8888-exec-9] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:45:13.317  INFO 2848 --- [http-nio-8888-exec-10] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:45:23.995  INFO 2848 --- [http-nio-8888-exec-1] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:46:01.084  INFO 2848 --- [http-nio-8888-exec-2] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:46:01.089  INFO 2848 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:46:01.091  INFO 2848 --- [http-nio-8888-exec-4] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:46:05.221  INFO 2848 --- [http-nio-8888-exec-5] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:52:35.698  INFO 2848 --- [http-nio-8888-exec-7] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:52:35.699  INFO 2848 --- [http-nio-8888-exec-10] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:52:35.719  INFO 2848 --- [http-nio-8888-exec-1] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:52:39.236  INFO 2848 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:52:41.740  INFO 2848 --- [http-nio-8888-exec-4] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:52:43.876  INFO 2848 --- [http-nio-8888-exec-2] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:52:46.146  INFO 2848 --- [http-nio-8888-exec-5] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:52:46.976  INFO 2848 --- [http-nio-8888-exec-6] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:52:49.032  INFO 2848 --- [http-nio-8888-exec-9] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:52:49.791  INFO 2848 --- [http-nio-8888-exec-7] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:52:52.363  INFO 2848 --- [http-nio-8888-exec-1] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:52:54.311  INFO 2848 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:52:57.593  INFO 2848 --- [http-nio-8888-exec-4] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:53:19.721  INFO 2848 --- [http-nio-8888-exec-10] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:53:19.754  INFO 2848 --- [http-nio-8888-exec-7] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:53:21.796  INFO 2848 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:53:24.330  INFO 2848 --- [http-nio-8888-exec-4] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:53:26.139  INFO 2848 --- [http-nio-8888-exec-5] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:53:27.277  INFO 2848 --- [http-nio-8888-exec-6] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:53:29.399  INFO 2848 --- [http-nio-8888-exec-9] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:53:31.868  INFO 2848 --- [http-nio-8888-exec-10] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:54:07.526  INFO 2848 --- [http-nio-8888-exec-2] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:54:07.527  INFO 2848 --- [http-nio-8888-exec-6] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:54:07.529  INFO 2848 --- [http-nio-8888-exec-5] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:54:09.943  INFO 2848 --- [http-nio-8888-exec-9] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:55:24.994  INFO 2848 --- [http-nio-8888-exec-1] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:55:24.995  INFO 2848 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 11:55:25.000  INFO 2848 --- [http-nio-8888-exec-5] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:01:14.676  INFO 2848 --- [http-nio-8888-exec-6] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/course/2], URI: [/v1/course/2], Request Method: [DELETE], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:15:09.917  INFO 14184 --- [main] com.excellent.accreditation.Application  : Starting Application on ayxworxfr with PID 14184 (I:\web\project-todo\course-accreditation\target\classes started by 安羽兮 in I:\web\project-todo\course-accreditation)
+2019-12-07 12:15:09.935  INFO 14184 --- [main] com.excellent.accreditation.Application  : No active profile set, falling back to default profiles: default
+2019-12-07 12:15:13.200  INFO 14184 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 12:15:13.624  INFO 14184 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 12:15:13.631  INFO 14184 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$cbc63495] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 12:15:13.668  INFO 14184 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 12:15:13.679  INFO 14184 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 12:15:14.558  INFO 14184 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2019-12-07 12:15:14.585  INFO 14184 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-07 12:15:14.588  INFO 14184 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-07 12:15:14.803  INFO 14184 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-07 12:15:14.803  INFO 14184 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4724 ms
+2019-12-07 12:15:15.072  INFO 14184 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource detect P6SPY plugin and enabled it
+2019-12-07 12:15:15.091  INFO 14184 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Starting...
+2019-12-07 12:15:15.659  INFO 14184 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Start completed.
+2019-12-07 12:15:15.659  INFO 14184 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource - load a datasource named [primary] success
+2019-12-07 12:15:15.659  INFO 14184 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource initial loaded [1] datasource,primary datasource named [primary]
+2019-12-07 12:15:18.961  INFO 14184 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2019-12-07 12:15:19.156  INFO 14184 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-07 12:15:19.484  INFO 14184 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2019-12-07 12:15:19.524  INFO 14184 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2019-12-07 12:15:19.624  INFO 14184 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2019-12-07 12:15:19.983  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_1
+2019-12-07 12:15:19.986  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_1
+2019-12-07 12:15:19.989  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_1
+2019-12-07 12:15:19.997  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_1
+2019-12-07 12:15:20.005  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryCourseUsingGET_1
+2019-12-07 12:15:20.008  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_1
+2019-12-07 12:15:20.021  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_2
+2019-12-07 12:15:20.024  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_2
+2019-12-07 12:15:20.026  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_2
+2019-12-07 12:15:20.038  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_2
+2019-12-07 12:15:20.046  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_2
+2019-12-07 12:15:20.053  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_3
+2019-12-07 12:15:20.057  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_3
+2019-12-07 12:15:20.060  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_3
+2019-12-07 12:15:20.069  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_3
+2019-12-07 12:15:20.076  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_3
+2019-12-07 12:15:20.080  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: batchSaveUsingPOST_1
+2019-12-07 12:15:20.084  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_4
+2019-12-07 12:15:20.086  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_4
+2019-12-07 12:15:20.088  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_4
+2019-12-07 12:15:20.095  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_4
+2019-12-07 12:15:20.102  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_4
+2019-12-07 12:15:20.109  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_5
+2019-12-07 12:15:20.111  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_5
+2019-12-07 12:15:20.113  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_5
+2019-12-07 12:15:20.120  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_5
+2019-12-07 12:15:20.129  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_5
+2019-12-07 12:15:20.135  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_6
+2019-12-07 12:15:20.137  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_6
+2019-12-07 12:15:20.140  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_6
+2019-12-07 12:15:20.147  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_6
+2019-12-07 12:15:20.153  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_6
+2019-12-07 12:15:20.158  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_7
+2019-12-07 12:15:20.161  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_7
+2019-12-07 12:15:20.163  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_7
+2019-12-07 12:15:20.169  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_7
+2019-12-07 12:15:20.177  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_7
+2019-12-07 12:15:20.185  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_8
+2019-12-07 12:15:20.188  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_8
+2019-12-07 12:15:20.191  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_8
+2019-12-07 12:15:20.206  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_8
+2019-12-07 12:15:20.213  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_8
+2019-12-07 12:15:20.235  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_9
+2019-12-07 12:15:20.237  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_9
+2019-12-07 12:15:20.239  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_9
+2019-12-07 12:15:20.247  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_9
+2019-12-07 12:15:20.256  INFO 14184 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_9
+2019-12-07 12:15:20.339  INFO 14184 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8888 (http) with context path ''
+2019-12-07 12:15:20.345  INFO 14184 --- [main] com.excellent.accreditation.Application  : Started Application in 12.102 seconds (JVM running for 14.062)
+2019-12-07 12:18:17.940  INFO 14184 --- [http-nio-8888-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-07 12:18:17.940  INFO 14184 --- [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-12-07 12:18:17.954  INFO 14184 --- [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 14 ms
+2019-12-07 12:18:27.033  INFO 14184 --- [http-nio-8888-exec-4] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:18:27.033  INFO 14184 --- [http-nio-8888-exec-7] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:18:27.033  INFO 14184 --- [http-nio-8888-exec-6] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:18:28.351  INFO 14184 --- [http-nio-8888-exec-8] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:18:36.256  INFO 14184 --- [http-nio-8888-exec-2] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:19:14.578  INFO 14184 --- [http-nio-8888-exec-5] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:19:14.583  INFO 14184 --- [http-nio-8888-exec-7] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:19:14.586  INFO 14184 --- [http-nio-8888-exec-4] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:19:19.299  INFO 14184 --- [http-nio-8888-exec-6] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:19:21.851  INFO 14184 --- [http-nio-8888-exec-8] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:19:26.970  INFO 14184 --- [http-nio-8888-exec-1] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:19:26.973  INFO 14184 --- [http-nio-8888-exec-9] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:19:27.028  INFO 14184 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:19:32.572  INFO 14184 --- [http-nio-8888-exec-2] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:19:38.741  INFO 14184 --- [http-nio-8888-exec-7] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:19:40.239  INFO 14184 --- [http-nio-8888-exec-5] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:19:50.248  INFO 14184 --- [http-nio-8888-exec-4] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:32:59.983  INFO 14184 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:32:59.983  INFO 14184 --- [http-nio-8888-exec-2] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:33:01.307  INFO 14184 --- [http-nio-8888-exec-5] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:33:03.425  INFO 14184 --- [http-nio-8888-exec-6] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:33:05.569  INFO 14184 --- [http-nio-8888-exec-8] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:33:06.716  INFO 14184 --- [http-nio-8888-exec-1] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:33:08.444  INFO 14184 --- [http-nio-8888-exec-9] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:33:09.963  INFO 14184 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:33:13.128  INFO 14184 --- [http-nio-8888-exec-7] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:33:14.514  INFO 14184 --- [http-nio-8888-exec-5] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:33:15.783  INFO 14184 --- [http-nio-8888-exec-4] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:33:17.557  INFO 14184 --- [http-nio-8888-exec-8] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:33:19.051  INFO 14184 --- [http-nio-8888-exec-1] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:36:18.291  INFO 14184 --- [http-nio-8888-exec-5] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:36:18.293  INFO 14184 --- [http-nio-8888-exec-4] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:36:19.365  INFO 14184 --- [http-nio-8888-exec-6] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:36:20.264  INFO 14184 --- [http-nio-8888-exec-8] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:36:21.785  INFO 14184 --- [http-nio-8888-exec-10] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:36:23.091  INFO 14184 --- [http-nio-8888-exec-1] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:36:24.181  INFO 14184 --- [http-nio-8888-exec-9] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:36:25.628  INFO 14184 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:36:28.072  INFO 14184 --- [http-nio-8888-exec-7] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:38:29.863  INFO 14184 --- [http-nio-8888-exec-10] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:38:29.868  INFO 14184 --- [http-nio-8888-exec-1] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:41:09.425  INFO 14184 --- [http-nio-8888-exec-8] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:41:09.426  INFO 14184 --- [http-nio-8888-exec-6] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 12:51:20.741  INFO 10096 --- [main] com.excellent.accreditation.Application  : Starting Application on ayxworxfr with PID 10096 (I:\web\project-todo\course-accreditation\target\classes started by 安羽兮 in I:\web\project-todo\course-accreditation)
+2019-12-07 12:51:20.747  INFO 10096 --- [main] com.excellent.accreditation.Application  : No active profile set, falling back to default profiles: default
+2019-12-07 12:51:22.580  INFO 10096 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 12:51:22.753  INFO 10096 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 12:51:22.758  INFO 10096 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$1be58a8a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 12:51:22.779  INFO 10096 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 12:51:22.790  INFO 10096 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 12:51:23.160  INFO 10096 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2019-12-07 12:51:23.172  INFO 10096 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-07 12:51:23.172  INFO 10096 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-07 12:51:23.297  INFO 10096 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-07 12:51:23.298  INFO 10096 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2417 ms
+2019-12-07 12:51:23.513  INFO 10096 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource detect P6SPY plugin and enabled it
+2019-12-07 12:51:23.537  INFO 10096 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Starting...
+2019-12-07 12:51:23.909  INFO 10096 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Start completed.
+2019-12-07 12:51:23.910  INFO 10096 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource - load a datasource named [primary] success
+2019-12-07 12:51:23.910  INFO 10096 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource initial loaded [1] datasource,primary datasource named [primary]
+2019-12-07 12:51:25.954  INFO 10096 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2019-12-07 12:51:26.186  INFO 10096 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-07 12:51:26.637  INFO 10096 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2019-12-07 12:51:26.669  INFO 10096 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2019-12-07 12:51:26.768  INFO 10096 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2019-12-07 12:51:27.188  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_1
+2019-12-07 12:51:27.190  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_1
+2019-12-07 12:51:27.193  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_1
+2019-12-07 12:51:27.202  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_1
+2019-12-07 12:51:27.207  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryCourseUsingGET_1
+2019-12-07 12:51:27.211  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_1
+2019-12-07 12:51:27.219  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_2
+2019-12-07 12:51:27.222  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_2
+2019-12-07 12:51:27.224  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_2
+2019-12-07 12:51:27.232  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_2
+2019-12-07 12:51:27.240  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_2
+2019-12-07 12:51:27.245  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_3
+2019-12-07 12:51:27.251  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_3
+2019-12-07 12:51:27.254  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_3
+2019-12-07 12:51:27.262  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_3
+2019-12-07 12:51:27.271  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_3
+2019-12-07 12:51:27.274  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: batchSaveUsingPOST_1
+2019-12-07 12:51:27.280  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_4
+2019-12-07 12:51:27.285  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_4
+2019-12-07 12:51:27.289  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_4
+2019-12-07 12:51:27.298  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_4
+2019-12-07 12:51:27.307  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_4
+2019-12-07 12:51:27.315  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_5
+2019-12-07 12:51:27.317  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_5
+2019-12-07 12:51:27.319  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_5
+2019-12-07 12:51:27.326  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_5
+2019-12-07 12:51:27.341  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_5
+2019-12-07 12:51:27.349  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_6
+2019-12-07 12:51:27.352  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_6
+2019-12-07 12:51:27.355  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_6
+2019-12-07 12:51:27.363  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_6
+2019-12-07 12:51:27.373  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_6
+2019-12-07 12:51:27.380  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_7
+2019-12-07 12:51:27.383  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_7
+2019-12-07 12:51:27.385  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_7
+2019-12-07 12:51:27.391  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_7
+2019-12-07 12:51:27.440  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_7
+2019-12-07 12:51:27.506  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_8
+2019-12-07 12:51:27.511  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_8
+2019-12-07 12:51:27.517  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_8
+2019-12-07 12:51:27.535  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_8
+2019-12-07 12:51:27.547  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_8
+2019-12-07 12:51:27.578  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_9
+2019-12-07 12:51:27.582  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_9
+2019-12-07 12:51:27.584  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_9
+2019-12-07 12:51:27.594  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_9
+2019-12-07 12:51:27.614  INFO 10096 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_9
+2019-12-07 12:51:27.705  INFO 10096 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8888 (http) with context path ''
+2019-12-07 12:51:27.711  INFO 10096 --- [main] com.excellent.accreditation.Application  : Started Application in 8.222 seconds (JVM running for 10.064)
+2019-12-07 12:51:32.329  INFO 10096 --- [http-nio-8888-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-07 12:51:32.330  INFO 10096 --- [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-12-07 12:51:32.343  INFO 10096 --- [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 13 ms
+2019-12-07 13:02:13.295  INFO 10096 --- [http-nio-8888-exec-3] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/major/list], URI: [/v1/major/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 13:02:13.295  INFO 10096 --- [http-nio-8888-exec-4] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 13:02:15.233  INFO 10096 --- [http-nio-8888-exec-6] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 13:02:17.477  INFO 10096 --- [http-nio-8888-exec-8] c.e.a.common.aop.PermissionAspect        : Request URL: [http://localhost:8888/v1/student/list], URI: [/v1/student/list], Request Method: [GET], IP: [0:0:0:0:0:0:0:1]
+2019-12-07 13:58:22.921  INFO 8944 --- [main] com.excellent.accreditation.Application  : Starting Application on ayxworxfr with PID 8944 (I:\web\project-todo\course-accreditation\target\classes started by 安羽兮 in I:\web\project-todo\course-accreditation)
+2019-12-07 13:58:22.935  INFO 8944 --- [main] com.excellent.accreditation.Application  : No active profile set, falling back to default profiles: default
+2019-12-07 13:58:26.437  INFO 8944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 13:58:26.614  INFO 8944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 13:58:26.618  INFO 8944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$572e0b9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 13:58:26.635  INFO 8944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 13:58:26.642  INFO 8944 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 13:58:27.096  INFO 8944 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2019-12-07 13:58:27.112  INFO 8944 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-07 13:58:27.113  INFO 8944 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-07 13:58:27.281  INFO 8944 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-07 13:58:27.281  INFO 8944 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4195 ms
+2019-12-07 13:58:27.466  INFO 8944 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource detect P6SPY plugin and enabled it
+2019-12-07 13:58:27.480  INFO 8944 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Starting...
+2019-12-07 13:58:27.771  INFO 8944 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Start completed.
+2019-12-07 13:58:27.771  INFO 8944 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource - load a datasource named [primary] success
+2019-12-07 13:58:27.771  INFO 8944 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource initial loaded [1] datasource,primary datasource named [primary]
+2019-12-07 13:58:30.957  INFO 8944 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2019-12-07 13:58:31.137  INFO 8944 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-07 13:58:31.420  INFO 8944 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2019-12-07 13:58:31.446  INFO 8944 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2019-12-07 13:58:31.536  INFO 8944 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2019-12-07 13:58:31.806  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_1
+2019-12-07 13:58:31.811  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_1
+2019-12-07 13:58:31.816  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_1
+2019-12-07 13:58:31.826  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_1
+2019-12-07 13:58:31.833  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryCourseUsingGET_1
+2019-12-07 13:58:31.837  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_1
+2019-12-07 13:58:31.847  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_2
+2019-12-07 13:58:31.851  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_2
+2019-12-07 13:58:31.855  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_2
+2019-12-07 13:58:31.863  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_2
+2019-12-07 13:58:31.871  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_2
+2019-12-07 13:58:31.879  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_3
+2019-12-07 13:58:31.883  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_3
+2019-12-07 13:58:31.886  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_3
+2019-12-07 13:58:31.892  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_3
+2019-12-07 13:58:31.903  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_3
+2019-12-07 13:58:31.906  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: batchSaveUsingPOST_1
+2019-12-07 13:58:31.910  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_4
+2019-12-07 13:58:31.913  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_4
+2019-12-07 13:58:31.917  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_4
+2019-12-07 13:58:31.927  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_4
+2019-12-07 13:58:31.934  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_4
+2019-12-07 13:58:31.942  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_5
+2019-12-07 13:58:31.946  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_5
+2019-12-07 13:58:31.949  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_5
+2019-12-07 13:58:31.962  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_5
+2019-12-07 13:58:31.974  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_5
+2019-12-07 13:58:31.984  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_6
+2019-12-07 13:58:31.987  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_6
+2019-12-07 13:58:31.989  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_6
+2019-12-07 13:58:31.997  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_6
+2019-12-07 13:58:32.005  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_6
+2019-12-07 13:58:32.014  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_7
+2019-12-07 13:58:32.031  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_7
+2019-12-07 13:58:32.034  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_7
+2019-12-07 13:58:32.041  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_7
+2019-12-07 13:58:32.051  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_7
+2019-12-07 13:58:32.059  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_8
+2019-12-07 13:58:32.061  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_8
+2019-12-07 13:58:32.063  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_8
+2019-12-07 13:58:32.075  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_8
+2019-12-07 13:58:32.087  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_8
+2019-12-07 13:58:32.122  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_9
+2019-12-07 13:58:32.125  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_9
+2019-12-07 13:58:32.129  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_9
+2019-12-07 13:58:32.143  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_9
+2019-12-07 13:58:32.151  INFO 8944 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_9
+2019-12-07 13:58:32.207  INFO 8944 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8888 (http) with context path ''
+2019-12-07 13:58:32.212  INFO 8944 --- [main] com.excellent.accreditation.Application  : Started Application in 10.224 seconds (JVM running for 13.644)
+2019-12-07 13:59:04.873  INFO 8944 --- [http-nio-8888-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-07 13:59:04.873  INFO 8944 --- [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-12-07 13:59:04.890  INFO 8944 --- [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 16 ms
+2019-12-07 14:28:16.767  INFO 8920 --- [main] com.excellent.accreditation.Application  : Starting Application on ayxworxfr with PID 8920 (I:\web\project-todo\course-accreditation\target\classes started by 安羽兮 in I:\web\project-todo\course-accreditation)
+2019-12-07 14:28:16.774  INFO 8920 --- [main] com.excellent.accreditation.Application  : No active profile set, falling back to default profiles: default
+2019-12-07 14:28:18.262  INFO 8920 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 14:28:18.365  INFO 8920 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 14:28:18.369  INFO 8920 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$da9b95e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 14:28:18.383  INFO 8920 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 14:28:18.387  INFO 8920 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 14:28:18.687  INFO 8920 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2019-12-07 14:28:18.696  INFO 8920 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-07 14:28:18.697  INFO 8920 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-07 14:28:18.796  INFO 8920 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-07 14:28:18.796  INFO 8920 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1906 ms
+2019-12-07 14:28:18.917  INFO 8920 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource detect P6SPY plugin and enabled it
+2019-12-07 14:28:18.925  INFO 8920 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Starting...
+2019-12-07 14:28:19.051  INFO 8920 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Start completed.
+2019-12-07 14:28:19.051  INFO 8920 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource - load a datasource named [primary] success
+2019-12-07 14:28:19.051  INFO 8920 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource initial loaded [1] datasource,primary datasource named [primary]
+2019-12-07 14:28:20.686  INFO 8920 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2019-12-07 14:28:20.820  INFO 8920 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-07 14:28:20.999  INFO 8920 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2019-12-07 14:28:21.014  INFO 8920 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2019-12-07 14:28:21.064  INFO 8920 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2019-12-07 14:28:21.250  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_1
+2019-12-07 14:28:21.253  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_1
+2019-12-07 14:28:21.256  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_1
+2019-12-07 14:28:21.268  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_1
+2019-12-07 14:28:21.273  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryCourseUsingGET_1
+2019-12-07 14:28:21.276  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_1
+2019-12-07 14:28:21.281  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_2
+2019-12-07 14:28:21.283  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_2
+2019-12-07 14:28:21.286  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_2
+2019-12-07 14:28:21.292  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_2
+2019-12-07 14:28:21.298  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_2
+2019-12-07 14:28:21.304  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_3
+2019-12-07 14:28:21.307  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_3
+2019-12-07 14:28:21.309  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_3
+2019-12-07 14:28:21.315  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_3
+2019-12-07 14:28:21.322  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_3
+2019-12-07 14:28:21.325  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: batchSaveUsingPOST_1
+2019-12-07 14:28:21.330  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_4
+2019-12-07 14:28:21.333  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_4
+2019-12-07 14:28:21.335  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_4
+2019-12-07 14:28:21.342  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_4
+2019-12-07 14:28:21.350  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_4
+2019-12-07 14:28:21.354  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_5
+2019-12-07 14:28:21.356  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_5
+2019-12-07 14:28:21.359  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_5
+2019-12-07 14:28:21.364  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_5
+2019-12-07 14:28:21.371  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_5
+2019-12-07 14:28:21.375  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_6
+2019-12-07 14:28:21.377  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_6
+2019-12-07 14:28:21.380  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_6
+2019-12-07 14:28:21.386  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_6
+2019-12-07 14:28:21.392  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_6
+2019-12-07 14:28:21.398  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_7
+2019-12-07 14:28:21.400  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_7
+2019-12-07 14:28:21.403  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_7
+2019-12-07 14:28:21.408  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_7
+2019-12-07 14:28:21.414  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_7
+2019-12-07 14:28:21.419  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_8
+2019-12-07 14:28:21.421  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_8
+2019-12-07 14:28:21.423  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_8
+2019-12-07 14:28:21.429  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_8
+2019-12-07 14:28:21.435  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_8
+2019-12-07 14:28:21.452  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_9
+2019-12-07 14:28:21.454  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_9
+2019-12-07 14:28:21.456  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_9
+2019-12-07 14:28:21.480  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_9
+2019-12-07 14:28:21.494  INFO 8920 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_9
+2019-12-07 14:28:21.545  INFO 8920 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8888 (http) with context path ''
+2019-12-07 14:28:21.549  INFO 8920 --- [main] com.excellent.accreditation.Application  : Started Application in 5.741 seconds (JVM running for 6.98)
+2019-12-07 15:12:27.830  INFO 5764 --- [main] com.excellent.accreditation.Application  : Starting Application on ayxworxfr with PID 5764 (I:\web\project-todo\course-accreditation\target\classes started by 安羽兮 in I:\web\project-todo\course-accreditation)
+2019-12-07 15:12:27.838  INFO 5764 --- [main] com.excellent.accreditation.Application  : No active profile set, falling back to default profiles: default
+2019-12-07 15:12:29.459  INFO 5764 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:12:29.605  INFO 5764 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:12:29.610  INFO 5764 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$610f0b1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:12:29.627  INFO 5764 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:12:29.633  INFO 5764 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:12:29.979  INFO 5764 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2019-12-07 15:12:29.990  INFO 5764 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-07 15:12:29.991  INFO 5764 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-07 15:12:30.109  INFO 5764 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-07 15:12:30.109  INFO 5764 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2184 ms
+2019-12-07 15:12:30.210  WARN 5764 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'permissionAspect': Unsatisfied dependency expressed through field 'userManage'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userManage' defined in class path resource [com/excellent/accreditation/config/WebConfig.class]: Unsatisfied dependency expressed through method 'userManage' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'roleServiceImpl' defined in file [I:\web\project-todo\course-accreditation\target\classes\com\excellent\accreditation\service\impl\RoleServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'userManage': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2019-12-07 15:12:30.214  INFO 5764 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2019-12-07 15:12:30.235  INFO 5764 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-12-07 15:12:30.239 ERROR 5764 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+   permissionAspect (field com.excellent.accreditation.manage.UserManage com.excellent.accreditation.common.aop.PermissionAspect.userManage)
+┌─────┐
+|  userManage defined in class path resource [com/excellent/accreditation/config/WebConfig.class]
+↑     ↓
+|  roleServiceImpl defined in file [I:\web\project-todo\course-accreditation\target\classes\com\excellent\accreditation\service\impl\RoleServiceImpl.class]
+└─────┘
+
+
+2019-12-07 15:14:26.071  INFO 236 --- [main] com.excellent.accreditation.Application  : Starting Application on ayxworxfr with PID 236 (I:\web\project-todo\course-accreditation\target\classes started by 安羽兮 in I:\web\project-todo\course-accreditation)
+2019-12-07 15:14:26.076  INFO 236 --- [main] com.excellent.accreditation.Application  : No active profile set, falling back to default profiles: default
+2019-12-07 15:14:28.021  INFO 236 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:14:28.183  INFO 236 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:14:28.187  INFO 236 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$5307f5f1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:14:28.204  INFO 236 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:14:28.211  INFO 236 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:14:28.542  INFO 236 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2019-12-07 15:14:28.560  INFO 236 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-07 15:14:28.560  INFO 236 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-07 15:14:28.712  INFO 236 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-07 15:14:28.712  INFO 236 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2546 ms
+2019-12-07 15:14:28.856  WARN 236 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'permissionAspect': Unsatisfied dependency expressed through field 'userManage'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userManage' defined in class path resource [com/excellent/accreditation/config/WebConfig.class]: Unsatisfied dependency expressed through method 'userManage' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'roleServiceImpl' defined in file [I:\web\project-todo\course-accreditation\target\classes\com\excellent\accreditation\service\impl\RoleServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'userManage': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2019-12-07 15:14:28.860  INFO 236 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2019-12-07 15:14:28.883  INFO 236 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-12-07 15:14:28.887 ERROR 236 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+   permissionAspect (field com.excellent.accreditation.manage.UserManage com.excellent.accreditation.common.aop.PermissionAspect.userManage)
+┌─────┐
+|  userManage defined in class path resource [com/excellent/accreditation/config/WebConfig.class]
+↑     ↓
+|  roleServiceImpl defined in file [I:\web\project-todo\course-accreditation\target\classes\com\excellent\accreditation\service\impl\RoleServiceImpl.class]
+└─────┘
+
+
+2019-12-07 15:19:31.428  INFO 10128 --- [main] com.excellent.accreditation.Application  : Starting Application on ayxworxfr with PID 10128 (I:\web\project-todo\course-accreditation\target\classes started by 安羽兮 in I:\web\project-todo\course-accreditation)
+2019-12-07 15:19:31.434  INFO 10128 --- [main] com.excellent.accreditation.Application  : No active profile set, falling back to default profiles: default
+2019-12-07 15:19:33.101  INFO 10128 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:19:33.239  INFO 10128 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:19:33.243  INFO 10128 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$270b7a0a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:19:33.258  INFO 10128 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:19:33.265  INFO 10128 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-12-07 15:19:33.596  INFO 10128 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2019-12-07 15:19:33.613  INFO 10128 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-07 15:19:33.613  INFO 10128 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.27]
+2019-12-07 15:19:33.744  INFO 10128 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-07 15:19:33.744  INFO 10128 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2199 ms
+2019-12-07 15:19:33.896  INFO 10128 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource detect P6SPY plugin and enabled it
+2019-12-07 15:19:33.909  INFO 10128 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Starting...
+2019-12-07 15:19:34.134  INFO 10128 --- [main] com.zaxxer.hikari.HikariDataSource       : primary - Start completed.
+2019-12-07 15:19:34.135  INFO 10128 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource - load a datasource named [primary] success
+2019-12-07 15:19:34.135  INFO 10128 --- [main] c.b.d.d.DynamicRoutingDataSource         : dynamic-datasource initial loaded [1] datasource,primary datasource named [primary]
+2019-12-07 15:19:35.840  INFO 10128 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2019-12-07 15:19:35.999  INFO 10128 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-07 15:19:36.215  INFO 10128 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2019-12-07 15:19:36.236  INFO 10128 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2019-12-07 15:19:36.305  INFO 10128 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2019-12-07 15:19:36.530  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_1
+2019-12-07 15:19:36.532  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_1
+2019-12-07 15:19:36.536  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_1
+2019-12-07 15:19:36.543  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_1
+2019-12-07 15:19:36.549  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryCourseUsingGET_1
+2019-12-07 15:19:36.552  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_1
+2019-12-07 15:19:36.558  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_2
+2019-12-07 15:19:36.560  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_2
+2019-12-07 15:19:36.563  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_2
+2019-12-07 15:19:36.569  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_2
+2019-12-07 15:19:36.577  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_2
+2019-12-07 15:19:36.583  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_3
+2019-12-07 15:19:36.585  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_3
+2019-12-07 15:19:36.588  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_3
+2019-12-07 15:19:36.596  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_3
+2019-12-07 15:19:36.604  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_3
+2019-12-07 15:19:36.607  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: batchSaveUsingPOST_1
+2019-12-07 15:19:36.611  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_4
+2019-12-07 15:19:36.615  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_4
+2019-12-07 15:19:36.618  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_4
+2019-12-07 15:19:36.624  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_4
+2019-12-07 15:19:36.631  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_4
+2019-12-07 15:19:36.637  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_5
+2019-12-07 15:19:36.639  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_5
+2019-12-07 15:19:36.641  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_5
+2019-12-07 15:19:36.647  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_5
+2019-12-07 15:19:36.655  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_5
+2019-12-07 15:19:36.660  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_6
+2019-12-07 15:19:36.662  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_6
+2019-12-07 15:19:36.665  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_6
+2019-12-07 15:19:36.671  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_6
+2019-12-07 15:19:36.678  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_6
+2019-12-07 15:19:36.683  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_7
+2019-12-07 15:19:36.685  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_7
+2019-12-07 15:19:36.687  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_7
+2019-12-07 15:19:36.693  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_7
+2019-12-07 15:19:36.699  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_7
+2019-12-07 15:19:36.703  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_8
+2019-12-07 15:19:36.705  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_8
+2019-12-07 15:19:36.708  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_8
+2019-12-07 15:19:36.712  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_8
+2019-12-07 15:19:36.718  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_8
+2019-12-07 15:19:36.724  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_9
+2019-12-07 15:19:36.726  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_9
+2019-12-07 15:19:36.728  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_9
+2019-12-07 15:19:36.737  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_9
+2019-12-07 15:19:36.748  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_9
+2019-12-07 15:19:36.787  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: createUsingPOST_10
+2019-12-07 15:19:36.790  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdUsingDELETE_10
+2019-12-07 15:19:36.794  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: deleteByIdsUsingDELETE_10
+2019-12-07 15:19:36.815  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: queryUsingGET_10
+2019-12-07 15:19:36.823  INFO 10128 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: updateByIdUsingPUT_10
+2019-12-07 15:19:36.877  INFO 10128 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8888 (http) with context path ''
+2019-12-07 15:19:36.881  INFO 10128 --- [main] com.excellent.accreditation.Application  : Started Application in 6.866 seconds (JVM running for 8.636)
+

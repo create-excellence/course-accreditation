@@ -43,6 +43,17 @@ public class SystemController {
         return ServerResponse.createByErrorMessage("登录失败");
     }
 
+    @PostMapping("getUserInfo")
+    @ApiOperation("获取用户信息")
+    public ServerResponse getUserInfo() {
+        UserVo userVo = userManage.getUserInfo();
+        // 操作成功
+        if (userVo != null)
+            return ServerResponse.createBySuccessMessage("用户信息获取成功", userVo);
+
+        return ServerResponse.createByErrorMessage("用户信息获取失败");
+    }
+
     @PostMapping("register")
     @ApiOperation("注册")
     @ApiImplicitParams({

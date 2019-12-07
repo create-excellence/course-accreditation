@@ -3,6 +3,7 @@ package com.excellent.accreditation.config;
 
 import com.excellent.accreditation.config.properties.SwaggerProperties;
 import com.excellent.accreditation.manage.UserManage;
+import com.excellent.accreditation.service.IRoleService;
 import com.excellent.accreditation.service.IStudentService;
 import com.excellent.accreditation.service.ITeacherService;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -34,9 +35,10 @@ public class WebConfig {
     private WebProperties properties;
 
     @Bean
-    public UserManage userManage(IStudentService studentService,
+    public UserManage userManage(IRoleService roleService,
+                                 IStudentService studentService,
                                  ITeacherService teacherService) {
-        return new UserManage(studentService, teacherService);
+        return new UserManage(roleService, studentService, teacherService);
     }
 
     @Bean
