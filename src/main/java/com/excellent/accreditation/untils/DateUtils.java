@@ -5,10 +5,11 @@ import org.springframework.util.Assert;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -30,6 +31,12 @@ public class DateUtils {
     }
 
     @NonNull
+    public static LocalDate formatExcelDate(Integer days) {
+        Calendar c = new GregorianCalendar(1900,0,-1);
+        return date2LocalDate(org.apache.commons.lang3.time.DateUtils.addDays(c.getTime(), days));
+    }
+
+    @NonNull
     public static String formatFullTime(LocalDateTime localDateTime, String pattern) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
         return localDateTime.format(dateTimeFormatter);
@@ -40,6 +47,13 @@ public class DateUtils {
         SimpleDateFormat simformat = new SimpleDateFormat(dateFormatType);
         return simformat.format(date);
     }
+
+    public static LocalDate date2LocalDate(Date date) {
+        Instant instant = date.toInstant();
+        ZonedDateTime zdt = instant.atZone(ZoneId.systemDefault());
+        return zdt.toLocalDate();
+    }
+
 
     @NonNull
     public static String formatCSTTime(String date, String format) throws ParseException {

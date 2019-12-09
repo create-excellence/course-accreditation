@@ -16,5 +16,5 @@ import javax.validation.constraints.Size;
 public class SemesterQuery extends BasePage {
 
     @Size(max = 25, message = "学期的字符长度不能超过 {max}")
-    private String semester;
+    private String name;
 }

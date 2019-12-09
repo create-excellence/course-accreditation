@@ -3,20 +3,30 @@ package com.excellent.accreditation.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.excellent.accreditation.common.domain.Const;
+import com.excellent.accreditation.common.domain.ExcelResult;
 import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
+import com.excellent.accreditation.common.exception.ExcelException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.SemesterMapper;
 import com.excellent.accreditation.model.entity.Semester;
 import com.excellent.accreditation.model.form.SemesterQuery;
 import com.excellent.accreditation.service.ISemesterService;
+import com.excellent.accreditation.untils.DateUtils;
+import com.excellent.accreditation.untils.EmptyCheckUtils;
+import com.excellent.accreditation.untils.ExcelUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author evildoer
@@ -41,19 +51,18 @@ public class SemesterServiceImpl extends ServiceImpl<SemesterMapper, Semester> i
         boolean result = this.save(semester);
         // 操作成功
         if (result)
-            return result;
+            return true;
         throw new DatabaseException("未知异常, 数据库操作失败");
     }
 
     @Override
     public PageInfo<Semester> pageByQuery(SemesterQuery query) {
         LambdaQueryWrapper<Semester> queryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotEmpty(query.getSemester()))
-            queryWrapper.like(Semester::getName, query.getSemester());
+        if (StringUtils.isNotEmpty(query.getName()))
+            queryWrapper.like(Semester::getName, query.getName());
         PageHelper.startPage(query.getPage(), query.getPageSize());
         List<Semester> list = this.list(queryWrapper);
-        PageInfo<Semester> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        return new PageInfo<>(list);
     }
 
     @Override
@@ -61,5 +70,32 @@ public class SemesterServiceImpl extends ServiceImpl<SemesterMapper, Semester> i
         if (this.getById(semester) == null) {
             throw new ConflictException("学期不存在");
         }
+    }
+
+    @Override
+    public List<ExcelResult> saveBachByExcel(MultipartFile file) {
+        List<Map<Integer, String>> list= ExcelUtils.readExcelGetList(file);
+        List<ExcelResult> excelResults = new ArrayList<>();
+        list.forEach(data -> {
+            ExcelResult excelResult = new ExcelResult();
+            try {
+                EmptyCheckUtils.checkExcelMapAndSetNo(data,excelResult, 2);
+                String name = data.get(1);
+                LocalDate startTime = DateUtils.formatExcelDate(Integer.parseInt(data.get(2)));
+                Semester semester = new Semester();
+                semester.setName(name);
+                semester.setStartTime(startTime);
+                if (this.create(semester)) {
+                    excelResult.setStatus(Const.SUCCESS_INCREASE);
+                    excelResult.setMessage("添加成功");
+                }
+            } catch (NumberFormatException e) {
+                excelResult.setMessage("无法将部分字段转为数字类型");
+            } catch (UniqueException | ExcelException | DatabaseException e) {
+                excelResult.setMessage(e.getMessage());
+            }
+            excelResults.add(excelResult);
+        });
+        return excelResults;
     }
 }
