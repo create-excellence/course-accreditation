@@ -78,7 +78,7 @@ public class TeacherController {
      **/
     @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除教师")
-    public ServerResponse deleteByIds(@NonNull Collection<Integer> ids) {
+    public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = teacherService.removeByIds(ids);
         if (result)
             return ServerResponse.createBySuccess("教师批量删除成功");

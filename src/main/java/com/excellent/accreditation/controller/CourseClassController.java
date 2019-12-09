@@ -81,7 +81,7 @@ public class CourseClassController {
     @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除开课班级")
     @Permission
-    public ServerResponse deleteByIds(@NonNull Collection<Integer> ids) {
+    public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = courseClassService.removeByIds(ids);
         if (result)
             return ServerResponse.createBySuccess("课程批量删除成功");

@@ -78,7 +78,7 @@ public class GraduationPointController {
     @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除指标点")
     @Permission
-    public ServerResponse deleteByIds(@NonNull Collection<Integer> ids) {
+    public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = graduationPointService.removeByIds(ids);
         if (result)
             return ServerResponse.createBySuccess("指标点批量删除成功");

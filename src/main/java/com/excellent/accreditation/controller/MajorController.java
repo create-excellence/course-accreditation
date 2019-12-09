@@ -78,7 +78,7 @@ public class MajorController {
     @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除专业")
     @Permission
-    public ServerResponse deleteByIds(@NonNull Collection<Integer> ids) {
+    public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = majorService.removeByIds(ids);
         if (result)
             return ServerResponse.createBySuccess("专业批量删除成功");

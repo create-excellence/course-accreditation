@@ -78,7 +78,7 @@ public class SelfEvaluationController {
     @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除评价")
     @Permission
-    public ServerResponse deleteByIds(@NonNull Collection<Integer> ids) {
+    public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = selfEvaluationService.removeByIds(ids);
         if (result)
             return ServerResponse.createBySuccess("评价批量删除成功");

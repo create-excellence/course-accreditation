@@ -82,7 +82,7 @@ public class StudentController {
     @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除学生")
     @Permission
-    public ServerResponse deleteByIds(@NonNull Collection<Integer> ids) {
+    public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = studentService.removeByIds(ids);
         if (result)
             return ServerResponse.createBySuccess("学生批量删除成功");

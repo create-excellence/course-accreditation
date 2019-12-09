@@ -78,7 +78,7 @@ public class SemesterController {
     @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除学期")
     @Permission
-    public ServerResponse deleteByIds(@NonNull Collection<Integer> ids) {
+    public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = semesterService.removeByIds(ids);
         if (result)
             return ServerResponse.createBySuccess("学期批量删除成功");
