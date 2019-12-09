@@ -100,6 +100,7 @@ public class MajorController {
                                      @RequestBody Major major) {
         major.setId(id);
         major.setUpdateTime(LocalDateTime.now());
+        majorService.checkCode(major.getCode(),id);
         boolean result = majorService.updateById(major);
         if (result)
             return ServerResponse.createBySuccess("专业更新成功");
