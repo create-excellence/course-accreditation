@@ -34,10 +34,11 @@ import java.util.Map;
 public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements IMajorService {
 
     @Override
-    public void checkCode(String code) {
+    public void checkCode(String code,Integer majorId) {
         LambdaQueryWrapper<Major> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Major::getCode, code);
-        if (this.getOne(queryWrapper) != null) {
+        Major major=this.getOne(queryWrapper);
+        if ( major!= null&&!major.getId().equals(majorId)) {
             throw new UniqueException("专业代码已存在");
         }
     }
@@ -63,7 +64,7 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
 
     @Override
     public boolean create(Major major) {
-        this.checkCode(major.getCode());                  // 专业代码必须唯一
+        this.checkCode(major.getCode(),null);                  // 专业代码必须唯一
         major.setCreateTime(LocalDateTime.now());
         major.setUpdateTime(LocalDateTime.now());
         boolean result = this.save(major);
@@ -83,19 +84,16 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
                 EmptyCheckUtils.checkExcelMapAndSetNo(data,excelResult, 2);
                 String name = data.get(1);
                 String code = data.get(2);
-                this.checkCode(code);
                 Major major = new Major();
                 major.setCode(code);
                 major.setName(name);
-                major.setCreateTime(LocalDateTime.now());
-                major.setUpdateTime(LocalDateTime.now());
-                if (super.save(major)) {
+                if (this.create(major)) {
                     excelResult.setStatus(Const.SUCCESS_INCREASE);
                     excelResult.setMessage("添加成功");
                 }
             } catch (NumberFormatException e) {
                 excelResult.setMessage("无法将部分字段转为数字类型");
-            } catch (UniqueException | ExcelException e) {
+            } catch (UniqueException | ExcelException | DatabaseException e) {
                 excelResult.setMessage(e.getMessage());
             }
             excelResults.add(excelResult);

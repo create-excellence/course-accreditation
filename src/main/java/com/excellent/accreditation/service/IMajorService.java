@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IMajorService extends IService<Major> {
 
-    void checkCode(String code);
+    void checkCode(String code,Integer majorId);
 
     void checkMajor(Integer majorId);
 

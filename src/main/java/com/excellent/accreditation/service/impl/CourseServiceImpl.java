@@ -65,17 +65,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 String code = data.get(2);
                 Double credit = Double.parseDouble(data.get(3));
                 String nature = data.get(4);
-                this.checkCode(code,null);
                 Course course = new Course(name, code, credit, nature);
-                course.setUpdateTime(LocalDateTime.now());
-                course.setCreateTime(LocalDateTime.now());
-                if (super.save(course)) {
+                if (this.create(course)) {
                     excelResult.setStatus(Const.SUCCESS_INCREASE);
                     excelResult.setMessage("添加成功");
                 }
             } catch (NumberFormatException e) {
                 excelResult.setMessage("无法将部分字段转为数字类型");
-            } catch (UniqueException | ExcelException e) {
+            } catch (UniqueException | ExcelException | DatabaseException e) {
                 excelResult.setMessage(e.getMessage());
             }
             excelResults.add(excelResult);
