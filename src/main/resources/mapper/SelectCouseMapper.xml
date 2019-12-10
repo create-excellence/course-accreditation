@@ -16,4 +16,30 @@
         id, course_class_id, student_id, create_time, update_time
     </sql>
 
+    <select id="pageByQuery" resultType="com.excellent.accreditation.model.vo.SelectCourseVo">
+        SELECT stu.`name` student, t.`name` teacher, c.`name` course, s.`name` semester, stu.sno ,cc.*
+        FROM select_couse sc, course_class cc, student stu,teacher t, course c, semester s
+        WHERE
+        sc.course_class_id = cc.id and cc.course_id = c.id and cc.teacher_id = t.id and sc.student_id = stu.id and cc.semester_id = s.id
+        <if test="student != null" >
+            and stu.`name` like "%"#{student,jdbcType=VARCHAR} "%"
+        </if>
+        <if test="teacher != null" >
+            and t.`name`like "%" #{teacher,jdbcType=VARCHAR}"%"
+        </if>
+        <if test="semester != null" >
+            and s.`name` like "%" #{semester,jdbcType=VARCHAR}"%"
+        </if>
+        <if test="course != null" >
+            and c.`name` like "%" #{course,jdbcType=VARCHAR}"%"
+        </if>
+    </select>
+    <select id="selectCourseId" resultType="com.excellent.accreditation.model.vo.SelectCourseVo">
+        SELECT stu.`name` student, t.`name` teacher, c.`name` course, s.`name` semester, stu.sno ,cc.*
+        FROM select_couse sc, course_class cc, student stu,teacher t, course c, semester s
+        WHERE
+        sc.course_class_id = cc.id and cc.course_id = c.id and cc.teacher_id = t.id and sc.student_id = stu.id and cc.semester_id = s.id
+            and sc.id  = #{id,jdbcType=INTEGER}
+    </select>
+
 </mapper>
