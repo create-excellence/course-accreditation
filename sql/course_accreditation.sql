@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : root
+ Source Server         : local
  Source Server Type    : MySQL
- Source Server Version : 50725
+ Source Server Version : 50723
  Source Host           : localhost:3306
  Source Schema         : course_accreditation
 
  Target Server Type    : MySQL
- Target Server Version : 50725
+ Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 07/12/2019 15:38:28
+ Date: 11/12/2019 20:58:18
 */
 
 SET NAMES utf8mb4;
@@ -30,7 +30,57 @@ CREATE TABLE `course`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 236 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of course
+-- ----------------------------
+INSERT INTO `course` VALUES (190, 'XT043', '测试课程43', 43.0, '选修17', '2019-12-09 17:29:22', '2019-12-09 17:29:22');
+INSERT INTO `course` VALUES (191, 'XT044', '测试课程44', 44.0, '选修18', '2019-12-09 17:29:22', '2019-12-09 17:29:22');
+INSERT INTO `course` VALUES (192, 'XT045', '测试课程45', 45.0, '选修19', '2019-12-09 17:29:22', '2019-12-09 17:29:22');
+INSERT INTO `course` VALUES (193, 'XT046', '测试课程46', 46.0, '选修20', '2019-12-09 17:29:22', '2019-12-09 17:29:22');
+INSERT INTO `course` VALUES (194, 'XT047', '测试课程47', 47.0, '选修21', '2019-12-09 17:29:22', '2019-12-09 17:29:22');
+INSERT INTO `course` VALUES (195, 'XT048', '测试课程48', 48.0, '选修22', '2019-12-09 17:29:22', '2019-12-09 17:29:22');
+INSERT INTO `course` VALUES (196, 'XT002', '测试课程2', 2.0, '必修2', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (197, 'XT003', '测试课程3', 3.0, '必修3', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (198, 'XT005', '测试课程5', 5.0, '必修5', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (199, 'XT006', '测试课程6', 6.0, '必修6', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (200, 'XT007', '测试课程7', 7.0, '必修7', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (201, 'XT008', '测试课程8', 8.0, '必修8', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (202, 'XT009', '测试课程9', 9.0, '必修9', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (203, 'XT010', '测试课程10', 10.0, '必修10', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (204, 'XT011', '测试课程11', 11.0, '必修11', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (205, 'XT012', '测试课程12', 12.0, '必修12', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (206, 'XT013', '测试课程13', 13.0, '必修13', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (207, 'XT014', '测试课程14', 14.0, '必修14', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (208, 'XT015', '测试课程15', 15.0, '必修15', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (209, 'XT016', '测试课程16', 16.0, '必修16', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (210, 'XT017', '测试课程17', 17.0, '必修17', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (211, 'XT018', '测试课程18', 18.0, '必修18', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (212, 'XT019', '测试课程19', 19.0, '必修19', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (213, 'XT020', '测试课程20', 20.0, '必修20', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (214, 'XT021', '测试课程21', 21.0, '必修21', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (215, 'XT022', '测试课程22', 22.0, '必修22', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (216, 'XT023', '测试课程23', 23.0, '必修23', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (217, 'XT024', '测试课程24', 24.0, '必修24', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (218, 'XT025', '测试课程25', 25.0, '必修25', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (219, 'XT026', '测试课程26', 26.0, '必修26', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (220, 'XT027', '测试课程27', 27.0, '选修1', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (221, 'XT028', '测试课程28', 28.0, '选修2', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (222, 'XT029', '测试课程29', 29.0, '选修3', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (223, 'XT030', '测试课程30', 30.0, '选修4', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (224, 'XT031', '测试课程31', 31.0, '选修5', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (225, 'XT032', '测试课程32', 32.0, '选修6', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (226, 'XT033', '测试课程33', 33.0, '选修7', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (227, 'XT034', '测试课程34', 34.0, '选修8', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (228, 'XT035', '测试课程35', 35.0, '选修9', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (229, 'XT036', '测试课程36', 36.0, '选修10', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (230, 'XT037', '测试课程37', 37.0, '选修11', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (231, 'XT038', '测试课程38', 38.0, '选修12', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (232, 'XT039', '测试课程39', 39.0, '选修13', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (233, 'XT040', '测试课程40', 40.0, '选修14', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (234, 'XT041', '测试课程41', 41.0, '选修15', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
+INSERT INTO `course` VALUES (235, 'XT042', '测试课程42', 42.0, '选修16', '2019-12-09 17:32:17', '2019-12-09 17:32:17');
 
 -- ----------------------------
 -- Table structure for course_class
@@ -122,7 +172,26 @@ CREATE TABLE `major`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of major
+-- ----------------------------
+INSERT INTO `major` VALUES (1, '迭代测试专业1', 'ATX001', '2019-12-09 13:20:56', '2019-12-09 13:22:50');
+INSERT INTO `major` VALUES (2, 'test测试专业2', 'ATX002', '2019-12-09 13:20:56', '2019-12-09 13:22:55');
+INSERT INTO `major` VALUES (14, '测试专业14', 'ATX014', '2019-12-09 13:20:56', '2019-12-09 13:20:56');
+INSERT INTO `major` VALUES (15, '测试专业15', 'ATX015', '2019-12-09 13:20:56', '2019-12-09 13:20:56');
+INSERT INTO `major` VALUES (16, '测试专业16', 'ATX016', '2019-12-09 13:20:56', '2019-12-09 13:20:56');
+INSERT INTO `major` VALUES (17, '测试专业17', 'ATX017', '2019-12-09 13:20:56', '2019-12-09 13:20:56');
+INSERT INTO `major` VALUES (18, '测试专业18', 'ATX018', '2019-12-09 13:20:56', '2019-12-09 13:20:56');
+INSERT INTO `major` VALUES (19, '测试专业19', 'ATX019', '2019-12-09 13:20:56', '2019-12-09 13:20:56');
+INSERT INTO `major` VALUES (20, '测试专业20', 'ATX020', '2019-12-09 13:20:56', '2019-12-09 13:20:56');
+INSERT INTO `major` VALUES (21, '测试专业21', 'ATX021', '2019-12-09 13:20:56', '2019-12-09 13:20:56');
+INSERT INTO `major` VALUES (22, '测试专业22', 'ATX022', '2019-12-09 13:20:56', '2019-12-09 13:20:56');
+INSERT INTO `major` VALUES (23, '测试专业23', 'ATX023', '2019-12-09 13:20:56', '2019-12-09 13:20:56');
+INSERT INTO `major` VALUES (24, '测试专业24', 'ATX024', '2019-12-09 13:20:56', '2019-12-09 13:20:56');
+INSERT INTO `major` VALUES (25, '测试专业25', 'ATX025', '2019-12-09 13:20:56', '2019-12-09 13:20:56');
+INSERT INTO `major` VALUES (26, '测试专业26', 'ATX026', '2019-12-09 13:20:56', '2019-12-09 13:20:56');
 
 -- ----------------------------
 -- Table structure for questionnaire
@@ -139,7 +208,7 @@ CREATE TABLE `questionnaire`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `课程班级`(`course_class_id`) USING BTREE,
   CONSTRAINT `课程班级` FOREIGN KEY (`course_class_id`) REFERENCES `course_class` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for role
@@ -208,7 +277,41 @@ CREATE TABLE `semester`  (
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of semester
+-- ----------------------------
+INSERT INTO `semester` VALUES (32, '2019秋-2020春', '2019-09-03', '2019-12-09 17:52:15', '2019-12-09 17:52:15');
+INSERT INTO `semester` VALUES (33, '2019秋-2021春', '2019-09-04', '2019-12-09 17:52:18', '2019-12-09 17:52:18');
+INSERT INTO `semester` VALUES (34, '2019秋-2022春', '2019-09-05', '2019-12-09 17:52:18', '2019-12-09 17:52:18');
+INSERT INTO `semester` VALUES (35, '2019秋-2023春', '2019-09-06', '2019-12-09 17:52:19', '2019-12-09 17:52:19');
+INSERT INTO `semester` VALUES (36, '2019秋-2024春', '2019-09-07', '2019-12-09 17:52:19', '2019-12-09 17:52:19');
+INSERT INTO `semester` VALUES (37, '2019秋-2025春', '2019-09-08', '2019-12-09 17:52:20', '2019-12-09 17:52:20');
+INSERT INTO `semester` VALUES (38, '2019秋-2026春', '2019-09-09', '2019-12-09 17:52:20', '2019-12-09 17:52:20');
+INSERT INTO `semester` VALUES (39, '2019秋-2027春', '2019-09-10', '2019-12-09 17:52:21', '2019-12-09 17:52:21');
+INSERT INTO `semester` VALUES (40, '2019秋-2028春', '2019-09-11', '2019-12-09 17:52:23', '2019-12-09 17:52:23');
+INSERT INTO `semester` VALUES (41, '2019秋-2029春', '2019-09-12', '2019-12-09 17:52:24', '2019-12-09 17:52:24');
+INSERT INTO `semester` VALUES (42, '2019秋-2030春', '2019-09-13', '2019-12-09 17:52:24', '2019-12-09 17:52:24');
+INSERT INTO `semester` VALUES (43, '2019秋-2031春', '2019-09-14', '2019-12-09 17:52:24', '2019-12-09 17:52:24');
+INSERT INTO `semester` VALUES (44, '2019秋-2032春', '2019-09-15', '2019-12-09 17:52:24', '2019-12-09 17:52:24');
+INSERT INTO `semester` VALUES (45, '2019秋-2033春', '2019-09-16', '2019-12-09 17:52:25', '2019-12-09 17:52:25');
+INSERT INTO `semester` VALUES (46, '2019秋-2034春', '2019-09-17', '2019-12-09 17:52:25', '2019-12-09 17:52:25');
+INSERT INTO `semester` VALUES (47, '2019秋-2035春', '2019-09-18', '2019-12-09 17:52:25', '2019-12-09 17:52:25');
+INSERT INTO `semester` VALUES (48, '2019秋-2036春', '2019-09-19', '2019-12-09 17:52:25', '2019-12-09 17:52:25');
+INSERT INTO `semester` VALUES (49, '2019秋-2037春', '2019-09-20', '2019-12-09 17:52:26', '2019-12-09 17:52:26');
+INSERT INTO `semester` VALUES (50, '2019秋-2038春', '2019-09-21', '2019-12-09 17:52:26', '2019-12-09 17:52:26');
+INSERT INTO `semester` VALUES (51, '2019秋-2039春', '2019-09-22', '2019-12-09 17:52:26', '2019-12-09 17:52:26');
+INSERT INTO `semester` VALUES (52, '2019秋-2040春', '2019-09-23', '2019-12-09 17:52:26', '2019-12-09 17:52:26');
+INSERT INTO `semester` VALUES (53, '2019秋-2041春', '2019-09-24', '2019-12-09 17:52:26', '2019-12-09 17:52:26');
+INSERT INTO `semester` VALUES (54, '2019秋-2042春', '2019-09-25', '2019-12-09 17:52:26', '2019-12-09 17:52:26');
+INSERT INTO `semester` VALUES (55, '2019秋-2043春', '2019-09-26', '2019-12-09 17:52:27', '2019-12-09 17:52:27');
+INSERT INTO `semester` VALUES (56, '2019秋-2044春', '2019-09-27', '2019-12-09 17:52:27', '2019-12-09 17:52:27');
+INSERT INTO `semester` VALUES (57, '2019秋-2045春', '2019-09-28', '2019-12-09 17:52:29', '2019-12-09 17:52:29');
+INSERT INTO `semester` VALUES (58, '2019秋-2046春', '2019-09-29', '2019-12-09 17:52:29', '2019-12-09 17:52:29');
+INSERT INTO `semester` VALUES (59, '2019秋-2047春', '2019-09-30', '2019-12-09 17:52:29', '2019-12-09 17:52:29');
+INSERT INTO `semester` VALUES (60, '2019秋-2048春', '2019-10-01', '2019-12-09 17:52:29', '2019-12-09 17:52:29');
+INSERT INTO `semester` VALUES (61, '2019秋-2049春', '2019-10-02', '2019-12-09 17:52:29', '2019-12-09 17:52:29');
 
 -- ----------------------------
 -- Table structure for student
@@ -230,7 +333,12 @@ CREATE TABLE `student`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `major_id`(`major_id`) USING BTREE,
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`major_id`) REFERENCES `major` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of student
+-- ----------------------------
+INSERT INTO `student` VALUES (2, '123', '123456', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for supporting_course
@@ -239,6 +347,7 @@ DROP TABLE IF EXISTS `supporting_course`;
 CREATE TABLE `supporting_course`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `graduation_point_id` int(11) NULL DEFAULT NULL,
+  `weight` double(11, 2) NULL DEFAULT NULL,
   `course_id` int(11) NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
@@ -269,11 +378,6 @@ CREATE TABLE `teacher`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   `login_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of teacher
--- ----------------------------
-INSERT INTO `teacher` VALUES (2, '123', '123456', NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL);
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 SET FOREIGN_KEY_CHECKS = 1;

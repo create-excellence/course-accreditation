@@ -25,6 +25,8 @@ public class SupportingCourse extends BaseEntity {
     private Integer graduationPointId;
     @ApiModelProperty("课程Id")
     private Integer courseId;
+    @ApiModelProperty("权重")
+    private Double weight;
 
 
 }

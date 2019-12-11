@@ -6,14 +6,34 @@
     <resultMap id="BaseResultMap" type="com.excellent.accreditation.model.entity.SupportingCourse">
         <id column="id" property="id"/>
         <result column="graduation_point_id" property="graduationPointId"/>
-        <result column="couse_id" property="couseId"/>
+        <result column="course_id" property="courseId"/>
+        <result column="weight" property="weight"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, graduation_point_id, couse_id, create_time, update_time
+        id, graduation_point_id, couse_id,weight, create_time, update_time
     </sql>
 
+    <select id="pageByQuery" resultType="com.excellent.accreditation.model.vo.SupportingCourseVo">
+        SELECT gp.`content` graduationPointContent,gp.no graduationPointNo,c.`name` courseName,c.code courseCode,sc.*
+        FROM supporting_course sc, graduation_point gp, course c
+        WHERE
+        sc.course_id = c.id and sc.graduation_point_id = gp.id
+        <if test="graduationPoint != null" >
+            and gp.`content` like "%"#{graduationPoint,jdbcType=VARCHAR} "%"
+        </if>
+        <if test="course != null" >
+            and c.`name` like "%" #{course,jdbcType=VARCHAR}"%"
+        </if>
+    </select>
+
+    <select id="getVoById" resultType="com.excellent.accreditation.model.vo.SupportingCourseVo">
+        SELECT gp.`content` graduationPointContent,gp.no graduationPointNo,c.`name` courseName,c.code courseCode,sc.*
+        FROM supporting_course sc, graduation_point gp, course c
+        WHERE
+        sc.course_id = c.id and sc.graduation_point_id = gp.id and sc.id =#{id}
+    </select>
 </mapper>
