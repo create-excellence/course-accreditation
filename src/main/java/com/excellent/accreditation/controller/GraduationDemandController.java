@@ -5,6 +5,7 @@ import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.GraduationDemand;
 import com.excellent.accreditation.model.form.GraduationDemandQuery;
+import com.excellent.accreditation.model.vo.GraduationDemandVo;
 import com.excellent.accreditation.service.IGraduationDemandService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
@@ -136,7 +137,7 @@ public class GraduationDemandController {
     @ApiOperation("分页查询毕业要求")
     @Permission
     public ServerResponse queryGraduationDemand(GraduationDemandQuery graduationDemandQuery) {
-        PageInfo<GraduationDemand> list = graduationDemandService.pageByQuery(graduationDemandQuery);
+        PageInfo<GraduationDemandVo> list = graduationDemandService.pageByQuery(graduationDemandQuery);
         if (list != null)
             return ServerResponse.createBySuccess(list);
 

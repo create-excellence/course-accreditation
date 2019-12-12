@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 public class StudentVo extends Student {
 
-    String major;
+    private String major;
 
     public static StudentVo convert(Student student) {
         StudentVo studentVo = new StudentVo();

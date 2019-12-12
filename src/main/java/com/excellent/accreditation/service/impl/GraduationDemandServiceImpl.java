@@ -1,7 +1,6 @@
 package com.excellent.accreditation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
@@ -9,6 +8,7 @@ import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.GraduationDemandMapper;
 import com.excellent.accreditation.model.entity.GraduationDemand;
 import com.excellent.accreditation.model.form.GraduationDemandQuery;
+import com.excellent.accreditation.model.vo.GraduationDemandVo;
 import com.excellent.accreditation.service.IGraduationDemandService;
 import com.excellent.accreditation.service.IMajorService;
 import com.github.pagehelper.PageHelper;
@@ -25,9 +25,13 @@ import java.util.List;
 @Service
 public class GraduationDemandServiceImpl extends ServiceImpl<GraduationDemandMapper, GraduationDemand> implements IGraduationDemandService {
 
+    private final GraduationDemandMapper graduationDemandMapper;
+
     private final IMajorService majorService;
 
-    public GraduationDemandServiceImpl(IMajorService majorService) {
+    public GraduationDemandServiceImpl(GraduationDemandMapper graduationDemandMapper,
+                                       IMajorService majorService) {
+        this.graduationDemandMapper = graduationDemandMapper;
         this.majorService = majorService;
     }
 
@@ -61,15 +65,9 @@ public class GraduationDemandServiceImpl extends ServiceImpl<GraduationDemandMap
     }
 
     @Override
-    public PageInfo<GraduationDemand> pageByQuery(GraduationDemandQuery query) {
-        LambdaQueryWrapper<GraduationDemand> queryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotEmpty(query.getNo()))
-            queryWrapper.like(GraduationDemand::getNo, query.getNo());
-        if (StringUtils.isNotEmpty(query.getContent()))
-            queryWrapper.like(GraduationDemand::getContent, query.getContent());
+    public PageInfo<GraduationDemandVo> pageByQuery(GraduationDemandQuery query) {
         PageHelper.startPage(query.getPage(), query.getPageSize());
-        List<GraduationDemand> list = this.list(queryWrapper);
-        PageInfo<GraduationDemand> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        List<GraduationDemandVo> list = graduationDemandMapper.pageByQuery(query.getMajor(), query.getNo());
+        return new PageInfo<>(list);
     }
 }

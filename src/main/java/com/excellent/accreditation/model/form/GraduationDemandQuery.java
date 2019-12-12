@@ -18,6 +18,9 @@ public class GraduationDemandQuery extends BasePage {
     @Size(max = 25, message = "毕业要求编号的字符长度不能超过 {max}")
     private String no;
 
-    @Size(max = 255, message = "毕业要求内容的字符长度不能超过 {max}")
-    private String content;
+    @Size(max = 25, message = "专业的字符长度不能超过 {max}")
+    private String major;
+
+//    @Size(max = 255, message = "毕业要求内容的字符长度不能超过 {max}")
+//    private String content;
 }

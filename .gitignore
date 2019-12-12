@@ -33,4 +33,4 @@ build/
 
 ### Log ###
 log/
-spy.log
+*.log

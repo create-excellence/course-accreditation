@@ -16,5 +16,25 @@
     <sql id="Base_Column_List">
         id, major_id, no, content, create_time, update_time
     </sql>
-
+    <select id="pageByQuery" resultType="com.excellent.accreditation.model.vo.GraduationDemandVo">
+        SELECT
+        graduation_demand.id,
+        graduation_demand.major_id,
+        graduation_demand.`no`,
+        graduation_demand.content,
+        graduation_demand.create_time,
+        graduation_demand.update_time,
+        major.`name` AS major
+        FROM
+        graduation_demand
+        INNER JOIN major ON graduation_demand.major_id = major.id
+        <where>
+            <if test="major != null and major != ''">
+                and major.`name` like "%" #{major,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="no != null and no != ''">
+                and graduation_demand.`no` like "%" #{no,jdbcType=VARCHAR}"%"
+            </if>
+        </where>
+    </select>
 </mapper>
