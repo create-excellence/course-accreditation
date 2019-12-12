@@ -102,7 +102,7 @@ public class CourseController {
                                      @RequestBody Course course) {
         course.setId(id);
         course.setUpdateTime(LocalDateTime.now());
-        courseService.checkCode(course.getCode(),course.getId());
+        courseService.checkCode(course.getCode(), course.getId());
         boolean result = courseService.updateById(course);
         if (result)
             return ServerResponse.createBySuccess("课程更新成功");
@@ -137,7 +137,7 @@ public class CourseController {
      **/
     @GetMapping("/list")
     @ApiOperation("分页查询课程")
-//    @Permission
+    @Permission
     public ServerResponse queryCourse(CourseQuery courseQuery) {
         PageInfo<Course> list = courseService.pageByQuery(courseQuery);
         if (list != null)

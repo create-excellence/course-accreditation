@@ -30,3 +30,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Log ###
+log/
+spy.log
