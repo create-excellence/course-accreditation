@@ -8,15 +8,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
-*@author pu
-*@data 2019/12/10
-*description:
-*/
+ * @author pu
+ * @data 2019/12/10
+ * description:
+ */
 @Repository
 public interface SelectCourseMapper extends BaseMapper<SelectCourse> {
 
-    List<SelectCourseVo> pageByQuery (String student,String teacher,String semester,String course);
+    List<SelectCourseVo> pageByQuery(String student, String teacher, String semester, String course);
 
-    SelectCourseVo selectCourseId(Integer id);
-
+    SelectCourseVo querySelectCourseById(Integer id);
 }

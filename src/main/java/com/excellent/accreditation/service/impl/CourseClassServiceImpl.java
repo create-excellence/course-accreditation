@@ -1,16 +1,15 @@
 package com.excellent.accreditation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ExcelResult;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.CourseClassMapper;
-import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.model.entity.CourseClass;
 import com.excellent.accreditation.model.form.CourseClassQuery;
+import com.excellent.accreditation.model.vo.CourseClassVo;
 import com.excellent.accreditation.service.ICourseClassService;
 import com.excellent.accreditation.service.ICourseService;
 import com.excellent.accreditation.service.ISemesterService;
@@ -30,6 +29,8 @@ import java.util.List;
 @Service
 public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, CourseClass> implements ICourseClassService {
 
+    private final CourseClassMapper courseClassMapper;
+
     private final ITeacherService teacherService;
 
     private final ISemesterService semesterService;
@@ -37,7 +38,8 @@ public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, Cours
     private final ICourseService courseService;
 
     @Autowired
-    public CourseClassServiceImpl(ITeacherService teacherService,ISemesterService semesterService, ICourseService courseService) {
+    public CourseClassServiceImpl(CourseClassMapper courseClassMapper, ITeacherService teacherService, ISemesterService semesterService, ICourseService courseService) {
+        this.courseClassMapper = courseClassMapper;
         this.teacherService = teacherService;
         this.semesterService = semesterService;
         this.courseService = courseService;
@@ -45,10 +47,10 @@ public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, Cours
 
 
     @Override
-    public void checkNo(String no,Integer courseClassId) {
+    public void checkNo(String no, Integer courseClassId) {
         LambdaQueryWrapper<CourseClass> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(CourseClass::getNo, no);
-        CourseClass courseClass =super.getOne(queryWrapper);
+        CourseClass courseClass = super.getOne(queryWrapper);
         if (courseClass != null && !courseClass.getCourseId().equals(courseClassId)) {
             // 如果code已存在还要检查是否当前更新的是否为同一条记录,若不同则抛出异常
             throw new UniqueException("课程编号不能重复");
@@ -56,27 +58,26 @@ public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, Cours
     }
 
     @Override
-    public PageInfo<CourseClass> pageByQuery(CourseClassQuery query) {
-        LambdaQueryWrapper<CourseClass> queryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotEmpty(query.getNo()))
-            queryWrapper.like(CourseClass::getNo, query.getNo());
+    public PageInfo<CourseClassVo> pageByQuery(CourseClassQuery query) {
         PageHelper.startPage(query.getPage(), query.getPageSize());
-        List<CourseClass> list = this.list(queryWrapper);
+        List<CourseClassVo> list = courseClassMapper.pageByQuery(query.getCourse(), query.getTeacher(), query.getSemester());
         return new PageInfo<>(list);
     }
 
     @Override
     public boolean create(CourseClass courseClass) {
-        this.check(courseClass,Const.CREATE);
-        courseClass.setCreateTime(LocalDateTime.now());
+        this.check(courseClass, Const.CREATE);
         courseClass.setUpdateTime(LocalDateTime.now());
-        if (this.save(courseClass)){
+        courseClass.setCreateTime(LocalDateTime.now());
+        if (this.save(courseClass)) {
             return true;
         }
         throw new DatabaseException("未知异常, 数据库操作失败");
     }
 
-
+    public CourseClassVo queryCourseClassById(Integer id) {
+        return courseClassMapper.queryCourseClassById(id);
+    }
 
     @Override
     public List<ExcelResult> saveBachByExcel(MultipartFile file) {
@@ -84,17 +85,17 @@ public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, Cours
     }
 
     @Override
-    public void check (CourseClass courseClass,Integer type){
-        if(type.equals(Const.CREATE)||courseClass.getNo()!=null){
-            this.checkNo(courseClass.getNo(),courseClass.getId());
+    public void check(CourseClass courseClass, Integer type) {
+        if (type.equals(Const.CREATE) || courseClass.getNo() != null) {
+            this.checkNo(courseClass.getNo(), courseClass.getId());
         }
-        if(type.equals(Const.CREATE)||courseClass.getTeacherId()!=null){
+        if (type.equals(Const.CREATE) || courseClass.getTeacherId() != null) {
             teacherService.checkTeacher(courseClass.getTeacherId());
         }
-        if(type.equals(Const.CREATE)||courseClass.getSemesterId()!=null){
+        if (type.equals(Const.CREATE) || courseClass.getSemesterId() != null) {
             semesterService.checkSemester(courseClass.getSemesterId());
         }
-        if(type.equals(Const.CREATE)||courseClass.getCourseId()!=null){
+        if (type.equals(Const.CREATE) || courseClass.getCourseId() != null) {
             courseService.checkCourse(courseClass.getCourseId());
         }
 

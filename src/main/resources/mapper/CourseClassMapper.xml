@@ -21,4 +21,60 @@
         id, no, semester_id, course_id, teacher_id, start_week, end_week, status, create_time, update_time
     </sql>
 
+    <select id="pageByQuery" resultType="com.excellent.accreditation.model.vo.CourseClassVo">
+        SELECT
+        s.`name` AS semester,
+        c.`name` AS course,
+        t.`name` AS teacher,
+        course_class.id,
+        course_class.`no`,
+        course_class.semester_id,
+        course_class.course_id,
+        course_class.teacher_id,
+        course_class.start_week,
+        course_class.end_week,
+        course_class.`status`,
+        course_class.create_time,
+        course_class.update_time
+        FROM
+        course_class
+        INNER JOIN semester AS s ON course_class.semester_id = s.id
+        INNER JOIN course AS c ON course_class.course_id = c.id
+        INNER JOIN teacher AS t ON course_class.teacher_id = t.id
+        <where>
+            <if test="course != null">
+                and c.`name` like "%" #{course,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="teacher != null">
+                and t.`name`like "%" #{teacher,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="semester != null">
+                and s.`name` like "%" #{semester,jdbcType=VARCHAR}"%"
+            </if>
+        </where>
+    </select>
+
+    <select id="queryCourseClassById" resultType="com.excellent.accreditation.model.vo.CourseClassVo">
+        SELECT
+        s.`name` AS semester,
+        c.`name` AS course,
+        t.`name` AS teacher,
+        course_class.id,
+        course_class.`no`,
+        course_class.semester_id,
+        course_class.course_id,
+        course_class.teacher_id,
+        course_class.start_week,
+        course_class.end_week,
+        course_class.`status`,
+        course_class.create_time,
+        course_class.update_time
+        FROM
+        course_class
+        INNER JOIN semester AS s ON course_class.semester_id = s.id
+        INNER JOIN course AS c ON course_class.course_id = c.id
+        INNER JOIN teacher AS t ON course_class.teacher_id = t.id
+        WHERE
+        course_class.id = #{id,jdbcType=INTEGER}
+    </select>
 </mapper>

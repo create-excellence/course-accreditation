@@ -49,17 +49,17 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
 
     @Override
     public List<ExcelResult> saveBachByExcel(MultipartFile file) {
-        List<Map<Integer, String>> list= ExcelUtils.readExcelGetList(file);
+        List<Map<Integer, String>> list = ExcelUtils.readExcelGetList(file);
         List<ExcelResult> excelResults = new ArrayList<>();
         list.forEach(data -> {
             ExcelResult excelResult = new ExcelResult();
             try {
-                EmptyCheckUtils.checkExcelMapAndSetNo(data,excelResult, 2);
+                EmptyCheckUtils.checkExcelMapAndSetNo(data, excelResult, 2);
                 String courseClassId = data.get(1);
                 String studentId = data.get(2);
                 Integer courseClassId1 = Integer.valueOf(courseClassId);
                 Integer studentId1 = Integer.valueOf(studentId);
-                this.checkSelectCourse(courseClassId1,studentId1);
+                this.checkSelectCourse(courseClassId1, studentId1);
                 SelectCourse selectCourse = new SelectCourse();
                 selectCourse.setCourseClassId(courseClassId1);
                 selectCourse.setStudentId(studentId1);
@@ -84,25 +84,25 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
         LambdaQueryWrapper<SelectCourse> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SelectCourse::getCourseClassId, courseClassId);
         queryWrapper.eq(SelectCourse::getStudentId, studentId);
-        if (this.getOne(queryWrapper)  != null ) {
+        if (this.getOne(queryWrapper) != null) {
             throw new UniqueException("选课已存在");
         }
     }
 
     @Override
     public SelectCourseVo selectCourseId(Integer id) {
-        return selectCourseMapper.selectCourseId(id);
+        return selectCourseMapper.querySelectCourseById(id);
     }
 
     /**
-     *@author pu
-     *@data 2019/12/10
-     *description:
+     * @author pu
+     * @data 2019/12/10
+     * description:
      */
     @Override
     public PageInfo<SelectCourseVo> pageByQuery(SelectCourseQuery selectCourseQuery) {
         PageHelper.startPage(selectCourseQuery.getPage(), selectCourseQuery.getPageSize());
-        List<SelectCourseVo> list =selectCourseMapper.pageByQuery(selectCourseQuery.getStudent(),selectCourseQuery.getTeacher(),selectCourseQuery.getSemester(),selectCourseQuery.getCourse());
+        List<SelectCourseVo> list = selectCourseMapper.pageByQuery(selectCourseQuery.getStudent(), selectCourseQuery.getTeacher(), selectCourseQuery.getSemester(), selectCourseQuery.getCourse());
         return new PageInfo<>(list);
     }
 }

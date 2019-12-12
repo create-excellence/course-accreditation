@@ -4,12 +4,10 @@ package com.excellent.accreditation.controller;
 import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
-import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.model.entity.CourseClass;
 import com.excellent.accreditation.model.form.CourseClassQuery;
-import com.excellent.accreditation.model.form.CourseQuery;
+import com.excellent.accreditation.model.vo.CourseClassVo;
 import com.excellent.accreditation.service.ICourseClassService;
-import com.excellent.accreditation.service.ICourseService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,7 @@ import java.util.Collection;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author ashe
@@ -37,12 +35,13 @@ public class CourseClassController {
     public CourseClassController(ICourseClassService courseClassService) {
         this.courseClassService = courseClassService;
     }
+
     /**
-     *@Description: 添加对应课程的开课班级
-     *@Param: [course]
-     *@Return: com.excellent.accreditation.common.domain.ServerResponse
-     *@Author: ashe
-     *@Date: 2019/12/6
+     * @Description: 添加对应课程的开课班级
+     * @Param: [course]
+     * @Return: com.excellent.accreditation.common.domain.ServerResponse
+     * @Author: ashe
+     * @Date: 2019/12/6
      */
     @PostMapping
     @ApiOperation("添加对应课程的开课班级")
@@ -53,11 +52,11 @@ public class CourseClassController {
     }
 
     /**
-     *@Description: 通过id删除对应课程的开课班级
-     *@Param: [id]
-     *@Return: com.excellent.accreditation.common.domain.ServerResponse
-     *@Author: ashe
-     *@Date: 2019/12/6
+     * @Description: 通过id删除对应课程的开课班级
+     * @Param: [id]
+     * @Return: com.excellent.accreditation.common.domain.ServerResponse
+     * @Author: ashe
+     * @Date: 2019/12/6
      */
 
     @DeleteMapping("/{id:\\d+}")
@@ -72,11 +71,11 @@ public class CourseClassController {
     }
 
     /**
-     *@Description: 通过id列表批量删除开课班级
-     *@Param: [ids]
-     *@Return: com.excellent.accreditation.common.domain.ServerResponse
-     *@Author: ashe
-     *@Date: 2019/12/6
+     * @Description: 通过id列表批量删除开课班级
+     * @Param: [ids]
+     * @Return: com.excellent.accreditation.common.domain.ServerResponse
+     * @Author: ashe
+     * @Date: 2019/12/6
      */
     @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除开课班级")
@@ -90,11 +89,11 @@ public class CourseClassController {
     }
 
     /**
-     *@Description: 通过id更新开课班级
-     *@Param: [id, courseClass]
-     *@Return: com.excellent.accreditation.common.domain.ServerResponse
-     *@Author: ashe
-     *@Date: 2019/12/6
+     * @Description: 通过id更新开课班级
+     * @Param: [id, courseClass]
+     * @Return: com.excellent.accreditation.common.domain.ServerResponse
+     * @Author: ashe
+     * @Date: 2019/12/6
      */
     @PutMapping("/{id:\\d+}")
     @ApiOperation("通过id更新开课班级")
@@ -112,39 +111,38 @@ public class CourseClassController {
     }
 
     /**
-     *@Description: 通过id查找开课班级
-     *@Param: [id]
-     *@Return: com.excellent.accreditation.common.domain.ServerResponse<com.excellent.accreditation.model.entity.CourseClass>
-     *@Author: ashe
-     *@Date: 2019/12/6
+     * @Description: 通过id查找开课班级
+     * @Param: [id]
+     * @Return: com.excellent.accreditation.common.domain.ServerResponse<com.excellent.accreditation.model.entity.CourseClass>
+     * @Author: ashe
+     * @Date: 2019/12/6
      */
     @GetMapping
     @ApiOperation("通过id查找开课班级")
-    @Permission
+//    @Permission
     public ServerResponse<CourseClass> query(Integer id) {
-        CourseClass courseClass = courseClassService.getById(id);
-        if (courseClass != null)
-            return ServerResponse.createBySuccess(courseClass);
+        CourseClassVo courseClassVo = courseClassService.queryCourseClassById(id);
+        if (courseClassVo != null)
+            return ServerResponse.createBySuccess(courseClassVo);
         return ServerResponse.createByErrorMessage("课程不存在");
     }
 
 
     /**
-     *@Description: 分页查询课程对应的开课班级
-     *@Param: [courseClassQuery]
-     *@Return: com.excellent.accreditation.common.domain.ServerResponse
-     *@Author: ashe
-     *@Date: 2019/12/6
+     * @Description: 分页查询课程对应的开课班级
+     * @Param: [courseClassQuery]
+     * @Return: com.excellent.accreditation.common.domain.ServerResponse
+     * @Author: ashe
+     * @Date: 2019/12/6
      */
     @GetMapping("/list")
     @ApiOperation("分页查询课程对应的开课班级")
-    @Permission
+//    @Permission
     public ServerResponse queryCourse(CourseClassQuery courseClassQuery) {
-        PageInfo<CourseClass> list = courseClassService.pageByQuery(courseClassQuery);
+        PageInfo<CourseClassVo> list = courseClassService.pageByQuery(courseClassQuery);
         if (list != null)
             return ServerResponse.createBySuccess(list);
 
         return ServerResponse.createByErrorMessage("课程不存在");
     }
-
 }

@@ -18,10 +18,11 @@ public class CourseClassQuery extends BasePage {
     private String no;
 
     @Size(max = 25, message = "教师的名字字符长度不能超过 {max}")
-    private String teacherName;
+    private String teacher;
 
     @Size(max = 25, message = "课程名称字符长度不能超过 {max}")
-    private String courseName;
+    private String course;
 
-
+    @Size(max = 25, message = "课程名称字符长度不能超过 {max}")
+    private String semester;
 }

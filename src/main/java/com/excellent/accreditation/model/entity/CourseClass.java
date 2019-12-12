@@ -21,7 +21,6 @@ import lombok.experimental.Accessors;
 @ApiModel
 public class CourseClass extends BaseEntity {
 
-
     /**
      * 课程序号
      */

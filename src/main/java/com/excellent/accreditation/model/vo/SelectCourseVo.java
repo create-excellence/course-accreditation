@@ -31,7 +31,6 @@ public class SelectCourseVo extends SelectCourse {
 
     private CourseClass courseClass;
 
-
     private String no;
 
     /**
@@ -58,16 +57,17 @@ public class SelectCourseVo extends SelectCourse {
      */
     private Integer status;
 
-
-    public static SelectCourseVo selectCourseVo(String sno, String student, CourseClass courseClass, String course, String teacher, String semester){
-        SelectCourseVo selectCourseVo =new SelectCourseVo();
-        selectCourseVo.setSno(sno);
-        selectCourseVo.setSemester(semester);
-        selectCourseVo.setCourse(course);
-        selectCourseVo.setStudent(student);
-        selectCourseVo.setStudent(teacher);
-        return selectCourseVo;
-    }
-
-
+//    public static SelectCourseVo selectCourseVo(String sno, String student, CourseClass courseClass, String course, String teacher, String semester) {
+//        SelectCourseVo selectCourseVo = new SelectCourseVo();
+//        selectCourseVo.setSno(sno);
+//        selectCourseVo.setSemester(semester);
+//        selectCourseVo.setCourse(course);
+//        selectCourseVo.setStudent(student);
+//        selectCourseVo.setStudent(teacher);
+//
+//        selectCourseVo.setStatus(courseClass.getStatus());
+//        selectCourseVo.setUpdateTime(courseClass.getUpdateTime());
+//        selectCourseVo.setCreateTime(courseClass.getCreateTime());
+//        return selectCourseVo;
+//    }
 }
