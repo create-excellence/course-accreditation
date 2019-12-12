@@ -134,7 +134,7 @@ public class RoleController {
      **/
     @GetMapping("/list")
     @ApiOperation("分页查询角色")
-//    @Permission
+    @Permission
     public ServerResponse queryRole(RoleQuery roleQuery) {
         PageInfo<Role> list = roleService.pageByQuery(roleQuery);
         if (list != null)

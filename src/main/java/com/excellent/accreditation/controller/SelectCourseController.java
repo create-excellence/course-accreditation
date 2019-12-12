@@ -3,14 +3,10 @@ package com.excellent.accreditation.controller;
 
 import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
-import com.excellent.accreditation.model.entity.CourseClass;
 import com.excellent.accreditation.model.entity.SelectCourse;
-import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.form.SelectCourseQuery;
 import com.excellent.accreditation.model.vo.SelectCourseVo;
-import com.excellent.accreditation.service.ICourseClassService;
 import com.excellent.accreditation.service.ISelectCourseService;
-import com.excellent.accreditation.service.IStudentService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import lombok.NonNull;
@@ -23,7 +19,7 @@ import java.util.Collection;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author ashe
@@ -36,19 +32,20 @@ public class SelectCourseController {
     private final ISelectCourseService selectCourseService;
 
     /**
-     *@author pu
-     *@data 2019/12/9
-     *description:
+     * @author pu
+     * @data 2019/12/9
+     * description:
      */
     @Autowired
     public SelectCourseController(ISelectCourseService selectCourseService) {
-        this.selectCourseService = selectCourseService;;
+        this.selectCourseService = selectCourseService;
+        ;
     }
 
     /**
-     *@author pu
-     *@data 2019/12/9
-     *description:
+     * @author pu
+     * @data 2019/12/9
+     * description:
      */
     @PostMapping
     @ApiOperation("添加选课")
@@ -59,9 +56,9 @@ public class SelectCourseController {
     }
 
     /**
-     *@author pu
-     *@data 2019/12/9
-     *description:
+     * @author pu
+     * @data 2019/12/9
+     * description:
      */
     @DeleteMapping("/{id:\\d+}")
     @ApiOperation("通过id删除选课")
@@ -75,9 +72,9 @@ public class SelectCourseController {
     }
 
     /**
-     *@author pu
-     *@data 2019/12/9
-     *description:
+     * @author pu
+     * @data 2019/12/9
+     * description:
      */
 
     @DeleteMapping("/deleteByIds")
@@ -92,9 +89,9 @@ public class SelectCourseController {
     }
 
     /**
-     *@author pu
-     *@data 2019/12/9
-     *description:
+     * @author pu
+     * @data 2019/12/9
+     * description:
      */
     @PutMapping("/{id:\\d+}")
     @ApiOperation("通过id更新选课")
@@ -111,13 +108,13 @@ public class SelectCourseController {
     }
 
     /**
-     *@author pu
-     *@data 2019/12/9
-     *description:
+     * @author pu
+     * @data 2019/12/9
+     * description:
      */
     @GetMapping
     @ApiOperation("通过id查找选课")
-//    @Permission
+    @Permission
     public ServerResponse<SelectCourseVo> query(Integer id) {
         SelectCourseVo selectCourseVo = selectCourseService.selectCourseId(id);
         if (selectCourseVo != null) {
@@ -128,13 +125,13 @@ public class SelectCourseController {
 
 
     /**
-     *@author pu
-     *@data 2019/12/9
-     *description:
+     * @author pu
+     * @data 2019/12/9
+     * description:
      */
     @GetMapping("/list")
     @ApiOperation("分页查询选课")
-//    @Permission
+    @Permission
     public ServerResponse querySelectCourse(SelectCourseQuery selectCourseQuery) {
         PageInfo<SelectCourseVo> list = selectCourseService.pageByQuery(selectCourseQuery);
         if (list != null)
@@ -145,9 +142,9 @@ public class SelectCourseController {
 
 
     /**
-     *@author pu
-     *@data 2019/12/9
-     *description:
+     * @author pu
+     * @data 2019/12/9
+     * description:
      */
     @PostMapping("/batchSave")
     @ApiOperation("批量添加选课")

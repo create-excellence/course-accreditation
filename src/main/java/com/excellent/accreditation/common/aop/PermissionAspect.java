@@ -52,11 +52,11 @@ public class PermissionAspect {
      * @Return boolean
      **/
     private boolean checkPermission(List<String> userRoles, String[] roles) {
-        for (String role:userRoles) {
+        for (String role : userRoles) {
             for (String r : roles) {
                 // 用户只要有一个角色满足条件即可
                 if (role.equals(r)) {
-                    return true ;
+                    return true;
                 }
             }
 
@@ -81,17 +81,25 @@ public class PermissionAspect {
                 getClientIp(request));
     }
 
-    private String getClientIp(HttpServletRequest request) {
-        String remoteAddress = "";
+    public static String getClientIp(HttpServletRequest request) {
+        String ip;
+        String[] headers = {"X-Forwarded-For", "X-Real-IP", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"};
 
-        if (request != null) {
-            remoteAddress = request.getHeader("X-FORWARDED-FOR");
-            if (remoteAddress == null || "".equals(remoteAddress)) {
-                remoteAddress = request.getRemoteAddr();
+        for (String header : headers) {
+            ip = request.getHeader(header);
+            if (checkIP(ip)) {
+                return ip;
             }
         }
-
-        return remoteAddress;
+        ip = request.getRemoteAddr();
+        return ip;
     }
 
+    private static boolean checkIP(String ip) {
+        if (ip == null || ip.length() == 0 || "unkown".equalsIgnoreCase(ip)
+                || ip.split(".").length != 4) {
+            return false;
+        }
+        return true;
+    }
 }

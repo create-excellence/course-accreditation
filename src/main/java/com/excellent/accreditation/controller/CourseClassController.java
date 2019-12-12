@@ -119,7 +119,7 @@ public class CourseClassController {
      */
     @GetMapping
     @ApiOperation("通过id查找开课班级")
-//    @Permission
+    @Permission
     public ServerResponse<CourseClass> query(Integer id) {
         CourseClassVo courseClassVo = courseClassService.queryCourseClassById(id);
         if (courseClassVo != null)
@@ -137,7 +137,7 @@ public class CourseClassController {
      */
     @GetMapping("/list")
     @ApiOperation("分页查询课程对应的开课班级")
-//    @Permission
+    @Permission
     public ServerResponse queryCourse(CourseClassQuery courseClassQuery) {
         PageInfo<CourseClassVo> list = courseClassService.pageByQuery(courseClassQuery);
         if (list != null)
