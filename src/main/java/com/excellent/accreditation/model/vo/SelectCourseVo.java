@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class SelectCourseVo extends SelectCourse {
 
+    private SelectCourse selectCourse;
+
     /**
      * 课程名称
      */
@@ -29,19 +31,15 @@ public class SelectCourseVo extends SelectCourse {
      */
     private String semester;
 
-    private CourseClass courseClass;
-
+    /**
+     * 课程序号
+     */
     private String no;
 
     /**
      * 学期id
      */
     private Integer semesterId;
-
-    /**
-     * 课程id
-     */
-    private Integer courseId;
 
     /**
      * 老师id
@@ -57,17 +55,4 @@ public class SelectCourseVo extends SelectCourse {
      */
     private Integer status;
 
-//    public static SelectCourseVo selectCourseVo(String sno, String student, CourseClass courseClass, String course, String teacher, String semester) {
-//        SelectCourseVo selectCourseVo = new SelectCourseVo();
-//        selectCourseVo.setSno(sno);
-//        selectCourseVo.setSemester(semester);
-//        selectCourseVo.setCourse(course);
-//        selectCourseVo.setStudent(student);
-//        selectCourseVo.setStudent(teacher);
-//
-//        selectCourseVo.setStatus(courseClass.getStatus());
-//        selectCourseVo.setUpdateTime(courseClass.getUpdateTime());
-//        selectCourseVo.setCreateTime(courseClass.getCreateTime());
-//        return selectCourseVo;
-//    }
 }
