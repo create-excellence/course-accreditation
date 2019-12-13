@@ -48,6 +48,8 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
             queryWrapper.like(Teacher::getJno, query.getJno());
         if (StringUtils.isNotEmpty(query.getTitle()))
             queryWrapper.like(Teacher::getTitle, query.getTitle());
+        if (StringUtils.isNotEmpty(query.getName()))
+            queryWrapper.like(Teacher::getName, query.getName());
         PageHelper.startPage(query.getPage(), query.getPageSize());
         List<Teacher> list = this.list(queryWrapper);
         PageInfo<Teacher> pageInfo = new PageInfo<>(list);
