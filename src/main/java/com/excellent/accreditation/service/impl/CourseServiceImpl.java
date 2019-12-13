@@ -1,14 +1,12 @@
 package com.excellent.accreditation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ExcelResult;
-import com.excellent.accreditation.common.exception.ConflictException;
-import com.excellent.accreditation.common.exception.DatabaseException;
-import com.excellent.accreditation.common.exception.ExcelException;
-import com.excellent.accreditation.common.exception.UniqueException;
+import com.excellent.accreditation.common.exception.*;
 import com.excellent.accreditation.dao.CourseMapper;
 import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.model.form.CourseQuery;
@@ -72,7 +70,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
                 }
             } catch (NumberFormatException e) {
                 excelResult.setMessage("无法将部分字段转为数字类型");
-            } catch (UniqueException | ExcelException | DatabaseException e) {
+            } catch (CommonException e) {
                 excelResult.setMessage(e.getMessage());
             }
             excelResults.add(excelResult);
@@ -85,6 +83,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         if (this.getById(courseId) == null) {
             throw new ConflictException("课程不存在");
         }
+    }
+
+    @Override
+    public Course getByCode(String code) {
+        LambdaQueryWrapper<Course> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(Course::getCode,code);
+        Course course =this.getOne(queryWrapper);
+        if (course==null){
+            throw new ConflictException("课程不存在");
+        }
+        return course;
     }
 
 

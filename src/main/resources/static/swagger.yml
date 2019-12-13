@@ -1,0 +1,1046 @@
+swagger: '2.0'
+info:
+  description: ACCREDITATION VUE API Document.
+  version: '1.0'
+  title: ACCREDITATION VUE API
+  contact:
+    name: evildoer
+    url: 'https://baidu.com'
+    email: 123456@qq.com
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+host: '39.108.220.199:8888'
+basePath: /
+tags:
+  - name: course-class-controller
+    description: Course Class Controller
+  - name: course-controller
+    description: Course Controller
+  - name: course-target-controller
+    description: Course Target Controller
+  - name: graduation-demand-controller
+    description: Graduation Demand Controller
+  - name: graduation-point-controller
+    description: Graduation Point Controller
+  - name: major-controller
+    description: Major Controller
+  - name: questionnaire-controller
+    description: Questionnaire Controller
+  - name: select-course-controller
+    description: Select Course Controller
+  - name: self-evaluation-controller
+    description: Self Evaluation Controller
+  - name: semester-controller
+    description: Semester Controller
+  - name: student-controller
+    description: Student Controller
+  - name: supporting-course-controller
+    description: Supporting Course Controller
+  - name: system-controller
+    description: System Controller
+  - name: teacher-controller
+    description: Teacher Controller
+paths:
+  /v1/course-class/create:
+    post:
+      tags:
+        - course-class-controller
+      summary: create
+      operationId: createUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: courseClass
+          description: courseClass
+          required: true
+          schema:
+            $ref: '#/definitions/CourseClass'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/course-target/create:
+    post:
+      tags:
+        - course-target-controller
+      summary: create
+      operationId: createUsingPOST_2
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: courseTarget
+          description: courseTarget
+          required: true
+          schema:
+            $ref: '#/definitions/CourseTarget'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/course/create:
+    post:
+      tags:
+        - course-controller
+      summary: 添加课程
+      operationId: createUsingPOST_1
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: course
+          description: course
+          required: true
+          schema:
+            $ref: '#/definitions/Course'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/course/deleteByIds:
+    delete:
+      tags:
+        - course-controller
+      summary: 通过id列表批量删除课程
+      operationId: deleteByIdsUsingDELETE
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: ids
+          description: ids
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      deprecated: false
+  '/v1/course/{id}':
+    get:
+      tags:
+        - course-controller
+      summary: 通过id查找课程
+      operationId: queryUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    put:
+      tags:
+        - course-controller
+      summary: 通过id更新课程
+      operationId: updateByIdUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: course
+          description: course
+          required: true
+          schema:
+            $ref: '#/definitions/Course'
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    delete:
+      tags:
+        - course-controller
+      summary: 通过id删除课程
+      operationId: deleteByIdUsingDELETE
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      deprecated: false
+  /v1/graduation-demand/create:
+    post:
+      tags:
+        - graduation-demand-controller
+      summary: create
+      operationId: createUsingPOST_3
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: courseClass
+          description: courseClass
+          required: true
+          schema:
+            $ref: '#/definitions/CourseClass'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/graduation-point/create:
+    post:
+      tags:
+        - graduation-point-controller
+      summary: create
+      operationId: createUsingPOST_4
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: graduationPoint
+          description: graduationPoint
+          required: true
+          schema:
+            $ref: '#/definitions/GraduationPoint'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/major/create:
+    post:
+      tags:
+        - major-controller
+      summary: create
+      operationId: createUsingPOST_5
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: major
+          description: major
+          required: true
+          schema:
+            $ref: '#/definitions/Major'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/questionnaire/create:
+    post:
+      tags:
+        - questionnaire-controller
+      summary: create
+      operationId: createUsingPOST_6
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: questionnaire
+          description: questionnaire
+          required: true
+          schema:
+            $ref: '#/definitions/Questionnaire'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/select-course/create:
+    post:
+      tags:
+        - select-course-controller
+      summary: create
+      operationId: createUsingPOST_7
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: selectCourse
+          description: selectCourse
+          required: true
+          schema:
+            $ref: '#/definitions/SelectCourse'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/self-evaluation/create:
+    post:
+      tags:
+        - self-evaluation-controller
+      summary: create
+      operationId: createUsingPOST_8
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: selfEvaluation
+          description: selfEvaluation
+          required: true
+          schema:
+            $ref: '#/definitions/SelfEvaluation'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/semester/create:
+    post:
+      tags:
+        - semester-controller
+      summary: create
+      operationId: createUsingPOST_9
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: semester
+          description: semester
+          required: true
+          schema:
+            $ref: '#/definitions/Semester'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/student/create:
+    post:
+      tags:
+        - student-controller
+      summary: create
+      operationId: createUsingPOST_10
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: student
+          description: student
+          required: true
+          schema:
+            $ref: '#/definitions/Student'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/supporting-course/create:
+    post:
+      tags:
+        - supporting-course-controller
+      summary: create
+      operationId: createUsingPOST_11
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: supportingCourse
+          description: supportingCourse
+          required: true
+          schema:
+            $ref: '#/definitions/SupportingCourse'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/system/login:
+    post:
+      tags:
+        - system-controller
+      summary: 登录
+      operationId: loginUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: loginForm
+          description: loginForm
+          required: true
+          schema:
+            $ref: '#/definitions/LoginForm'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/system/register:
+    post:
+      tags:
+        - system-controller
+      summary: 注册
+      operationId: registerUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: code
+          in: formData
+          description: 工号或学号
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: 密码
+          required: true
+          type: string
+        - name: role
+          in: formData
+          description: 角色
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /v1/teacher/create:
+    post:
+      tags:
+        - teacher-controller
+      summary: create
+      operationId: createUsingPOST_12
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: teacher
+          description: teacher
+          required: true
+          schema:
+            $ref: '#/definitions/Teacher'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ServerResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+definitions:
+  Course:
+    type: object
+    properties:
+      code:
+        type: string
+        description: 课程代码
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      credit:
+        type: number
+        format: double
+        description: 课程对应学分
+      id:
+        type: integer
+        format: int32
+        description: id
+      name:
+        type: string
+        description: 课程名称
+      nature:
+        type: string
+        description: 课程性质
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+    title: Course
+  CourseClass:
+    type: object
+    properties:
+      courseId:
+        type: integer
+        format: int32
+        description: 课程Id
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      endWeek:
+        type: integer
+        format: int32
+        description: 结课时间
+      id:
+        type: integer
+        format: int32
+        description: id
+      'no':
+        type: string
+        description: 课程序号
+      semesterId:
+        type: integer
+        format: int32
+        description: 学期Id
+      startWeek:
+        type: integer
+        format: int32
+        description: 开课时间
+      status:
+        type: integer
+        format: int32
+        description: 状态码 0-开课 1-未开课
+      teacherId:
+        type: integer
+        format: int32
+        description: 执教老师Id
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+    title: CourseClass
+  CourseTarget:
+    type: object
+    properties:
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      describes:
+        type: string
+        description: 描述
+      id:
+        type: integer
+        format: int32
+        description: id
+      options:
+        type: string
+        description: 选项
+      optionsScore:
+        type: string
+        description: 选项得分
+      pointId:
+        type: integer
+        format: int32
+        description: 指标点Id
+      questionnaireId:
+        type: integer
+        format: int32
+        description: 对应的问卷Id
+      sequence:
+        type: integer
+        format: int32
+        description: 序号
+      title:
+        type: string
+        description: 题目
+      totalScore:
+        type: integer
+        format: int32
+        description: 总分
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+    title: CourseTarget
+  GraduationPoint:
+    type: object
+    properties:
+      content:
+        type: string
+        description: 指标点编号
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      graduationDemandId:
+        type: integer
+        format: int32
+        description: 毕业要求Id
+      id:
+        type: integer
+        format: int32
+        description: id
+      'no':
+        type: string
+        description: 指标点编号
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+    title: GraduationPoint
+  LoginForm:
+    type: object
+    properties:
+      code:
+        type: string
+      password:
+        type: string
+    title: LoginForm
+  Major:
+    type: object
+    properties:
+      code:
+        type: string
+        description: 专业代码
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      id:
+        type: integer
+        format: int32
+        description: id
+      name:
+        type: string
+        description: 专业名称
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+    title: Major
+  Questionnaire:
+    type: object
+    properties:
+      courseClassId:
+        type: integer
+        format: int32
+        description: 问卷对应班级
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      describes:
+        type: string
+        description: 问卷描述
+      id:
+        type: integer
+        format: int32
+        description: id
+      name:
+        type: string
+        description: 问卷名称
+      totalScore:
+        type: integer
+        format: int32
+        description: 问卷总分
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+    title: Questionnaire
+  SelectCourse:
+    type: object
+    properties:
+      courseClassId:
+        type: integer
+        format: int32
+        description: 课程班级Id
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      id:
+        type: integer
+        format: int32
+        description: id
+      studentId:
+        type: integer
+        format: int32
+        description: 学生Id
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+    title: SelectCourse
+  SelfEvaluation:
+    type: object
+    properties:
+      answer:
+        type: string
+        description: 评价档次
+      courseTargetId:
+        type: integer
+        format: int32
+        description: 专业名称
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      id:
+        type: integer
+        format: int32
+        description: id
+      score:
+        type: integer
+        format: int32
+        description: 得分
+      studentId:
+        type: integer
+        format: int32
+        description: 学生Id
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+    title: SelfEvaluation
+  Semester:
+    type: object
+    properties:
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      id:
+        type: integer
+        format: int32
+        description: id
+      name:
+        type: string
+        description: 学期名称
+      startTime:
+        type: string
+        format: date
+        description: 学期开始时间
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+    title: Semester
+  ServerResponse:
+    type: object
+    properties:
+      data:
+        type: object
+      msg:
+        type: string
+      status:
+        type: integer
+        format: int32
+      success:
+        type: boolean
+    title: ServerResponse
+  Student:
+    type: object
+    properties:
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      grade:
+        type: string
+        description: 年级
+      id:
+        type: integer
+        format: int32
+        description: id
+      loginTime:
+        type: string
+        format: date-time
+        description: 上此登录数据
+      majorId:
+        type: integer
+        format: int32
+        description: 专业Id
+      name:
+        type: string
+        description: 姓名
+      password:
+        type: string
+        description: 密码
+      sex:
+        type: string
+        description: 性别
+      sno:
+        type: string
+        description: 学号
+      status:
+        type: integer
+        format: int32
+        description: 状态 正常-0
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+    title: Student
+  SupportingCourse:
+    type: object
+    properties:
+      courseId:
+        type: integer
+        format: int32
+        description: 课程Id
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      graduationPointId:
+        type: integer
+        format: int32
+        description: 毕业要求指标点
+      id:
+        type: integer
+        format: int32
+        description: id
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+    title: SupportingCourse
+  Teacher:
+    type: object
+    properties:
+      birth:
+        type: string
+        format: date
+        description: 出生日期
+      createTime:
+        type: string
+        format: date-time
+        description: 创建时间
+      graduateMajor:
+        type: string
+        description: 毕业转移
+      graduateSchool:
+        type: string
+        description: 毕业学校
+      id:
+        type: integer
+        format: int32
+        description: id
+      jno:
+        type: string
+        description: 工号
+      loginTime:
+        type: string
+        format: date-time
+        description: 上传登录时间
+      name:
+        type: string
+        description: 姓名
+      password:
+        type: string
+        description: 密码
+      role:
+        type: string
+        description: 角色
+      sex:
+        type: string
+        description: 性别
+      title:
+        type: string
+        description: 职称
+      updateTime:
+        type: string
+        format: date-time
+        description: 更新时间
+    title: Teacher

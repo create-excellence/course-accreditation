@@ -18,6 +18,6 @@ public class GraduationPointQuery extends BasePage {
     @Size(max = 25, message = "指标点编号的字符长度不能超过 {max}")
     private String no;
 
-    @Size(max = 255, message = "指标点内容的字符长度不能超过 {max}")
+    @Size(max = 25, message = "指标点内容的字符长度不能超过 {max}")
     private String content;
 }

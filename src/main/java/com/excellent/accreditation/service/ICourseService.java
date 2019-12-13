@@ -23,4 +23,6 @@ public interface ICourseService extends IService<Course> {
     List<ExcelResult> saveBachByExcel(MultipartFile file);
 
     void checkCourse(Integer courseId);
+
+    Course getByCode(String code);
 }

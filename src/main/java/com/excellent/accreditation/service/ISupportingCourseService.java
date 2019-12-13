@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface ISupportingCourseService extends IService<SupportingCourse> {
 
-    List<SupportingCourseVo> pageByQuery(SupportingCourseQuery query);
+    PageInfo<SupportingCourseVo> pageByQuery(SupportingCourseQuery query);
 
     boolean create(SupportingCourse supportingCourse);
 

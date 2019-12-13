@@ -60,4 +60,15 @@ public class GraduationPointServiceImpl extends ServiceImpl<GraduationPointMappe
             throw new ConflictException("毕业指标点不存在");
         }
     }
+
+    @Override
+    public GraduationPoint getByNo(String no) {
+        LambdaQueryWrapper<GraduationPoint> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(GraduationPoint::getNo,no);
+        GraduationPoint graduationPoint=this.getOne(queryWrapper);
+        if(graduationPoint==null){
+            throw new ConflictException("毕业指标点不存在");
+        }
+        return graduationPoint;
+    }
 }

@@ -24,6 +24,11 @@ public class CourseClassVo extends CourseClass {
     private String teacher;
 
     /**
+     * 老师工号
+     */
+    private String jno;
+
+    /**
      * 学期
      */
     private String semester;
