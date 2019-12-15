@@ -2,6 +2,7 @@ package com.excellent.accreditation.controller;
 
 
 import com.excellent.accreditation.common.annotation.Permission;
+import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.SelectCourse;
 import com.excellent.accreditation.model.form.SelectCourseQuery;
@@ -100,6 +101,7 @@ public class SelectCourseController {
                                      @RequestBody SelectCourse selectCourse) {
         selectCourse.setId(id);
         selectCourse.setUpdateTime(LocalDateTime.now());
+        selectCourseService.check(selectCourse, Const.UPDATE);
         boolean result = selectCourseService.updateById(selectCourse);
         if (result)
             return ServerResponse.createBySuccess("选课更新成功");

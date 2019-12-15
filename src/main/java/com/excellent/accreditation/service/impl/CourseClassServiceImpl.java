@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ExcelResult;
+import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.CourseClassMapper;
@@ -99,5 +100,12 @@ public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, Cours
             courseService.checkCourse(courseClass.getCourseId());
         }
 
+    }
+
+    @Override
+    public void checkCourseClass(Integer courseClassId) {
+        if (this.getById(courseClassId) == null) {
+            throw new ConflictException("课程不存在");
+    }
     }
 }

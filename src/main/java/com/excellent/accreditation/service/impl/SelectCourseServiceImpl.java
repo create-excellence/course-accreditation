@@ -5,13 +5,16 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ExcelResult;
 import com.excellent.accreditation.common.exception.DatabaseException;
+import com.excellent.accreditation.common.exception.EmptyException;
 import com.excellent.accreditation.common.exception.ExcelException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.SelectCourseMapper;
 import com.excellent.accreditation.model.entity.SelectCourse;
 import com.excellent.accreditation.model.form.SelectCourseQuery;
 import com.excellent.accreditation.model.vo.SelectCourseVo;
+import com.excellent.accreditation.service.ICourseClassService;
 import com.excellent.accreditation.service.ISelectCourseService;
+import com.excellent.accreditation.service.IStudentService;
 import com.excellent.accreditation.untils.EmptyCheckUtils;
 import com.excellent.accreditation.untils.ExcelUtils;
 import com.github.pagehelper.PageHelper;
@@ -35,8 +38,18 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
     @Autowired
     SelectCourseMapper selectCourseMapper;
 
+    private final ICourseClassService courseClassService;
+
+    private final IStudentService studentService;
+
+    public SelectCourseServiceImpl(ICourseClassService courseClassService, IStudentService studentService) {
+        this.courseClassService = courseClassService;
+        this.studentService = studentService;
+    }
+
     @Override
     public boolean create(SelectCourse selectCourse) {
+        this.check(selectCourse,Const.CREATE);
         selectCourse.setCreateTime(LocalDateTime.now());
         selectCourse.setUpdateTime(LocalDateTime.now());
         boolean result = this.save(selectCourse);
@@ -77,6 +90,36 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
             excelResults.add(excelResult);
         });
         return excelResults;
+    }
+
+    @Override
+    public void check(SelectCourse selectCourse, Integer checkType) {
+        if(checkType.equals(Const.CREATE)||selectCourse.getCourseClassId()!=null){
+            courseClassService.checkCourseClass(selectCourse.getCourseClassId());
+        }
+        if(checkType.equals(Const.CREATE)||selectCourse.getStudentId()!=null){
+            studentService.checkStudent(selectCourse.getStudentId());
+        }
+        this.checkUnique(selectCourse);
+    }
+
+    private void checkUnique(SelectCourse selectCourse){
+        if(selectCourse.getStudentId()==null&&selectCourse.getCourseClassId()==null){
+            return;
+        }
+        if(selectCourse.getCourseClassId()==null&&selectCourse.getStudentId()!=null){
+            throw  new EmptyException("课程不能为空");
+        }
+        if(selectCourse.getCourseClassId()!=null&&selectCourse.getStudentId()==null){
+            throw  new EmptyException("学号不能为空");
+        }
+        LambdaQueryWrapper<SelectCourse> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SelectCourse::getCourseClassId,selectCourse.getCourseClassId());
+        queryWrapper.eq(SelectCourse::getStudentId,selectCourse.getStudentId());
+        SelectCourse selectCourse1=this.getOne(queryWrapper);
+        if(selectCourse1!=null&&!selectCourse1.getId().equals(selectCourse.getId())){
+            throw new UniqueException("已存在相同记录");
+        }
     }
 
     @Override
