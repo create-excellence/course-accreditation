@@ -146,6 +146,18 @@ public class UserManage {
 
     /**
      * @Author 安羽兮
+     * @Description 通过token获取role集合
+     * @Date 19:45 2019/12/4
+     * @Param []
+     * @Return java.lang.String
+     **/
+    public List<String> getRolesByToken() {
+        String code = this.getCodeByToken();
+        return getRolesByCode(code);
+    }
+
+    /**
+     * @Author 安羽兮
      * @Description 通过token获取code
      * @Date 19:45 2019/12/4
      * @Param []

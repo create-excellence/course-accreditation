@@ -4,13 +4,13 @@ package com.excellent.accreditation.controller;
 import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
+import com.excellent.accreditation.manage.UserManage;
 import com.excellent.accreditation.model.entity.CourseClass;
 import com.excellent.accreditation.model.form.CourseClassQuery;
 import com.excellent.accreditation.model.vo.CourseClassVo;
 import com.excellent.accreditation.service.ICourseClassService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +29,13 @@ import java.util.Collection;
 @RequestMapping("/${server.version}/course-class")
 public class CourseClassController {
 
+    private final UserManage userManage;
+
     private final ICourseClassService courseClassService;
 
-    @Autowired
-    public CourseClassController(ICourseClassService courseClassService) {
+    public CourseClassController(UserManage userManage,
+                                 ICourseClassService courseClassService) {
+        this.userManage = userManage;
         this.courseClassService = courseClassService;
     }
 
