@@ -15,13 +15,15 @@ import java.util.List;
  */
 public interface ISelectCourseService extends IService<SelectCourse> {
 
+    PageInfo<SelectCourseVo> pageByQuery(SelectCourseQuery selectCourseQuery);
+
     boolean create(SelectCourse selectCourse);
 
     List<ExcelResult> saveBachByExcel(MultipartFile file);
 
-    void checkSelectCourse(Integer courseClassId, Integer studentId);
+    void check(SelectCourse selectCourse,Integer checkType);
 
-    PageInfo<SelectCourseVo> pageByQuery(SelectCourseQuery selectCourseQuery);
+    void checkSelectCourse(Integer courseClassId, Integer studentId);
 
     SelectCourseVo selectCourseId(Integer id);
 }
