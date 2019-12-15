@@ -93,17 +93,17 @@ public class SupportingCourseServiceImpl extends ServiceImpl<SupportingCourseMap
     }
 
     @Override
-    public void check(SupportingCourse supportingCourse, Integer checkType) {
-        if(checkType.equals(Const.CREATE)||supportingCourse.getCourseId()!=null){
-            courseService.checkCourse(supportingCourse.getCourseId());
-        }
-        if(checkType.equals(Const.CREATE)||supportingCourse.getGraduationPointId()!=null){
-            graduationPointService.checkGraduationPoint(supportingCourse.getGraduationPointId());
-        }
-        if(checkType.equals(Const.CREATE)||supportingCourse.getGraduationPointId()!=null){
-            graduationPointService.checkGraduationPoint(supportingCourse.getGraduationPointId());
-        }
-        this.checkUnique(supportingCourse);
+         public void check(SupportingCourse supportingCourse, Integer checkType) {
+            if(checkType.equals(Const.CREATE)||supportingCourse.getCourseId()!=null){
+                courseService.checkCourse(supportingCourse.getCourseId());
+            }
+            if(checkType.equals(Const.CREATE)||supportingCourse.getGraduationPointId()!=null){
+                graduationPointService.checkGraduationPoint(supportingCourse.getGraduationPointId());
+            }
+            if(checkType.equals(Const.CREATE)||supportingCourse.getGraduationPointId()!=null){
+                graduationPointService.checkGraduationPoint(supportingCourse.getGraduationPointId());
+            }
+            this.checkUnique(supportingCourse);
 
     }
 

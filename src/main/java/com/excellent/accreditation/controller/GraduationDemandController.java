@@ -65,7 +65,6 @@ public class GraduationDemandController {
         boolean result = graduationDemandService.removeById(id);
         if (result)
             return ServerResponse.createBySuccess("毕业要求删除成功");
-
         return ServerResponse.createByErrorMessage("毕业要求删除失败");
     }
 

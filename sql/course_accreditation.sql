@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 11/12/2019 20:58:18
+ Date: 15/12/2019 14:41:15
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,7 @@ CREATE TABLE `course`  (
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES (190, 'XT043', '测试课程43', 43.0, '选修17', '2019-12-09 17:29:22', '2019-12-09 17:29:22');
+INSERT INTO `course` VALUES (190, 'XT043', '支撑课程测试', 43.0, '选修17', '2019-12-09 17:29:22', '2019-12-09 17:29:22');
 INSERT INTO `course` VALUES (191, 'XT044', '测试课程44', 44.0, '选修18', '2019-12-09 17:29:22', '2019-12-09 17:29:22');
 INSERT INTO `course` VALUES (192, 'XT045', '测试课程45', 45.0, '选修19', '2019-12-09 17:29:22', '2019-12-09 17:29:22');
 INSERT INTO `course` VALUES (193, 'XT046', '测试课程46', 46.0, '选修20', '2019-12-09 17:29:22', '2019-12-09 17:29:22');
@@ -104,7 +104,12 @@ CREATE TABLE `course_class`  (
   CONSTRAINT `学期` FOREIGN KEY (`semester_id`) REFERENCES `semester` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `教师` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `课程` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of course_class
+-- ----------------------------
+INSERT INTO `course_class` VALUES (1, '1313163', 34, 191, 1, 3, 18, 0, '2019-12-13 17:36:25', '2019-12-13 17:36:25');
 
 -- ----------------------------
 -- Table structure for course_target
@@ -159,7 +164,13 @@ CREATE TABLE `graduation_point`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `毕业要求`(`graduation_demand_id`) USING BTREE,
   CONSTRAINT `毕业要求` FOREIGN KEY (`graduation_demand_id`) REFERENCES `graduation_demand` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of graduation_point
+-- ----------------------------
+INSERT INTO `graduation_point` VALUES (1, '11', NULL, '离散数学', NULL, NULL);
+INSERT INTO `graduation_point` VALUES (2, '22', NULL, '高等数学', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for major
@@ -231,10 +242,10 @@ INSERT INTO `role` VALUES (3, '123', 'admin', NULL, NULL, NULL);
 INSERT INTO `role` VALUES (4, '123', 'teacher', NULL, NULL, NULL);
 
 -- ----------------------------
--- Table structure for select_couse
+-- Table structure for select_course
 -- ----------------------------
-DROP TABLE IF EXISTS `select_couse`;
-CREATE TABLE `select_couse`  (
+DROP TABLE IF EXISTS `select_course`;
+CREATE TABLE `select_course`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `course_class_id` int(11) NULL DEFAULT NULL COMMENT '课程班级Id',
   `student_id` int(11) NULL DEFAULT NULL COMMENT '学生Id',
@@ -356,7 +367,52 @@ CREATE TABLE `supporting_course`  (
   INDEX `couse_id`(`course_id`) USING BTREE,
   CONSTRAINT `supporting_course_ibfk_1` FOREIGN KEY (`graduation_point_id`) REFERENCES `graduation_point` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `supporting_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 116 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of supporting_course
+-- ----------------------------
+INSERT INTO `supporting_course` VALUES (75, 2, 2.00, 194, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (76, 1, 3.00, 197, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (77, 1, 5.00, 198, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (78, 2, 6.00, 199, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (79, 1, 7.00, 200, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (80, 2, 8.00, 201, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (81, 1, 9.00, 202, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (82, 2, 10.00, 203, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (83, 1, 11.00, 204, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (84, 2, 12.00, 205, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (85, 1, 13.00, 206, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (86, 2, 14.00, 207, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (87, 1, 15.00, 208, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (88, 2, 16.00, 209, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (89, 1, 17.00, 210, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (90, 2, 18.00, 211, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (91, 1, 19.00, 212, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (92, 2, 20.00, 213, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (93, 1, 21.00, 214, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (94, 2, 22.00, 215, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (95, 1, 23.00, 216, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (96, 2, 24.00, 217, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (97, 1, 25.00, 218, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (98, 2, 26.00, 219, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (99, 1, 27.00, 220, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (100, 2, 28.00, 221, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (101, 1, 29.00, 222, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (102, 2, 30.00, 223, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (103, 1, 31.00, 224, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (104, 2, 32.00, 225, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (105, 1, 33.00, 226, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (106, 2, 34.00, 227, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (107, 1, 35.00, 228, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (108, 2, 36.00, 229, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (109, 1, 37.00, 230, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (110, 2, 38.00, 231, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (111, 1, 39.00, 232, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (112, 2, 40.00, 233, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (113, 1, 41.00, 234, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (114, 2, 42.00, 235, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
+INSERT INTO `supporting_course` VALUES (115, 1, 43.00, 194, '2019-12-13 17:28:49', '2019-12-13 17:28:49');
 
 -- ----------------------------
 -- Table structure for teacher
@@ -378,6 +434,11 @@ CREATE TABLE `teacher`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   `login_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of teacher
+-- ----------------------------
+INSERT INTO `teacher` VALUES (1, 'xxs5', NULL, NULL, '哈哈', NULL, '男', '副教授', '2019-12-17', '', '', '2019-12-13 17:31:56', '2019-12-13 17:31:56', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
