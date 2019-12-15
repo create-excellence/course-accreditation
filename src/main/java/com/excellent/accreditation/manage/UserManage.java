@@ -169,7 +169,19 @@ public class UserManage {
         if (StringUtils.isEmpty(token))
             throw new AuthenticationException("请登录后访问！");
         token = JWTUtil.decryptToken(token);            // 解密token
-        return JWTUtil.getName(token);
+        String code = JWTUtil.getName(token);
+        Student student = studentService.getByCode(code);
+        Teacher teacher = teacherService.getByCode(code);
+        String password = null;
+        if (student != null) {
+            password = student.getPassword();
+        } else if (teacher != null) {
+            password = teacher.getPassword();
+        }
+        // 校验token是否合法
+        if (!JWTUtil.verify(token, code, password))
+            throw new AuthenticationException("token校验不通过");
+        return code;
     }
 
     /**

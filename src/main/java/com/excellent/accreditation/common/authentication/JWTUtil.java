@@ -17,7 +17,7 @@ public class JWTUtil {
 
     /**
      * @Author 安羽兮
-     * @Description token过期时间 单位 秒
+     * @Description token过期时间 单位 毫秒
      * @Date 12:48 2019/12/7
      **/
     private static final long EXPIRE_TIME = 1000 * 60 * 60;
