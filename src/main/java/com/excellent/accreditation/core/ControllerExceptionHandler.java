@@ -22,22 +22,22 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @RestControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.OK)
-    public ServerResponse handleUniqueException(SQLIntegrityConstraintViolationException e) {
-        return ServerResponse.createByErrorCodeMessage(HttpStatus.CONFLICT.value(), e.getMessage());
-    }
-
     @ExceptionHandler(ConflictException.class)
     @ResponseStatus(HttpStatus.OK)
-    public ServerResponse handleUniqueException(ConflictException e) {
+    public ServerResponse handleConflictException(ConflictException e) {
         return ServerResponse.createByErrorCodeMessage(HttpStatus.CONFLICT.value(), e.getMessage());
     }
 
     @ExceptionHandler({UniqueException.class, EmptyException.class})
     @ResponseStatus(HttpStatus.OK)
     public ServerResponse handleUniqueException(UniqueException e) {
-        return ServerResponse.createByErrorMessage(e.getMessage());
+        return ServerResponse.createByErrorCodeMessage(HttpStatus.NOT_ACCEPTABLE.value(), e.getMessage());
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public ServerResponse handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e) {
+        return ServerResponse.createByErrorCodeMessage(HttpStatus.EXPECTATION_FAILED.value(), e.getMessage());
     }
 
 //    @ExceptionHandler(Exception.class)
