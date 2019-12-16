@@ -17,7 +17,8 @@
     </sql>
 
     <select id="pageByQuery" resultType="com.excellent.accreditation.model.vo.SelectCourseVo">
-        SELECT  sc.*,stu.`name` student, t.`name` teacher, c.`name` course, s.`name` semester,stu.sno,cc.teacher_id,cc.semester_id,cc.`status`,cc.start_week,cc.end_week
+        SELECT sc.*,stu.`name` student, t.`name` teacher, c.`name` course, s.`name`
+        semester,stu.sno,cc.teacher_id,cc.semester_id,cc.`code`,cc.start_week,cc.end_week
         FROM select_course sc, course_class cc, student stu,teacher t, course c, semester s
         WHERE
         sc.course_class_id = cc.id and cc.course_id = c.id and cc.teacher_id = t.id and sc.student_id = stu.id and
@@ -37,7 +38,7 @@
         </if>
     </select>
     <select id="querySelectCourseById" resultType="com.excellent.accreditation.model.vo.SelectCourseVo">
-        SELECT  sc.*,stu.`name` student, t.`name` teacher, c.`name` course, s.`name` semester,stu.sno,cc.teacher_id,cc.semester_id,cc.`status`,cc.start_week,cc.end_week
+        SELECT  sc.*,stu.`name` student, t.`name` teacher, c.`name` course, s.`name` semester,stu.sno,cc.teacher_id,cc.semester_id,cc.`code`,cc.start_week,cc.end_week
         FROM select_course sc, course_class cc, student stu,teacher t, course c, semester s
         WHERE
         sc.course_class_id = cc.id and cc.course_id = c.id and cc.teacher_id = t.id and sc.student_id = stu.id and cc.semester_id = s.id

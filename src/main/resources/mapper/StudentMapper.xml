@@ -12,7 +12,7 @@
         <result column="grade" property="grade"/>
         <result column="avatar" property="avatar"/>
         <result column="major_id" property="majorId"/>
-        <result column="status" property="status"/>
+        <result column="code" property="code"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="login_time" property="loginTime"/>
@@ -20,7 +20,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, sno, password, name, sex, grade,avatar, major_id, status, create_time, update_time, login_time
+        id, sno, password, name, sex, grade,avatar, major_id, code, create_time, update_time, login_time
     </sql>
 
 </mapper>
