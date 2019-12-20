@@ -2,6 +2,7 @@ package com.excellent.accreditation.controller;
 
 
 import com.excellent.accreditation.common.annotation.Permission;
+import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.GraduationPoint;
 import com.excellent.accreditation.model.form.GraduationPointQuery;
@@ -100,6 +101,7 @@ public class GraduationPointController {
                                      @RequestBody GraduationPoint graduationPoint) {
         graduationPoint.setId(id);
         graduationPoint.setUpdateTime(LocalDateTime.now());
+        graduationPointService.check(graduationPoint, Const.UPDATE);
         boolean result = graduationPointService.updateById(graduationPoint);
         if (result)
             return ServerResponse.createBySuccess("指标点更新成功");

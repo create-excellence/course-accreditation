@@ -18,5 +18,5 @@ public interface IGraduationPointService extends IService<GraduationPoint> {
 
     GraduationPoint getByNo(String no);
 
-
+    void check(GraduationPoint graduationPoint,Integer type);
 }

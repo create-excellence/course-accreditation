@@ -1,10 +1,13 @@
 package com.excellent.accreditation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
+import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.GraduationPointMapper;
 import com.excellent.accreditation.model.entity.GraduationPoint;
 import com.excellent.accreditation.model.form.GraduationPointQuery;
@@ -23,17 +26,17 @@ import java.util.List;
 @Service
 public class GraduationPointServiceImpl extends ServiceImpl<GraduationPointMapper, GraduationPoint> implements IGraduationPointService {
 
-    private final IGraduationDemandService majorService;
+    private final IGraduationDemandService graduationDemandService;
 
-    public GraduationPointServiceImpl(IGraduationDemandService majorService) {
-        this.majorService = majorService;
+    public GraduationPointServiceImpl(IGraduationDemandService graduationDemandService) {
+        this.graduationDemandService = graduationDemandService;
     }
 
     @Override
     public boolean create(GraduationPoint graduationPoint) {
+        this.check(graduationPoint,Const.CREATE);
         graduationPoint.setCreateTime(LocalDateTime.now());
         graduationPoint.setUpdateTime(LocalDateTime.now());
-        majorService.checkGraduationDemand(graduationPoint.getGraduationDemandId());     // 查看是否有对应的毕业要求
         boolean result = this.save(graduationPoint);
         // 操作成功
         if (result)
@@ -43,15 +46,9 @@ public class GraduationPointServiceImpl extends ServiceImpl<GraduationPointMappe
 
     @Override
     public PageInfo<GraduationPoint> pageByQuery(GraduationPointQuery query) {
-        LambdaQueryWrapper<GraduationPoint> queryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotEmpty(query.getNo()))
-            queryWrapper.like(GraduationPoint::getNo, query.getNo());
-        if (StringUtils.isNotEmpty(query.getContent()))
-            queryWrapper.like(GraduationPoint::getContent, query.getContent());
         PageHelper.startPage(query.getPage(), query.getPageSize());
-        List<GraduationPoint> list = this.list(queryWrapper);
-        PageInfo<GraduationPoint> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        List<GraduationPoint> list = baseMapper.pageByQuery(query.getNo(),query.getContent());
+        return new PageInfo<>(list);
     }
 
     @Override
@@ -70,5 +67,25 @@ public class GraduationPointServiceImpl extends ServiceImpl<GraduationPointMappe
             throw new ConflictException("毕业指标点不存在");
         }
         return graduationPoint;
+    }
+
+    @Override
+    public void check(GraduationPoint graduationPoint, Integer type) {
+        if (type.equals(Const.CREATE) || graduationPoint.getNo() != null) {
+            this.checkNo(graduationPoint.getNo(), graduationPoint.getId());
+        }
+        if (type.equals(Const.CREATE) || graduationPoint.getGraduationDemandId() != null) {
+            graduationDemandService.checkGraduationDemand(graduationPoint.getGraduationDemandId());     // 查看是否有对应的毕业要求
+        }
+    }
+
+    private void  checkNo(String no,Integer id){
+        LambdaQueryWrapper<GraduationPoint> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(GraduationPoint::getNo, no);
+        GraduationPoint graduationPoint = super.getOne(queryWrapper);
+        if (graduationPoint != null && !graduationPoint.getId().equals(id)) {
+            // 如果code已存在还要检查是否当前更新的是否为同一条记录,若不同则抛出异常
+            throw new UniqueException("指标点编号不能重复");
+        }
     }
 }

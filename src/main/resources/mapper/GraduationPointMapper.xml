@@ -16,5 +16,24 @@
     <sql id="Base_Column_List">
         id, no, graduation_demand_id, content, create_time, update_time
     </sql>
+    <select id="pageByQuery" resultType="com.excellent.accreditation.model.vo.GraduationPointVo">
+        SELECT gd.no graduationDemandNo,gp.*
+        FROM  graduation_point gp, graduation_demand gd
+        WHERE
+        gp.graduation_demand_id = gd.id
+        <if test="no != null" >
+            and gp.`no` like "%" #{no,jdbcType=VARCHAR}"%"
+        </if>
+        <if test="content != null" >
+            and gp.`content` like "%"#{content,jdbcType=VARCHAR} "%"
+        </if>
 
+    </select>
+
+    <select id="getVoById" resultType="com.excellent.accreditation.model.vo.GraduationPointVo">
+        SELECT gd.no graduationDemandNo,gp.*
+        FROM  graduation_point gp, graduation_demand gd
+        WHERE
+        gp.graduation_demand_id = gd.id  and gd.id=#{id}
+    </select>
 </mapper>

@@ -12,5 +12,6 @@ import lombok.Data;
  **/
 @Data
 public class GraduationDemandVo extends GraduationDemand {
+    
     private String major;
 }
