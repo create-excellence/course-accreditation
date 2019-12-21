@@ -47,7 +47,7 @@ public class GraduationPointServiceImpl extends ServiceImpl<GraduationPointMappe
     @Override
     public PageInfo<GraduationPoint> pageByQuery(GraduationPointQuery query) {
         PageHelper.startPage(query.getPage(), query.getPageSize());
-        List<GraduationPoint> list = baseMapper.pageByQuery(query.getNo(),query.getContent());
+        List<GraduationPoint> list = baseMapper.pageByQuery(query.getNo(),query.getContent(),query.getGraduationDemandId());
         return new PageInfo<>(list);
     }
 

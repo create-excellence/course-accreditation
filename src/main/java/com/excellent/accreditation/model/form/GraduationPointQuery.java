@@ -20,4 +20,7 @@ public class GraduationPointQuery extends BasePage {
 
     @Size(max = 25, message = "指标点内容的字符长度不能超过 {max}")
     private String content;
+
+    @Size(max = 12, message = "指标点Id的字符长度不能超过 {max}")
+    private Integer graduationDemandId;
 }

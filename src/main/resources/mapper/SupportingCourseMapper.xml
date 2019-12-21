@@ -22,11 +22,14 @@
         FROM supporting_course sc, graduation_point gp, course c
         WHERE
         sc.course_id = c.id and sc.graduation_point_id = gp.id
-        <if test="graduationPoint != null" >
-            and gp.`content` like "%"#{graduationPoint,jdbcType=VARCHAR} "%"
+        <if test="graduationPointContent != null" >
+            and gp.`content` like "%"#{graduationPointContent,jdbcType=VARCHAR} "%"
         </if>
         <if test="course != null" >
             and c.`name` like "%" #{course,jdbcType=VARCHAR}"%"
+        </if>
+        <if test="graduationPointId != null" >
+            and sc.graduation_point_id =#{graduationPointId}
         </if>
     </select>
 

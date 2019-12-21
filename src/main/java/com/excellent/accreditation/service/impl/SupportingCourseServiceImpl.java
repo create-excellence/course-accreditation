@@ -46,7 +46,7 @@ public class SupportingCourseServiceImpl extends ServiceImpl<SupportingCourseMap
     @Override
     public PageInfo<SupportingCourseVo> pageByQuery(SupportingCourseQuery query) {
         PageHelper.startPage(query.getPage(), query.getPageSize());
-        List<SupportingCourseVo> supportingCourseVoList=baseMapper.pageByQuery(query.getCourseName(),query.getGraduationPointContent());
+        List<SupportingCourseVo> supportingCourseVoList=baseMapper.pageByQuery(query.getCourseName(),query.getGraduationPointContent(),query.getGraduationPointId());
         return new PageInfo<>(supportingCourseVoList);
     }
 

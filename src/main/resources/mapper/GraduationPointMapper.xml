@@ -27,8 +27,11 @@
         <if test="content != null" >
             and gp.`content` like "%"#{content,jdbcType=VARCHAR} "%"
         </if>
+        <if test="graduationDemandId != null" >
+            and gp.graduation_demand_id=#{graduationDemandId}
+        </if>
 
-    </select>
+</select>
 
     <select id="getVoById" resultType="com.excellent.accreditation.model.vo.GraduationPointVo">
         SELECT gd.no graduationDemandNo,gp.*

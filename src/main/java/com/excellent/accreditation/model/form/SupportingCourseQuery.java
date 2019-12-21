@@ -19,4 +19,7 @@ public class SupportingCourseQuery extends BasePage {
 
     @Size(max = 25, message = "指标点名称长度不能超过 {max}")
     private String graduationPointContent;
+
+    @Size(max = 12, message = "指标点Id长度不能超过 {max}")
+    private Integer graduationPointId;
 }

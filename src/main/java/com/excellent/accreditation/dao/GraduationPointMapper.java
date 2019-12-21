@@ -14,6 +14,6 @@ import java.util.List;
 public interface GraduationPointMapper extends BaseMapper<GraduationPoint> {
     GraduationPoint getVoById(Integer id);
 
-    List<GraduationPoint> pageByQuery(@Param("no") String no, @Param("content") String content);
+    List<GraduationPoint> pageByQuery(@Param("no") String no, @Param("content") String content, @Param("graduationDemandId") Integer graduationDemandId);
 
 }

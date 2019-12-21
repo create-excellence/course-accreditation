@@ -16,5 +16,5 @@ public interface SupportingCourseMapper extends BaseMapper<SupportingCourse> {
 
     SupportingCourseVo getVoById(Integer id);
 
-    List<SupportingCourseVo> pageByQuery(@Param("course") String course, @Param("graduationPoint") String graduationPoint);
+    List<SupportingCourseVo> pageByQuery(@Param("course") String course, @Param("graduationPointContent") String graduationPointContent, @Param("graduationPointId") Integer graduationPointId);
 }
