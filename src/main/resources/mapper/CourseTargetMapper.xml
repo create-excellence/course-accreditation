@@ -9,7 +9,7 @@
         <result column="title" property="title"/>
         <result column="point_id" property="pointId"/>
         <result column="options" property="options"/>
-        <result column="describe" property="describe"/>
+        <result column="describes" property="describes"/>
         <result column="options_score" property="optionsScore"/>
         <result column="total_score" property="totalScore"/>
         <result column="sequence" property="sequence"/>
@@ -19,7 +19,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, questionnaire_id, title, point_id, options, describe, options_score, total_score, sequence, create_time, update_time
+        id, questionnaire_id, title, point_id, options, describes, options_score, total_score, sequence, create_time, update_time
     </sql>
 
 </mapper>
