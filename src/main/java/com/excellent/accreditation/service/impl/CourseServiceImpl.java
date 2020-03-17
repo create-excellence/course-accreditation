@@ -1,12 +1,14 @@
 package com.excellent.accreditation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ExcelResult;
-import com.excellent.accreditation.common.exception.*;
+import com.excellent.accreditation.common.exception.CommonException;
+import com.excellent.accreditation.common.exception.ConflictException;
+import com.excellent.accreditation.common.exception.DatabaseException;
+import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.CourseMapper;
 import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.model.form.CourseQuery;
@@ -19,7 +21,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,12 @@ import java.util.Map;
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements ICourseService {
 
+    private final CourseMapper courseMapper;
+
+    public CourseServiceImpl(CourseMapper courseMapper) {
+        this.courseMapper = courseMapper;
+    }
+
     /**
      * @Description: 添加课程, 校验是否存在课程代码
      * @Param: [course]
@@ -42,7 +49,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public boolean create(Course course) {
         course.setCreateTime(LocalDateTime.now());
         course.setUpdateTime(LocalDateTime.now());
-        this.checkCode(course.getCode(),null);                  // 课程代码必须唯一
+        this.checkCode(course.getCode(), null);                  // 课程代码必须唯一
         boolean result = this.save(course);
         // 操作成功
         if (result)
@@ -53,12 +60,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public List<ExcelResult> saveBachByExcel(MultipartFile file) {
-        List<Map<Integer, String>> list=ExcelUtils.readExcelGetList(file);
+        List<Map<Integer, String>> list = ExcelUtils.readExcelGetList(file);
         List<ExcelResult> excelResults = new ArrayList<>();
         list.forEach(data -> {
             ExcelResult excelResult = new ExcelResult();
             try {
-                EmptyCheckUtils.checkExcelMapAndSetNo(data,excelResult, 4);
+                EmptyCheckUtils.checkExcelMapAndSetNo(data, excelResult, 4);
                 String name = data.get(1);
                 String code = data.get(2);
                 Double credit = Double.parseDouble(data.get(3));
@@ -87,15 +94,14 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Override
     public Course getByCode(String code) {
-        LambdaQueryWrapper<Course> queryWrapper=new LambdaQueryWrapper<>();
-        queryWrapper.eq(Course::getCode,code);
-        Course course =this.getOne(queryWrapper);
-        if (course==null){
+        LambdaQueryWrapper<Course> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Course::getCode, code);
+        Course course = this.getOne(queryWrapper);
+        if (course == null) {
             throw new ConflictException("课程不存在");
         }
         return course;
     }
-
 
     /**
      * @Description: 检查课程code唯一
@@ -105,11 +111,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
      * @date: 2019/12/3
      */
     @Override
-    public void checkCode(@NonNull String code,Integer courseId) {
+    public void checkCode(@NonNull String code, Integer courseId) {
         LambdaQueryWrapper<Course> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Course::getCode, code);
-        Course course =super.getOne(queryWrapper);
-        if ( course!= null && !course.getId().equals(courseId)) {
+        Course course = super.getOne(queryWrapper);
+        if (course != null && !course.getId().equals(courseId)) {
             // 如果code已存在还要检查是否当前更新的是否为同一条记录,若不同则抛出异常
             throw new UniqueException("课程代码不能重复");
         }

@@ -102,10 +102,24 @@ public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, Cours
 
     }
 
+    /**
+     * @Author 安羽兮
+     * @Description //TODO
+     * @Date 16:03 2020/3/17
+     * @Param [courseClassQuery, studentId]
+     * @Return com.github.pagehelper.PageInfo<com.excellent.accreditation.model.entity.Course>
+     **/
+    @Override
+    public PageInfo<CourseClassVo> pageSelectByStudentId(CourseClassQuery query, Integer studentId) {
+        PageHelper.startPage(query.getPage(), query.getPageSize());
+        List<CourseClassVo> list = courseClassMapper.pageSelectByStudentId(studentId, query.getCourse(), query.getTeacher(), query.getSemester());
+        return new PageInfo<>(list);
+    }
+
     @Override
     public void checkCourseClass(Integer courseClassId) {
         if (this.getById(courseClassId) == null) {
             throw new ConflictException("课程不存在");
-    }
+        }
     }
 }

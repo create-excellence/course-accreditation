@@ -28,4 +28,6 @@ public interface ICourseClassService extends IService<CourseClass> {
     void check(CourseClass courseClass, Integer type);
 
     void checkCourseClass(Integer courseClassId);
+
+    PageInfo<CourseClassVo> pageSelectByStudentId(CourseClassQuery courseClassQuery, Integer studentId);
 }

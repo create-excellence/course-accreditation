@@ -6,14 +6,18 @@ import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.manage.UserManage;
 import com.excellent.accreditation.model.entity.SelectCourse;
+import com.excellent.accreditation.model.form.CourseClassQuery;
 import com.excellent.accreditation.model.form.SelectCourseQuery;
+import com.excellent.accreditation.model.vo.CourseClassVo;
 import com.excellent.accreditation.model.vo.SelectCourseVo;
 import com.excellent.accreditation.model.vo.UserVo;
+import com.excellent.accreditation.service.ICourseClassService;
 import com.excellent.accreditation.service.ISelectCourseService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +38,8 @@ public class SelectCourseController {
 
     private final UserManage userManage;
 
+    private final ICourseClassService courseClassService;
+
     private final ISelectCourseService selectCourseService;
 
     /**
@@ -42,8 +48,9 @@ public class SelectCourseController {
      * description:
      */
     @Autowired
-    public SelectCourseController(UserManage userManage, ISelectCourseService selectCourseService) {
+    public SelectCourseController(UserManage userManage, ICourseClassService courseClassService, ISelectCourseService selectCourseService) {
         this.userManage = userManage;
+        this.courseClassService = courseClassService;
         this.selectCourseService = selectCourseService;
         ;
     }
@@ -57,6 +64,11 @@ public class SelectCourseController {
     @ApiOperation("添加选课")
     @Permission
     public ServerResponse create(@RequestBody @NonNull SelectCourse selectCourse) {
+        // studentId为空表示是学生选课
+        if (StringUtils.isEmpty(selectCourse.getStudentId())) {
+            UserVo userVo = userManage.getUserInfo();
+            selectCourse.setStudentId(userVo.getId());
+        }
         selectCourseService.create(selectCourse);
         return ServerResponse.createBySuccess("添加选课");
     }
@@ -82,7 +94,6 @@ public class SelectCourseController {
      * @data 2019/12/9
      * description:
      */
-
     @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除选课")
     @Permission
@@ -138,6 +149,18 @@ public class SelectCourseController {
         UserVo userVo = userManage.getUserInfo();
         selectCourseQuery.setStudentId(userVo.getId());
         PageInfo<SelectCourseVo> list = selectCourseService.pageSelectByStudentId(selectCourseQuery);
+        if (list != null)
+            return ServerResponse.createBySuccess(list);
+
+        return ServerResponse.createByErrorMessage("选课不存在");
+    }
+
+    @GetMapping("/select")
+    @ApiOperation("查找所有该登陆学生未选的课")
+//    @Permission(roles = {Const.STUDENT})
+    public ServerResponse queryByStudentId(CourseClassQuery courseClassQuery) {
+        UserVo userVo = userManage.getUserInfo();
+        PageInfo<CourseClassVo> list = courseClassService.pageSelectByStudentId(courseClassQuery, userVo.getId());
         if (list != null)
             return ServerResponse.createBySuccess(list);
 
