@@ -4,9 +4,11 @@ package com.excellent.accreditation.controller;
 import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
+import com.excellent.accreditation.manage.UserManage;
 import com.excellent.accreditation.model.entity.SelectCourse;
 import com.excellent.accreditation.model.form.SelectCourseQuery;
 import com.excellent.accreditation.model.vo.SelectCourseVo;
+import com.excellent.accreditation.model.vo.UserVo;
 import com.excellent.accreditation.service.ISelectCourseService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +32,8 @@ import java.util.Collection;
 @RequestMapping("/${server.version}/select-course")
 public class SelectCourseController {
 
+    private final UserManage userManage;
+
     private final ISelectCourseService selectCourseService;
 
     /**
@@ -38,7 +42,8 @@ public class SelectCourseController {
      * description:
      */
     @Autowired
-    public SelectCourseController(ISelectCourseService selectCourseService) {
+    public SelectCourseController(UserManage userManage, ISelectCourseService selectCourseService) {
+        this.userManage = userManage;
         this.selectCourseService = selectCourseService;
         ;
     }
@@ -122,6 +127,20 @@ public class SelectCourseController {
         if (selectCourseVo != null) {
             return ServerResponse.createBySuccess(selectCourseVo);
         }
+        return ServerResponse.createByErrorMessage("选课不存在");
+    }
+
+
+    @GetMapping("/list-student")
+    @ApiOperation("通过学生id查找选课")
+//    @Permission(roles = {Const.STUDENT})
+    public ServerResponse queryByStudentId(SelectCourseQuery selectCourseQuery) {
+        UserVo userVo = userManage.getUserInfo();
+        selectCourseQuery.setStudentId(userVo.getId());
+        PageInfo<SelectCourseVo> list = selectCourseService.pageSelectByStudentId(selectCourseQuery);
+        if (list != null)
+            return ServerResponse.createBySuccess(list);
+
         return ServerResponse.createByErrorMessage("选课不存在");
     }
 

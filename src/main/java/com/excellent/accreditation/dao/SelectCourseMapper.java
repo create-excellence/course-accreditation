@@ -19,4 +19,6 @@ public interface SelectCourseMapper extends BaseMapper<SelectCourse> {
     List<SelectCourseVo> pageByQuery(@Param("student") String student, @Param("teacher") String teacher, @Param("semester") String semester, @Param("course") String course);
 
     SelectCourseVo querySelectCourseById(Integer id);
+
+    List<SelectCourseVo> pageSelectByStudentId(@Param("studentId") Integer studentId, @Param("teacher") String teacher, @Param("semester") String semester, @Param("course") String course);
 }

@@ -44,5 +44,26 @@
         sc.course_class_id = cc.id and cc.course_id = c.id and cc.teacher_id = t.id and sc.student_id = stu.id and cc.semester_id = s.id
             and sc.id  = #{id,jdbcType=INTEGER}
     </select>
+    <select id="pageSelectByStudentId" resultType="com.excellent.accreditation.model.vo.SelectCourseVo">
+        SELECT sc.*,stu.`name` student, t.`name` teacher, c.`name` course, s.`name`
+        semester,stu.sno,cc.teacher_id,cc.semester_id,cc.`status`,cc.start_week,cc.end_week
+        FROM select_course sc, course_class cc, student stu,teacher t, course c, semester s
+        WHERE
+        sc.course_class_id = cc.id and cc.course_id = c.id and cc.teacher_id = t.id and sc.student_id = stu.id and
+        cc.semester_id = s.id
+        <if test="studentId != null and studentId != ''">
+            and stu.`id` = #{studentId,jdbcType=VARCHAR}
+        </if>
+        <if test="teacher != null and teacher != ''">
+            and t.`name`like "%" #{teacher,jdbcType=VARCHAR}"%"
+        </if>
+        <if test="semester != null and semester != ''">
+            and s.`name` like "%" #{semester,jdbcType=VARCHAR}"%"
+        </if>
+        <if test="course != null and course != ''">
+            and c.`name` like "%" #{course,jdbcType=VARCHAR}"%"
+        </if>
+    </select>
+
 
 </mapper>

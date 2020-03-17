@@ -49,7 +49,7 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
 
     @Override
     public boolean create(SelectCourse selectCourse) {
-        this.check(selectCourse,Const.CREATE);
+        this.check(selectCourse, Const.CREATE);
         selectCourse.setCreateTime(LocalDateTime.now());
         selectCourse.setUpdateTime(LocalDateTime.now());
         boolean result = this.save(selectCourse);
@@ -94,30 +94,30 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
 
     @Override
     public void check(SelectCourse selectCourse, Integer checkType) {
-        if(checkType.equals(Const.CREATE)||selectCourse.getCourseClassId()!=null){
+        if (checkType.equals(Const.CREATE) || selectCourse.getCourseClassId() != null) {
             courseClassService.checkCourseClass(selectCourse.getCourseClassId());
         }
-        if(checkType.equals(Const.CREATE)||selectCourse.getStudentId()!=null){
+        if (checkType.equals(Const.CREATE) || selectCourse.getStudentId() != null) {
             studentService.checkStudent(selectCourse.getStudentId());
         }
         this.checkUnique(selectCourse);
     }
 
-    private void checkUnique(SelectCourse selectCourse){
-        if(selectCourse.getStudentId()==null&&selectCourse.getCourseClassId()==null){
+    private void checkUnique(SelectCourse selectCourse) {
+        if (selectCourse.getStudentId() == null && selectCourse.getCourseClassId() == null) {
             return;
         }
-        if(selectCourse.getCourseClassId()==null&&selectCourse.getStudentId()!=null){
-            throw  new EmptyException("课程不能为空");
+        if (selectCourse.getCourseClassId() == null && selectCourse.getStudentId() != null) {
+            throw new EmptyException("课程不能为空");
         }
-        if(selectCourse.getCourseClassId()!=null&&selectCourse.getStudentId()==null){
-            throw  new EmptyException("学号不能为空");
+        if (selectCourse.getCourseClassId() != null && selectCourse.getStudentId() == null) {
+            throw new EmptyException("学号不能为空");
         }
         LambdaQueryWrapper<SelectCourse> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(SelectCourse::getCourseClassId,selectCourse.getCourseClassId());
-        queryWrapper.eq(SelectCourse::getStudentId,selectCourse.getStudentId());
-        SelectCourse selectCourse1=this.getOne(queryWrapper);
-        if(selectCourse1!=null&&!selectCourse1.getId().equals(selectCourse.getId())){
+        queryWrapper.eq(SelectCourse::getCourseClassId, selectCourse.getCourseClassId());
+        queryWrapper.eq(SelectCourse::getStudentId, selectCourse.getStudentId());
+        SelectCourse selectCourse1 = this.getOne(queryWrapper);
+        if (selectCourse1 != null && !selectCourse1.getId().equals(selectCourse.getId())) {
             throw new UniqueException("已存在相同记录");
         }
     }
@@ -146,6 +146,21 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
     public PageInfo<SelectCourseVo> pageByQuery(SelectCourseQuery selectCourseQuery) {
         PageHelper.startPage(selectCourseQuery.getPage(), selectCourseQuery.getPageSize());
         List<SelectCourseVo> list = selectCourseMapper.pageByQuery(selectCourseQuery.getStudent(), selectCourseQuery.getTeacher(), selectCourseQuery.getSemester(), selectCourseQuery.getCourse());
+        return new PageInfo<>(list);
+    }
+
+
+    /**
+     * @Author 安羽兮
+     * @Description //TODO
+     * @Date 13:03 2020/3/17
+     * @Param [selectCourseQuery]
+     * @Return com.github.pagehelper.PageInfo<com.excellent.accreditation.model.vo.SelectCourseVo>
+     **/
+    @Override
+    public PageInfo<SelectCourseVo> pageSelectByStudentId(SelectCourseQuery selectCourseQuery) {
+        PageHelper.startPage(selectCourseQuery.getPage(), selectCourseQuery.getPageSize());
+        List<SelectCourseVo> list = selectCourseMapper.pageSelectByStudentId(selectCourseQuery.getStudentId(), selectCourseQuery.getTeacher(), selectCourseQuery.getSemester(), selectCourseQuery.getCourse());
         return new PageInfo<>(list);
     }
 }

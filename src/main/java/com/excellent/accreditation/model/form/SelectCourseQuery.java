@@ -23,6 +23,11 @@ public class SelectCourseQuery extends BasePage {
     private String student;
 
     /**
+     * 学生ID
+     */
+    private Integer studentId;
+
+    /**
      * 老师姓名
      */
     private String teacher;

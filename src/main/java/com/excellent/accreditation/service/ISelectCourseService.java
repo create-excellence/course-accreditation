@@ -21,9 +21,11 @@ public interface ISelectCourseService extends IService<SelectCourse> {
 
     List<ExcelResult> saveBachByExcel(MultipartFile file);
 
-    void check(SelectCourse selectCourse,Integer checkType);
+    void check(SelectCourse selectCourse, Integer checkType);
 
     void checkSelectCourse(Integer courseClassId, Integer studentId);
 
     SelectCourseVo selectCourseId(Integer id);
+
+    PageInfo<SelectCourseVo> pageSelectByStudentId(SelectCourseQuery selectCourseQuery);
 }
