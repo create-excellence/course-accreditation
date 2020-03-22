@@ -61,7 +61,7 @@ public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, Cours
     @Override
     public PageInfo<CourseClassVo> pageByQuery(CourseClassQuery query) {
         PageHelper.startPage(query.getPage(), query.getPageSize());
-        List<CourseClassVo> list = courseClassMapper.pageByQuery(query.getCourse(), query.getTeacher(), query.getSemester());
+        List<CourseClassVo> list = courseClassMapper.pageByQuery(query.getCourse(), query.getTeacher(), query.getSemester(),query.getCourseId());
         return new PageInfo<>(list);
     }
 

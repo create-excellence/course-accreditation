@@ -25,7 +25,7 @@ import java.util.Collection;
  */
 @RestController
 @RequestMapping("/${server.version}/teacher")
-public class TeacherController {
+public class   TeacherController {
 
     private final ITeacherService teacherService;
 

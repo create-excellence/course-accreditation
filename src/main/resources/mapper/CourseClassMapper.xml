@@ -52,6 +52,9 @@
             <if test="semester != null and semester != ''">
                 and s.`name` like "%" #{semester,jdbcType=VARCHAR}"%"
             </if>
+            <if test="courseId != null">
+                and courseId = #{courseId}
+            </if>
         </where>
     </select>
 

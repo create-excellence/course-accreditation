@@ -23,6 +23,9 @@ public class CourseClassQuery extends BasePage {
     @Size(max = 25, message = "课程名称字符长度不能超过 {max}")
     private String course;
 
-    @Size(max = 25, message = "课程名称字符长度不能超过 {max}")
+    @Size(max = 25, message = "学期名称字符长度不能超过 {max}")
     private String semester;
+
+    @Size(max = 12, message = "课程Id的字符长度不能超过 {max}")
+    private Integer courseId;
 }
