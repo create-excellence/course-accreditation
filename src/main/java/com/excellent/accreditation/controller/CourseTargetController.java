@@ -6,6 +6,7 @@ import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.CourseTarget;
 import com.excellent.accreditation.model.form.CourseTargetQuery;
+import com.excellent.accreditation.model.vo.CourseTargetVo;
 import com.excellent.accreditation.service.ICourseTargetService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
@@ -138,7 +139,7 @@ public class CourseTargetController {
     @ApiOperation("分页查询课程目标")
     @Permission
     public ServerResponse queryCourse(CourseTargetQuery courseClassQuery) {
-        PageInfo<CourseTarget> list = courseTargetService.pageByQuery(courseClassQuery);
+        PageInfo<CourseTargetVo> list = courseTargetService.pageByQuery(courseClassQuery);
         if (list != null)
             return ServerResponse.createBySuccess(list);
 

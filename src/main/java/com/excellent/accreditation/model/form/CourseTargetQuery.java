@@ -19,5 +19,9 @@ public class CourseTargetQuery extends BasePage {
     @Size(max = 25, message = "题目的字符长度不能超过 {max}")
     private String title;
 
+    @Size(max = 12, message = "选项的字符长度不能超过 {max}")
+    private Integer option;
 
+    @Size(max = 12, message = "问卷Id的字符长度不能超过 {max}")
+    private Integer questionnaireId;
 }

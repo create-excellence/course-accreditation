@@ -11,6 +11,7 @@ import com.excellent.accreditation.dao.CourseTargetMapper;
 import com.excellent.accreditation.model.entity.CourseClass;
 import com.excellent.accreditation.model.entity.CourseTarget;
 import com.excellent.accreditation.model.form.CourseTargetQuery;
+import com.excellent.accreditation.model.vo.CourseTargetVo;
 import com.excellent.accreditation.service.ICourseTargetService;
 import com.excellent.accreditation.service.IGraduationPointService;
 import com.excellent.accreditation.service.IQuestionnaireService;
@@ -46,15 +47,15 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
         }
     }
 
-    @Override
-    public PageInfo<CourseTarget> pageByQuery(CourseTargetQuery query) {
+    public PageInfo<CourseTargetVo> pageByQuery(CourseTargetQuery query) {
         LambdaQueryWrapper<CourseTarget> queryWrapper = new LambdaQueryWrapper<>();
         if (StringUtils.isNotEmpty(query.getTitle())){
             queryWrapper.like(CourseTarget::getTitle, query.getTitle());
         }
         PageHelper.startPage(query.getPage(), query.getPageSize());
         List<CourseTarget> list = this.list(queryWrapper);
-        return new PageInfo<>(list);
+        List<CourseTargetVo> lists = CourseTargetVo.convert(list);
+        return new PageInfo<>(lists);
     }
 
     @Override
