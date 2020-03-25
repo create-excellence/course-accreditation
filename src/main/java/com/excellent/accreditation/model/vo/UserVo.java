@@ -5,6 +5,7 @@ import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.entity.Teacher;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,6 +32,16 @@ public class UserVo {
     private String sex;
 
     private String avatar;
+
+    private String title;
+
+    private LocalDate birth;
+
+    private String graduateSchool;
+
+    private String graduateMajor;
+
+
 
     /**
      * 正常-0
@@ -74,6 +85,10 @@ public class UserVo {
         userVo.id = teacher.getId();
         userVo.sex = teacher.getSex();
         userVo.name = teacher.getName();
+        userVo.title = teacher.getTitle();
+        userVo.birth = teacher.getBirth();
+        userVo.graduateSchool = teacher.getGraduateSchool();
+        userVo.graduateMajor = teacher.getGraduateMajor();
         userVo.avatar = StringUtils.isNotEmpty(teacher.getAvatar()) ? teacher.getAvatar() : DEFAULT_AVATAR;
         userVo.status = 0;
         userVo.updateTime = teacher.getUpdateTime();

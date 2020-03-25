@@ -13,7 +13,9 @@ import com.excellent.accreditation.model.vo.UserVo;
 import com.excellent.accreditation.service.IRoleService;
 import com.excellent.accreditation.service.IStudentService;
 import com.excellent.accreditation.service.ITeacherService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -205,4 +207,27 @@ public class UserManage {
         });
         return roles;
     }
+
+
+    /**
+     * @Author ashe
+     * @Description 通过UserVo修改信息
+     * @Date 19:45 2019/12/4
+     * @Param [userVo]
+     * @Return java.lang.Boolean
+     **/
+    public boolean updateUserInfo(UserVo userVo) {
+        List<String> roles = this.getRolesByCode(this.getCodeByToken());
+        for (String role:roles) {
+            if(role.equals(Const.TEACHER)){
+                Teacher teacher =new Teacher();
+                BeanUtils.copyProperties(userVo, teacher);
+                teacher.setId(1);
+                return  this.teacherService.updateById(teacher);
+            }
+        }
+       return false;
+    }
+
+
 }

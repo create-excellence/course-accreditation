@@ -9,10 +9,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.lang.NonNull;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -43,7 +40,7 @@ public class SystemController {
         return ServerResponse.createByErrorMessage("登录失败");
     }
 
-    @PostMapping("getUserInfo")
+    @GetMapping("getUserInfo")
     @ApiOperation("获取用户信息")
     public ServerResponse getUserInfo() {
         UserVo userVo = userManage.getUserInfo();
@@ -53,6 +50,16 @@ public class SystemController {
 
         return ServerResponse.createByErrorMessage("用户信息获取失败");
     }
+
+    @PutMapping("updateUserInfo")
+    @ApiOperation("用户修改信息")
+    public ServerResponse getUserInfo(@RequestBody UserVo userVo) {
+        if (userManage.updateUserInfo(userVo))
+            return ServerResponse.createBySuccessMessage("修改成功");
+
+        return ServerResponse.createByErrorMessage("修改失败");
+    }
+
 
     @PostMapping("register")
     @ApiOperation("注册")
