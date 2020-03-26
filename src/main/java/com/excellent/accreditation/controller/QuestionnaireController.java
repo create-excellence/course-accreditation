@@ -5,6 +5,7 @@ import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.Questionnaire;
 import com.excellent.accreditation.model.form.QuestionnaireQuery;
+import com.excellent.accreditation.model.vo.QuestionnaireVo;
 import com.excellent.accreditation.service.IQuestionnaireService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
@@ -134,12 +135,11 @@ public class QuestionnaireController {
      **/
     @GetMapping("/list")
     @ApiOperation("分页查询问卷")
-    @Permission
+//    @Permission
     public ServerResponse queryQuestionnaire(QuestionnaireQuery questionnaireQuery) {
-        PageInfo<Questionnaire> list = questionnaireService.pageByQuery(questionnaireQuery);
+        PageInfo<QuestionnaireVo> list = questionnaireService.pageByQuery(questionnaireQuery);
         if (list != null)
             return ServerResponse.createBySuccess(list);
-
         return ServerResponse.createByErrorMessage("问卷不存在");
     }
 }

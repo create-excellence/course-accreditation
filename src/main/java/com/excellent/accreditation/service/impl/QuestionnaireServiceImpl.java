@@ -1,13 +1,12 @@
 package com.excellent.accreditation.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.dao.QuestionnaireMapper;
 import com.excellent.accreditation.model.entity.Questionnaire;
 import com.excellent.accreditation.model.form.QuestionnaireQuery;
+import com.excellent.accreditation.model.vo.QuestionnaireVo;
 import com.excellent.accreditation.service.IQuestionnaireService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -22,6 +21,12 @@ import java.util.List;
 @Service
 public class QuestionnaireServiceImpl extends ServiceImpl<QuestionnaireMapper, Questionnaire> implements IQuestionnaireService {
 
+    private final QuestionnaireMapper questionnaireMapper;
+
+    public QuestionnaireServiceImpl(QuestionnaireMapper questionnaireMapper) {
+        this.questionnaireMapper = questionnaireMapper;
+    }
+
     @Override
     public boolean create(Questionnaire questionnaire) {
         questionnaire.setCreateTime(LocalDateTime.now());
@@ -34,16 +39,10 @@ public class QuestionnaireServiceImpl extends ServiceImpl<QuestionnaireMapper, Q
     }
 
     @Override
-    public PageInfo<Questionnaire> pageByQuery(QuestionnaireQuery query) {
-        LambdaQueryWrapper<Questionnaire> queryWrapper = new LambdaQueryWrapper<>();
-        if (StringUtils.isNotEmpty(query.getName()))
-            queryWrapper.like(Questionnaire::getName, query.getName());
-        if (query.getTotalScore() != null)
-            queryWrapper.ge(Questionnaire::getTotalScore, query.getTotalScore());
+    public PageInfo<QuestionnaireVo> pageByQuery(QuestionnaireQuery query) {
         PageHelper.startPage(query.getPage(), query.getPageSize());
-        List<Questionnaire> list = this.list(queryWrapper);
-        PageInfo<Questionnaire> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        List<QuestionnaireVo> list =questionnaireMapper.pageByQuery(query.getTotalScore(),query.getName());
+        return new PageInfo<>(list);
     }
 
     @Override

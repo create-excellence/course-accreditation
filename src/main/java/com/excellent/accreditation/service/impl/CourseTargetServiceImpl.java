@@ -52,6 +52,9 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
         if (StringUtils.isNotEmpty(query.getTitle())){
             queryWrapper.like(CourseTarget::getTitle, query.getTitle());
         }
+        if(query.getQuestionnaireId()!=-1){
+            queryWrapper.like(CourseTarget::getQuestionnaireId, query.getQuestionnaireId());
+        }
         PageHelper.startPage(query.getPage(), query.getPageSize());
         List<CourseTarget> list = this.list(queryWrapper);
         List<CourseTargetVo> lists = CourseTargetVo.convert(list);

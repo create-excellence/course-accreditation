@@ -16,5 +16,18 @@
     <sql id="Base_Column_List">
         id, name, course_class_id, total_score, describes, create_time, update_time
     </sql>
+    <select id="pageByQuery" resultType="com.excellent.accreditation.model.vo.QuestionnaireVo">
+        SELECT questionnaire.*,course_class.no
+        FROM `questionnaire`,course_class
+        where
+        questionnaire.course_class_id = course_class.id
+        <if test="totalScore != null" >
+            and total_score = #{totalScore}
+        </if>
+        <if test="name != null" >
+            and name like "%"#{name,jdbcType=VARCHAR} "%"
+        </if>
+
+    </select>
 
 </mapper>
