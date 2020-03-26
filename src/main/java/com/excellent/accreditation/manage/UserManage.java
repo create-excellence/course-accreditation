@@ -13,12 +13,17 @@ import com.excellent.accreditation.model.vo.UserVo;
 import com.excellent.accreditation.service.IRoleService;
 import com.excellent.accreditation.service.IStudentService;
 import com.excellent.accreditation.service.ITeacherService;
+import com.excellent.accreditation.untils.FileUtil;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +41,10 @@ public class UserManage {
     private final IStudentService studentService;
 
     private final ITeacherService teacherService;
+
+    @Value("${upload.picture.path}")
+    private String uploadPicturePath;
+
 
 
     public UserManage(IRoleService roleService,
@@ -255,5 +264,49 @@ public class UserManage {
         return false;
     }
 
+
+    public  ServerResponse uploadAvatar(MultipartFile image) throws IOException {
+        String url="";
+        //检查图片的大小
+        boolean flag = FileUtil.checkFileSize(image.getSize(), 5, "M");
+
+
+        if (!flag)
+        {
+            //图片大小超限
+            return ServerResponse.createByErrorMessage("图片大小超过限制(5M), 请重新上传");
+        }
+        if (!image.isEmpty())
+        {
+            String originalFilename = image.getOriginalFilename();//获取图片文件的名字
+            String path = null;
+            String type = null; //图片类型
+            type = originalFilename.indexOf(".") != -1 ?
+                    originalFilename.substring(originalFilename.lastIndexOf(".") + 1, originalFilename.length())
+                    : null;
+
+            if (type != null)
+            {
+                if ("GIF".equals(type.toUpperCase()) || "PNG".equals(type.toUpperCase()) || "JPG".equals(type.toUpperCase()))
+                {
+                    // 新的图片的名称
+                    String trueFileName = System.currentTimeMillis() + FileUtil.getRandomString(15)+'.'+type;
+                    // 设置存放图片文件的路径
+                    path = uploadPicturePath + trueFileName;
+                    File file1 = new File(uploadPicturePath);
+                    if (!file1.exists())
+                    {
+                        file1.mkdirs();
+                    }
+                    //把图片存储到服务器中
+                    image.transferTo(new File(path));
+                    url = trueFileName;
+                    return ServerResponse.createBySuccessMessage("上传成功!",url);
+                }
+                return ServerResponse.createByErrorMessage("上传图片失败, 文件类型错误");
+            }
+        }
+        return ServerResponse.createByErrorMessage("上传图片失败, 请重新上传");
+    }
 
 }

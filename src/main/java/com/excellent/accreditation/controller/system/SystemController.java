@@ -1,6 +1,7 @@
 package com.excellent.accreditation.controller.system;
 
 
+import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.manage.UserManage;
 import com.excellent.accreditation.model.form.LoginForm;
@@ -11,6 +12,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * <p>
@@ -89,5 +93,19 @@ public class SystemController {
     })
     public ServerResponse changePassword(@RequestBody @NonNull PasswordForm passwordForm) {
         return userManage.changePassword(passwordForm.getOldPassword(), passwordForm.getNewPassword());
+    }
+
+    /**
+     * @Description: 上传头像
+     * @Param: [file]
+     * @Return: com.excellent.accreditation.common.domain.ServerResponse
+     * @Author: ashe
+     * @Date: 2019/12/5
+     */
+    @PostMapping("/uploadAvatar")
+    @ApiOperation("上传头像")
+    @Permission
+    public ServerResponse uploadAvatar(@RequestParam("file") MultipartFile image) throws IOException {
+        return userManage.uploadAvatar(image);
     }
 }

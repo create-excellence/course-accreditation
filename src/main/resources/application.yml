@@ -15,6 +15,10 @@ spring:
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://localhost:3306/course_accreditation?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=UTF-8
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
 
 web:
   # Swagger相关配置
@@ -41,6 +45,9 @@ mybatis-plus:
   global-config:
     banner: false
 
+upload:
+  picture:
+    path: D:/create-excellence/upload/
 
 ##配置日志
 #logging:
