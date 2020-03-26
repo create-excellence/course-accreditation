@@ -113,12 +113,18 @@ public class UserManage {
         List<String> roles = getRolesByCode(code);
 
         if (student != null) {
+            if (roles.isEmpty()) {
+                roles.add(Const.STUDENT);
+            }
             // 重新签署token
             String token = JWTUtil.encryptToken(JWTUtil.sign(code, student.getPassword()));
             UserVo userVo = UserVo.convert(student, token);
             userVo.setRole(roles);
             return userVo;
         } else if (teacher != null) {
+            if (roles.isEmpty()) {
+                roles.add(Const.TEACHER);
+            }
             // 重新签署token
             String token = JWTUtil.encryptToken(JWTUtil.sign(code, teacher.getPassword()));
             UserVo userVo = UserVo.convert(teacher, token);
@@ -237,11 +243,12 @@ public class UserManage {
      **/
     public boolean updateUserInfo(UserVo userVo) {
         List<String> roles = this.getRolesByCode(this.getCodeByToken());
+        UserVo user = this.getUserInfo();
         for (String role : roles) {
             if (role.equals(Const.TEACHER)) {
                 Teacher teacher = new Teacher();
                 BeanUtils.copyProperties(userVo, teacher);
-                teacher.setId(1);
+                teacher.setId(user.getId());
                 return this.teacherService.updateById(teacher);
             }
         }

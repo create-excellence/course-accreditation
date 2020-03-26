@@ -3,9 +3,11 @@ package com.excellent.accreditation.controller;
 
 import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
+import com.excellent.accreditation.manage.UserManage;
 import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.form.StudentQuery;
 import com.excellent.accreditation.model.vo.StudentVo;
+import com.excellent.accreditation.model.vo.UserVo;
 import com.excellent.accreditation.service.IMajorService;
 import com.excellent.accreditation.service.IStudentService;
 import com.github.pagehelper.PageInfo;
@@ -29,14 +31,49 @@ import java.util.Collection;
 @RequestMapping("/${server.version}/student")
 public class StudentController {
 
+    private final UserManage userManage;
+
     private final IStudentService studentService;
 
     private final IMajorService majorService;
 
     @Autowired
-    public StudentController(IStudentService studentService, IMajorService majorService) {
+    public StudentController(UserManage userManage, IStudentService studentService, IMajorService majorService) {
+        this.userManage = userManage;
         this.studentService = studentService;
         this.majorService = majorService;
+    }
+
+    /**
+     * @Author 安羽兮
+     * @Description //TODO
+     * @Date 17:02 2020/3/26
+     * @Param []
+     * @Return com.excellent.accreditation.common.domain.ServerResponse
+     **/
+    @GetMapping("/info")
+    @ApiOperation("获取学生个人信息")
+    @Permission
+    public ServerResponse getStudentInfo() {
+        UserVo userVo = userManage.getUserInfo();
+        return this.query(userVo.getId());
+    }
+
+    /**
+     * @Author 安羽兮
+     * @Description //TODO
+     * @Date 17:02 2020/3/26
+     * @Param [student]
+     * @Return com.excellent.accreditation.common.domain.ServerResponse
+     **/
+    @PostMapping("/updateInfo")
+    @ApiOperation("更新学生个人信息")
+    @Permission
+    public ServerResponse updateStudentInfo(@RequestBody @NonNull Student student) {
+        UserVo userVo = userManage.getUserInfo();
+        student.setId(userVo.getId());
+        studentService.saveOrUpdate(student);
+        return ServerResponse.createBySuccess("信息更新成功");
     }
 
     /**
