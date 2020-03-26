@@ -4,6 +4,7 @@ package com.excellent.accreditation.controller.system;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.manage.UserManage;
 import com.excellent.accreditation.model.form.LoginForm;
+import com.excellent.accreditation.model.form.PasswordForm;
 import com.excellent.accreditation.model.vo.UserVo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -60,7 +61,6 @@ public class SystemController {
         return ServerResponse.createByErrorMessage("修改失败");
     }
 
-
     @PostMapping("register")
     @ApiOperation("注册")
     @ApiImplicitParams({
@@ -72,5 +72,22 @@ public class SystemController {
                                    @NonNull String password,
                                    @NonNull String role) {
         return userManage.register(code, password, role);
+    }
+
+    /**
+     * @Author 安羽兮
+     * @Description //TODO
+     * @Date 10:55 2020/3/26
+     * @Param [passwordForm]
+     * @Return com.excellent.accreditation.common.domain.ServerResponse
+     **/
+    @PostMapping("changePassword")
+    @ApiOperation("修改密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "oldPassword", value = "旧密码", required = true, paramType = "form"),
+            @ApiImplicitParam(name = "newPassword", value = "新密码", required = true, paramType = "form")
+    })
+    public ServerResponse changePassword(@RequestBody @NonNull PasswordForm passwordForm) {
+        return userManage.changePassword(passwordForm.getOldPassword(), passwordForm.getNewPassword());
     }
 }

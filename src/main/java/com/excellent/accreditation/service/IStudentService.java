@@ -20,4 +20,6 @@ public interface IStudentService extends IService<Student> {
     PageInfo<StudentVo> pageByQuery(StudentQuery studentQuery);
 
     boolean create(Student student);
+
+    boolean updatePassword(String code, String oldPassword, String newPassword);
 }

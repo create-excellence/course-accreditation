@@ -19,4 +19,6 @@ public interface ITeacherService extends IService<Teacher> {
     boolean create(Teacher teacher);
 
     void checkTeacher(Integer teacherId);
+
+    boolean updatePassword(String code, String oldPassword, String newPassword);
 }

@@ -1,6 +1,7 @@
 package com.excellent.accreditation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.exception.ConflictException;
@@ -71,7 +72,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         pageInfo.getList().forEach(student -> {
             StudentVo studentVo = StudentVo.convert(student);
             Major major = majorService.getById(student.getMajorId());
-            if(major!=null){
+            if (major != null) {
                 studentVo.setMajor(major.getName());
             }
             result.getList().add(studentVo);
@@ -90,5 +91,20 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         if (result)
             return result;
         throw new DatabaseException("未知异常, 数据库操作失败");
+    }
+
+    @Override
+    public boolean updatePassword(String code, String oldPassword, String newPassword) {
+        LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Student::getSno, code)
+                .eq(Student::getPassword, oldPassword);
+        Student student = this.baseMapper.selectOne(queryWrapper);
+        if (student != null) {
+            student.setPassword(newPassword);
+            LambdaUpdateWrapper<Student> updateWrapper = new LambdaUpdateWrapper<>();
+            updateWrapper.eq(Student::getSno, code);
+            this.baseMapper.update(student, updateWrapper);
+        }
+        throw new ConflictException("密码错误，修改失败");
     }
 }

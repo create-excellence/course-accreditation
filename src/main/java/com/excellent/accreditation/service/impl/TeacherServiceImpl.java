@@ -1,6 +1,7 @@
 package com.excellent.accreditation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
@@ -80,5 +81,21 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         if (this.getById(teacherId) == null) {
             throw new ConflictException("老师不存在");
         }
+    }
+
+    @Override
+    public boolean updatePassword(String code, String oldPassword, String newPassword) {
+        LambdaQueryWrapper<Teacher> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Teacher::getJno, code)
+                .eq(Teacher::getPassword, oldPassword);
+        Teacher teacher = this.baseMapper.selectOne(queryWrapper);
+        if (teacher != null) {
+            teacher.setPassword(newPassword);
+            LambdaUpdateWrapper<Teacher> updateWrapper = new LambdaUpdateWrapper<>();
+            updateWrapper.eq(Teacher::getJno, code);
+            this.baseMapper.update(teacher, updateWrapper);
+            return true;
+        }
+        throw new ConflictException("密码错误，修改失败");
     }
 }

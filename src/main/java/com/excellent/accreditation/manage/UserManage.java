@@ -15,7 +15,6 @@ import com.excellent.accreditation.service.IStudentService;
 import com.excellent.accreditation.service.ITeacherService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -78,6 +77,26 @@ public class UserManage {
         }
         // 登录失败
         return null;
+    }
+
+    /**
+     * @Author 安羽兮
+     * @Description //TODO
+     * @Date 9:54 2020/3/26
+     * @Param [oldPassword, newPassword]
+     * @Return boolean
+     **/
+    public ServerResponse changePassword(String oldPassword, String newPassword) {
+        String code = this.getCodeByToken();
+        Student student = studentService.getByCode(code);
+        Teacher teacher = teacherService.getByCode(code);
+        boolean result = false;
+        if (student != null) {          // 学生
+            result = studentService.updatePassword(code, oldPassword, newPassword);
+        } else if (teacher != null) {  // 教师
+            result = teacherService.updatePassword(code, oldPassword, newPassword);
+        }
+        return ServerResponse.createBySuccessMessage("密码修改成功");
     }
 
     /**
@@ -218,15 +237,15 @@ public class UserManage {
      **/
     public boolean updateUserInfo(UserVo userVo) {
         List<String> roles = this.getRolesByCode(this.getCodeByToken());
-        for (String role:roles) {
-            if(role.equals(Const.TEACHER)){
-                Teacher teacher =new Teacher();
+        for (String role : roles) {
+            if (role.equals(Const.TEACHER)) {
+                Teacher teacher = new Teacher();
                 BeanUtils.copyProperties(userVo, teacher);
                 teacher.setId(1);
-                return  this.teacherService.updateById(teacher);
+                return this.teacherService.updateById(teacher);
             }
         }
-       return false;
+        return false;
     }
 
 
