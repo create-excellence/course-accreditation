@@ -8,8 +8,11 @@ import com.excellent.accreditation.common.domain.ExcelResult;
 import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.dao.CourseTargetMapper;
+import com.excellent.accreditation.model.base.Options;
 import com.excellent.accreditation.model.entity.CourseClass;
 import com.excellent.accreditation.model.entity.CourseTarget;
+import com.excellent.accreditation.model.entity.GraduationPoint;
+import com.excellent.accreditation.model.entity.Questionnaire;
 import com.excellent.accreditation.model.form.CourseTargetQuery;
 import com.excellent.accreditation.model.vo.CourseTargetVo;
 import com.excellent.accreditation.service.ICourseTargetService;
@@ -17,11 +20,13 @@ import com.excellent.accreditation.service.IGraduationPointService;
 import com.excellent.accreditation.service.IQuestionnaireService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,7 +62,7 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
         }
         PageHelper.startPage(query.getPage(), query.getPageSize());
         List<CourseTarget> list = this.list(queryWrapper);
-        List<CourseTargetVo> lists = CourseTargetVo.convert(list);
+        List<CourseTargetVo> lists = convert(list);
         return new PageInfo<>(lists);
     }
 
@@ -85,6 +90,34 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
         if(type.equals(Const.CREATE)||courseTarget.getPointId()!=null){
             graduationPointService.checkGraduationPoint(courseTarget.getPointId());
         }
+    }
+
+    public  List<CourseTargetVo> convert (List<CourseTarget> courseTargets){
+        List<CourseTargetVo> courseTargetVoList = new ArrayList<>();
+        for(int i=0;i<courseTargets.size();i++){
+            CourseTargetVo courseTargetVo = new CourseTargetVo();
+            courseTargetVo.setId(courseTargets.get(i).getId());
+            courseTargetVo.setDescribes(courseTargets.get(i).getDescribes());
+            courseTargetVo.setQuestionnaireId(courseTargets.get(i).getQuestionnaireId());
+            courseTargetVo.setTitle(courseTargets.get(i).getTitle());
+            courseTargetVo.setOptionsScore(courseTargets.get(i).getOptionsScore());
+            courseTargetVo.setPointId(courseTargets.get(i).getPointId());
+            courseTargetVo.setOptions(courseTargets.get(i).getOptions());
+            courseTargetVo.setTotalScore(courseTargets.get(i).getTotalScore());
+            courseTargetVo.setSequence(courseTargets.get(i).getSequence());
+            courseTargetVo.setCreateTime(courseTargets.get(i).getCreateTime());
+            courseTargetVo.setUpdateTime(courseTargets.get(i).getUpdateTime());
+            Questionnaire questionnaire = questionnaireService.getById(courseTargets.get(i).getQuestionnaireId());
+            GraduationPoint graduationPoint = graduationPointService.getById(courseTargets.get(i).getPointId());
+            courseTargetVo.setQuestionnaire(questionnaire);
+            courseTargetVo.setGraduationPoint(graduationPoint);
+            String options=courseTargets.get(i).getOptions();
+            JSONArray jsonArray = JSONArray.fromObject(options);
+            List<Options> optionsList = (List<Options>)JSONArray.toCollection(jsonArray,Options.class);
+            courseTargetVo.setOptionsList(optionsList);
+            courseTargetVoList.add(courseTargetVo);
+        }
+        return  courseTargetVoList;
     }
 
 }

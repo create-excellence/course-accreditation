@@ -135,7 +135,7 @@ public class QuestionnaireController {
      **/
     @GetMapping("/list")
     @ApiOperation("分页查询问卷")
-//    @Permission
+    @Permission
     public ServerResponse queryQuestionnaire(QuestionnaireQuery questionnaireQuery) {
         PageInfo<QuestionnaireVo> list = questionnaireService.pageByQuery(questionnaireQuery);
         if (list != null)
