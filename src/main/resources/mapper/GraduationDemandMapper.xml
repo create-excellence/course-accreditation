@@ -27,7 +27,7 @@
         major.`name` AS major
         FROM
         graduation_demand
-        INNER JOIN major ON graduation_demand.major_id = major.id
+        LEFT JOIN major ON graduation_demand.major_id = major.id
         <where>
             <if test="major != null and major != ''">
                 and major.`name` like "%" #{major,jdbcType=VARCHAR}"%"

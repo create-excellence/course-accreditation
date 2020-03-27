@@ -2,6 +2,7 @@ package com.excellent.accreditation.model.vo;
 
 import com.excellent.accreditation.model.entity.CourseClass;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 /**
  * @ClassName CourseClassVo
@@ -17,6 +18,11 @@ public class CourseClassVo extends CourseClass {
      * 课程名称
      */
     private String course;
+
+    /**
+     * 课程代码
+     */
+    private String courseCode;
 
     /**
      * 老师名字
@@ -35,19 +41,20 @@ public class CourseClassVo extends CourseClass {
 
     public static CourseClassVo convert(CourseClass courseClass, String course, String teacher, String semester) {
         CourseClassVo courseClassVo = new CourseClassVo();
-        courseClassVo.setTeacher(course);
-        courseClassVo.setCourse(teacher);
+        BeanUtils.copyProperties(courseClass, courseClassVo);
+        courseClassVo.setCourse(course);
+        courseClassVo.setTeacher(teacher);
         courseClassVo.setSemester(semester);
-        courseClassVo.setId(courseClass.getId());
-        courseClassVo.setNo(courseClass.getNo());
-        courseClassVo.setSemesterId(courseClass.getSemesterId());
-        courseClassVo.setStatus(courseClass.getCourseId());
-        courseClassVo.setStatus(courseClass.getTeacherId());
-        courseClassVo.setStatus(courseClass.getStartWeek());
-        courseClassVo.setEndWeek(courseClass.getEndWeek());
-        courseClassVo.setStatus(courseClass.getStatus());
-        courseClassVo.setUpdateTime(courseClass.getUpdateTime());
-        courseClassVo.setCreateTime(courseClass.getCreateTime());
+//        courseClassVo.setTeacher(course);
+//        courseClassVo.setCourse(teacher);
+//        courseClassVo.setSemester(semester);
+//        courseClassVo.setId(courseClass.getId());
+//        courseClassVo.setNo(courseClass.getNo());
+//        courseClassVo.setSemesterId(courseClass.getSemesterId());
+//        courseClassVo.setEndWeek(courseClass.getEndWeek());
+//        courseClassVo.setStatus(courseClass.getStatus());
+//        courseClassVo.setUpdateTime(courseClass.getUpdateTime());
+//        courseClassVo.setCreateTime(courseClass.getCreateTime());
         return courseClassVo;
     }
 }

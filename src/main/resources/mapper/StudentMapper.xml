@@ -22,5 +22,26 @@
     <sql id="Base_Column_List">
         id, sno, password, name, sex, grade,avatar, major_id, status, create_time, update_time, login_time
     </sql>
-
+    <select id="queryByCourseClassId" resultType="com.excellent.accreditation.model.vo.StudentVo">
+        SELECT
+        student.id,
+        student.sno,
+        student.`name`,
+        student.avatar,
+        student.sex,
+        student.grade,
+        major.`name` AS major
+        FROM
+        student
+        INNER JOIN select_course ON select_course.student_id = student.id
+        Left JOIN major ON student.major_id = major.id
+        WHERE
+        select_course.course_class_id = #{courseClassId}
+        <if test="sno != null and sno != ''">
+            and student.`sno` like "%" #{sno,jdbcType=VARCHAR}"%"
+        </if>
+        <if test="name != null and name != ''">
+            and student.`name` like "%" #{name,jdbcType=VARCHAR}"%"
+        </if>
+    </select>
 </mapper>

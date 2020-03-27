@@ -107,4 +107,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         }
         throw new ConflictException("密码错误，修改失败");
     }
+
+    @Override
+    public PageInfo<StudentVo> getStudentByCourseClassId(StudentQuery studentQuery) {
+        List<StudentVo> list = this.baseMapper.queryByCourseClassId(studentQuery.getCourseClassId(),studentQuery.getSno(),studentQuery.getName());
+        return new PageInfo<>(list);
+    }
 }

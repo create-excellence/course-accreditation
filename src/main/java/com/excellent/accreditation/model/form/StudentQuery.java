@@ -18,4 +18,7 @@ public class StudentQuery extends BasePage {
 
     @Size(max = 25, message = "姓名的字符长度不能超过 {max}")
     private String name;
+
+    @Size(max = 12, message = "开课班级Id的字符长度不能超过 {max}")
+    private Integer courseClassId;
 }

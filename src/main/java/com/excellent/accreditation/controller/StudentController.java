@@ -35,13 +35,11 @@ public class StudentController {
 
     private final IStudentService studentService;
 
-    private final IMajorService majorService;
 
     @Autowired
-    public StudentController(UserManage userManage, IStudentService studentService, IMajorService majorService) {
+    public StudentController(UserManage userManage, IStudentService studentService) {
         this.userManage = userManage;
         this.studentService = studentService;
-        this.majorService = majorService;
     }
 
     /**
@@ -182,5 +180,20 @@ public class StudentController {
             return ServerResponse.createBySuccess(list);
 
         return ServerResponse.createByErrorMessage("学生不存在");
+    }
+
+    /**
+     * @Author ashe
+     * @Description 通过开课班级Id查询学生
+     * @Date 9:05 2019/12/4
+     * @Param [studentQuery]
+     * @Return com.excellent.accreditation.common.domain.ServerResponse
+     **/
+    @GetMapping("/getStudentByClass")
+    @ApiOperation("通过开课班级Id查询学生")
+    @Permission
+    public ServerResponse queryStudentByCourseClassId(StudentQuery studentQuery) {
+        PageInfo<StudentVo> list = studentService.getStudentByCourseClassId(studentQuery);
+        return ServerResponse.createBySuccess(list);
     }
 }

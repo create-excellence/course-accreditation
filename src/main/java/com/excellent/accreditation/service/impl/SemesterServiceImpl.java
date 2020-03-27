@@ -55,6 +55,7 @@ public class SemesterServiceImpl extends ServiceImpl<SemesterMapper, Semester> i
     @Override
     public PageInfo<Semester> pageByQuery(SemesterQuery query) {
         LambdaQueryWrapper<Semester> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.orderByDesc(Semester::getStartTime);
         if (StringUtils.isNotEmpty(query.getName()))
             queryWrapper.like(Semester::getName, query.getName());
         PageHelper.startPage(query.getPage(), query.getPageSize());

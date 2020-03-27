@@ -26,6 +26,7 @@
         s.`name` AS semester,
         c.`name` AS course,
         t.`name` AS teacher,
+        c.`code` AS courseCode,
         t.jno AS jno,
         course_class.id,
         course_class.`no`,

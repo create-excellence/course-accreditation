@@ -7,6 +7,7 @@ import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.manage.UserManage;
 import com.excellent.accreditation.model.entity.CourseClass;
 import com.excellent.accreditation.model.form.CourseClassQuery;
+import com.excellent.accreditation.model.form.MyCourseQuery;
 import com.excellent.accreditation.model.vo.CourseClassVo;
 import com.excellent.accreditation.service.ICourseClassService;
 import com.github.pagehelper.PageInfo;
@@ -143,9 +144,22 @@ public class CourseClassController {
     @Permission
     public ServerResponse queryCourse(CourseClassQuery courseClassQuery) {
         PageInfo<CourseClassVo> list = courseClassService.pageByQuery(courseClassQuery);
-        if (list != null)
-            return ServerResponse.createBySuccess(list);
+        return ServerResponse.createBySuccess(list);
 
-        return ServerResponse.createByErrorMessage("课程不存在");
+    }
+
+    /**
+     * @Description: 分页查询课程对应的开课班级
+     * @Param: [courseClassQuery]
+     * @Return: com.excellent.accreditation.common.domain.ServerResponse
+     * @Author: ashe
+     * @Date: 2019/12/6
+     */
+    @GetMapping("/getMyCourse")
+    @ApiOperation("获取用户的所有开课班级")
+    @Permission
+    public ServerResponse getMyCourse(MyCourseQuery myCourseQuery) {
+        PageInfo<CourseClass> list = courseClassService.getMyCourse(myCourseQuery);
+        return ServerResponse.createBySuccess(list);
     }
 }

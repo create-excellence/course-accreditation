@@ -142,7 +142,6 @@ public class CourseTargetController {
         PageInfo<CourseTargetVo> list = courseTargetService.pageByQuery(courseClassQuery);
         if (list != null)
             return ServerResponse.createBySuccess(list);
-
         return ServerResponse.createByErrorMessage("课程目标不存在");
     }
 
