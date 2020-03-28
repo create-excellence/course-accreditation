@@ -25,8 +25,15 @@
             and total_score = #{totalScore}
         </if>
         <if test="name != null" >
-            and name like "%"#{name,jdbcType=VARCHAR} "%"
+            and `name` like "%"#{name,jdbcType=VARCHAR} "%"
         </if>
+        <if test="courseClassId != null" >
+            and course_class.id =#{courseClassId}
+        </if>
+        <if test="teacherId != null" >
+            and course_class.teacher_id =#{teacherId}
+        </if>
+
 
     </select>
 

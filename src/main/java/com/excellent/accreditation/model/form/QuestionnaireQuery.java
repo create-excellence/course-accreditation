@@ -22,4 +22,7 @@ public class QuestionnaireQuery extends BasePage {
      * @Date 14:45 2019/12/5
      **/
     private Integer totalScore;
+
+    private Integer courseClassId;
+
 }

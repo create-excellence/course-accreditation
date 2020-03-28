@@ -20,6 +20,6 @@ import java.util.List;
 @Repository
 public interface QuestionnaireMapper extends BaseMapper<Questionnaire> {
 
-    List<QuestionnaireVo> pageByQuery(@Param("totalScore") Integer totalScore, @Param("name") String name);
+    List<QuestionnaireVo> pageByQuery(@Param("totalScore") Integer totalScore, @Param("name") String name, @Param("courseClassId") Integer courseClassId,@Param("teacherId") Integer teacherId);
 
 }

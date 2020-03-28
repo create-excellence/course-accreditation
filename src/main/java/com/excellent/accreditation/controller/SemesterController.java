@@ -48,7 +48,7 @@ public class SemesterController {
     @Permission
     public ServerResponse create(@RequestBody @NonNull Semester semester) {
         semesterService.create(semester);
-        return ServerResponse.createBySuccess("学期添加成功");
+        return ServerResponse.createBySuccessMessage("学期添加成功");
     }
 
     /**
@@ -64,7 +64,7 @@ public class SemesterController {
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = semesterService.removeById(id);
         if (result)
-            return ServerResponse.createBySuccess("学期删除成功");
+            return ServerResponse.createBySuccessMessage("学期删除成功");
 
         return ServerResponse.createByErrorMessage("学期删除失败");
     }
@@ -82,7 +82,7 @@ public class SemesterController {
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = semesterService.removeByIds(ids);
         if (result)
-            return ServerResponse.createBySuccess("学期批量删除成功");
+            return ServerResponse.createBySuccessMessage("学期批量删除成功");
 
         return ServerResponse.createByErrorMessage("学期批量删除失败");
     }
@@ -103,7 +103,7 @@ public class SemesterController {
         semester.setUpdateTime(LocalDateTime.now());
         boolean result = semesterService.updateById(semester);
         if (result)
-            return ServerResponse.createBySuccess("学期更新成功");
+            return ServerResponse.createBySuccessMessage("学期更新成功");
 
         return ServerResponse.createByErrorMessage("学期更新失败");
     }

@@ -56,6 +56,12 @@
             <if test="courseId != null">
                 and course_id = #{courseId}
             </if>
+            <if test="teacherId != null">
+                and teacher_id = #{teacherId}
+            </if>
+            <if test="semesterId != null">
+                and semester_id = #{semesterId}
+            </if>
         </where>
     </select>
 

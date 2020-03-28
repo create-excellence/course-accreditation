@@ -47,7 +47,7 @@ public class RoleController {
     @Permission
     public ServerResponse create(@RequestBody @NonNull Role role) {
         roleService.create(role);
-        return ServerResponse.createBySuccess("角色添加成功");
+        return ServerResponse.createBySuccessMessage("角色添加成功");
     }
 
     /**
@@ -63,7 +63,7 @@ public class RoleController {
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = roleService.removeById(id);
         if (result)
-            return ServerResponse.createBySuccess("角色删除成功");
+            return ServerResponse.createBySuccessMessage("角色删除成功");
 
         return ServerResponse.createByErrorMessage("角色删除失败");
     }
@@ -81,7 +81,7 @@ public class RoleController {
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = roleService.removeByIds(ids);
         if (result)
-            return ServerResponse.createBySuccess("角色批量删除成功");
+            return ServerResponse.createBySuccessMessage("角色批量删除成功");
 
         return ServerResponse.createByErrorMessage("角色批量删除失败");
     }
@@ -102,7 +102,7 @@ public class RoleController {
         role.setUpdateTime(LocalDateTime.now());
         boolean result = roleService.updateById(role);
         if (result)
-            return ServerResponse.createBySuccess("角色更新成功");
+            return ServerResponse.createBySuccessMessage("角色更新成功");
 
         return ServerResponse.createByErrorMessage("角色更新失败");
     }

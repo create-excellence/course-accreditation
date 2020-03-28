@@ -14,8 +14,6 @@ import javax.validation.constraints.Size;
 @Data
 public class CourseClassQuery extends BasePage {
 
-//    @Size(max = 25, message = "开课班级课号的字符长度不能超过 {max}")
-//    private String no;
 
     @Size(max = 25, message = "教师的名字字符长度不能超过 {max}")
     private String teacher;
@@ -28,4 +26,11 @@ public class CourseClassQuery extends BasePage {
 
     @Size(max = 12, message = "课程Id的字符长度不能超过 {max}")
     private Integer courseId;
+
+    @Size(max = 12, message = "老师Id的字符长度不能超过 {max}")
+    private Integer teacherId;
+
+    @Size(max = 12, message = "学期Id的字符长度不能超过 {max}")
+    private Integer semesterId;
+
 }

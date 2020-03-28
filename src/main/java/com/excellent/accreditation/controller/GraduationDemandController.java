@@ -48,7 +48,7 @@ public class GraduationDemandController {
     @Permission
     public ServerResponse create(@RequestBody @NonNull GraduationDemand graduationDemand) {
         graduationDemandService.create(graduationDemand);
-        return ServerResponse.createBySuccess("毕业要求添加成功");
+        return ServerResponse.createBySuccessMessage("毕业要求添加成功");
     }
 
     /**
@@ -64,7 +64,7 @@ public class GraduationDemandController {
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = graduationDemandService.removeById(id);
         if (result)
-            return ServerResponse.createBySuccess("毕业要求删除成功");
+            return ServerResponse.createBySuccessMessage("毕业要求删除成功");
         return ServerResponse.createByErrorMessage("毕业要求删除失败");
     }
 
@@ -81,7 +81,7 @@ public class GraduationDemandController {
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = graduationDemandService.removeByIds(ids);
         if (result)
-            return ServerResponse.createBySuccess("毕业要求批量删除成功");
+            return ServerResponse.createBySuccessMessage("毕业要求批量删除成功");
 
         return ServerResponse.createByErrorMessage("毕业要求批量删除失败");
     }
@@ -102,7 +102,7 @@ public class GraduationDemandController {
         graduationDemand.setUpdateTime(LocalDateTime.now());
         boolean result = graduationDemandService.updateById(graduationDemand);
         if (result)
-            return ServerResponse.createBySuccess("毕业要求更新成功");
+            return ServerResponse.createBySuccessMessage("毕业要求更新成功");
 
         return ServerResponse.createByErrorMessage("毕业要求更新失败");
     }

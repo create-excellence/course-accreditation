@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  * 
@@ -16,23 +18,21 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class SelfEvaluation extends BaseEntity {
+public class CourseEvaluation extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer studentId;
+    private String name;
 
-    private Integer courseTargetId;
+    private Integer courseClassId;
 
-    /**
-     * 评价档次
-     */
-    private String answer;
+    private Integer questionnaireId;
 
-    /**
-     * 得分
-     */
-    private Integer score;
+    private String describes;
+
+    private LocalDateTime startTime;
+
+    private LocalDateTime endTime;
 
 
 }

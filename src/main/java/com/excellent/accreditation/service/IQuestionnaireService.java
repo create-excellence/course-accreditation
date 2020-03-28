@@ -15,5 +15,7 @@ public interface IQuestionnaireService extends IService<Questionnaire> {
 
     PageInfo<QuestionnaireVo> pageByQuery(QuestionnaireQuery questionnaireQuery);
 
+    PageInfo<QuestionnaireVo> getMyQuestionnaire(QuestionnaireQuery questionnaireQuery);
+
     void  checkQuestionnaire(Integer questionnaireId);
 }

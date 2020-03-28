@@ -48,7 +48,7 @@ public class CourseTargetController {
     @Permission
     public ServerResponse create(@RequestBody @NonNull CourseTarget courseClass) {
         courseTargetService.create(courseClass);
-        return ServerResponse.createBySuccess("课程目标添加成功");
+        return ServerResponse.createBySuccessMessage("课程目标添加成功");
     }
 
     /**
@@ -65,7 +65,7 @@ public class CourseTargetController {
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = courseTargetService.removeById(id);
         if (result)
-            return ServerResponse.createBySuccess("课程目标删除成功");
+            return ServerResponse.createBySuccessMessage("课程目标删除成功");
 
         return ServerResponse.createByErrorMessage("课程目标删除失败");
     }
@@ -83,7 +83,7 @@ public class CourseTargetController {
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = courseTargetService.removeByIds(ids);
         if (result)
-            return ServerResponse.createBySuccess("课程目标批量删除成功");
+            return ServerResponse.createBySuccessMessage("课程目标批量删除成功");
 
         return ServerResponse.createByErrorMessage("课程目标批量删除失败");
     }
@@ -105,7 +105,7 @@ public class CourseTargetController {
         courseTargetService.check(courseClass, Const.UPDATE);
         boolean result = courseTargetService.updateById(courseClass);
         if (result)
-            return ServerResponse.createBySuccess("课程目标更新成功");
+            return ServerResponse.createBySuccessMessage("课程目标更新成功");
 
         return ServerResponse.createByErrorMessage("课程目标更新失败");
     }

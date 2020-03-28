@@ -48,7 +48,7 @@ public class GraduationPointController {
     @Permission
     public ServerResponse create(@RequestBody @NonNull GraduationPoint graduationPoint) {
         graduationPointService.create(graduationPoint);
-        return ServerResponse.createBySuccess("指标点添加成功");
+        return ServerResponse.createBySuccessMessage("指标点添加成功");
     }
 
     /**
@@ -64,7 +64,7 @@ public class GraduationPointController {
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = graduationPointService.removeById(id);
         if (result)
-            return ServerResponse.createBySuccess("指标点删除成功");
+            return ServerResponse.createBySuccessMessage("指标点删除成功");
 
         return ServerResponse.createByErrorMessage("指标点删除失败");
     }
@@ -82,7 +82,7 @@ public class GraduationPointController {
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = graduationPointService.removeByIds(ids);
         if (result)
-            return ServerResponse.createBySuccess("指标点批量删除成功");
+            return ServerResponse.createBySuccessMessage("指标点批量删除成功");
 
         return ServerResponse.createByErrorMessage("指标点批量删除失败");
     }
@@ -104,7 +104,7 @@ public class GraduationPointController {
         graduationPointService.check(graduationPoint, Const.UPDATE);
         boolean result = graduationPointService.updateById(graduationPoint);
         if (result)
-            return ServerResponse.createBySuccess("指标点更新成功");
+            return ServerResponse.createBySuccessMessage("指标点更新成功");
 
         return ServerResponse.createByErrorMessage("指标点更新失败");
     }

@@ -79,6 +79,7 @@ public class SystemController {
     }
 
     /**
+<<<<<<< Updated upstream
      * @Author 安羽兮
      * @Description //TODO
      * @Date 10:55 2020/3/26
@@ -96,6 +97,7 @@ public class SystemController {
     }
 
     /**
+
      * @Description: 上传头像
      * @Param: [file]
      * @Return: com.excellent.accreditation.common.domain.ServerResponse
@@ -109,3 +111,4 @@ public class SystemController {
         return userManage.uploadAvatar(image);
     }
 }
+

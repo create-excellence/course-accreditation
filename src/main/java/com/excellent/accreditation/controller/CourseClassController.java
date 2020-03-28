@@ -7,7 +7,6 @@ import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.manage.UserManage;
 import com.excellent.accreditation.model.entity.CourseClass;
 import com.excellent.accreditation.model.form.CourseClassQuery;
-import com.excellent.accreditation.model.form.MyCourseQuery;
 import com.excellent.accreditation.model.vo.CourseClassVo;
 import com.excellent.accreditation.service.ICourseClassService;
 import com.github.pagehelper.PageInfo;
@@ -52,7 +51,7 @@ public class CourseClassController {
     @Permission
     public ServerResponse create(@RequestBody @NonNull CourseClass courseClass) {
         courseClassService.create(courseClass);
-        return ServerResponse.createBySuccess("开课班级添加成功");
+        return ServerResponse.createBySuccessMessage("开课班级添加成功");
     }
 
     /**
@@ -69,7 +68,7 @@ public class CourseClassController {
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = courseClassService.removeById(id);
         if (result)
-            return ServerResponse.createBySuccess("课程删除成功");
+            return ServerResponse.createBySuccessMessage("课程删除成功");
 
         return ServerResponse.createByErrorMessage("课程删除失败");
     }
@@ -87,7 +86,7 @@ public class CourseClassController {
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = courseClassService.removeByIds(ids);
         if (result)
-            return ServerResponse.createBySuccess("课程批量删除成功");
+            return ServerResponse.createBySuccessMessage("课程批量删除成功");
 
         return ServerResponse.createByErrorMessage("课程批量删除失败");
     }
@@ -109,7 +108,7 @@ public class CourseClassController {
         courseClassService.check(courseClass, Const.UPDATE);
         boolean result = courseClassService.updateById(courseClass);
         if (result)
-            return ServerResponse.createBySuccess("课程更新成功");
+            return ServerResponse.createBySuccessMessage("课程更新成功");
 
         return ServerResponse.createByErrorMessage("课程更新失败");
     }
@@ -158,8 +157,8 @@ public class CourseClassController {
     @GetMapping("/getMyCourse")
     @ApiOperation("获取用户的所有开课班级")
     @Permission
-    public ServerResponse getMyCourse(MyCourseQuery myCourseQuery) {
-        PageInfo<CourseClass> list = courseClassService.getMyCourse(myCourseQuery);
+    public ServerResponse getMyCourse(CourseClassQuery query) {
+        PageInfo<CourseClassVo> list = courseClassService.getMyCourse(query);
         return ServerResponse.createBySuccess(list);
     }
 }

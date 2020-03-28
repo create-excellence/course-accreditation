@@ -70,7 +70,7 @@ public class SelectCourseController {
             selectCourse.setStudentId(userVo.getId());
         }
         selectCourseService.create(selectCourse);
-        return ServerResponse.createBySuccess("添加选课");
+        return ServerResponse.createBySuccessMessage("添加选课");
     }
 
     /**
@@ -84,7 +84,7 @@ public class SelectCourseController {
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = selectCourseService.removeById(id);
         if (result)
-            return ServerResponse.createBySuccess("选课删除成功");
+            return ServerResponse.createBySuccessMessage("选课删除成功");
 
         return ServerResponse.createByErrorMessage("选课删除失败");
     }
@@ -100,7 +100,7 @@ public class SelectCourseController {
     public ServerResponse deleteByIds(@NonNull Collection<Integer> ids) {
         boolean result = selectCourseService.removeByIds(ids);
         if (result)
-            return ServerResponse.createBySuccess("选课批量删除成功");
+            return ServerResponse.createBySuccessMessage("选课批量删除成功");
 
         return ServerResponse.createByErrorMessage("选课批量删除失败");
     }
@@ -120,7 +120,7 @@ public class SelectCourseController {
         selectCourseService.check(selectCourse, Const.UPDATE);
         boolean result = selectCourseService.updateById(selectCourse);
         if (result)
-            return ServerResponse.createBySuccess("选课更新成功");
+            return ServerResponse.createBySuccessMessage("选课更新成功");
 
         return ServerResponse.createByErrorMessage("选课更新失败");
     }

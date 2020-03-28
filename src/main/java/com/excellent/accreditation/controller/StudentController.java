@@ -71,7 +71,7 @@ public class StudentController {
         UserVo userVo = userManage.getUserInfo();
         student.setId(userVo.getId());
         studentService.saveOrUpdate(student);
-        return ServerResponse.createBySuccess("信息更新成功");
+        return ServerResponse.createBySuccessMessage("信息更新成功");
     }
 
     /**
@@ -86,7 +86,7 @@ public class StudentController {
     @Permission
     public ServerResponse create(@RequestBody @NonNull Student student) {
         studentService.create(student);
-        return ServerResponse.createBySuccess("学生添加成功");
+        return ServerResponse.createBySuccessMessage("学生添加成功");
     }
 
     /**
@@ -102,7 +102,7 @@ public class StudentController {
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = studentService.removeById(id);
         if (result)
-            return ServerResponse.createBySuccess("学生删除成功");
+            return ServerResponse.createBySuccessMessage("学生删除成功");
 
         return ServerResponse.createByErrorMessage("学生删除失败");
     }
@@ -120,7 +120,7 @@ public class StudentController {
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = studentService.removeByIds(ids);
         if (result)
-            return ServerResponse.createBySuccess("学生批量删除成功");
+            return ServerResponse.createBySuccessMessage("学生批量删除成功");
 
         return ServerResponse.createByErrorMessage("学生批量删除失败");
     }
@@ -141,7 +141,7 @@ public class StudentController {
         student.setUpdateTime(LocalDateTime.now());
         boolean result = studentService.updateById(student);
         if (result)
-            return ServerResponse.createBySuccess("学生更新成功");
+            return ServerResponse.createBySuccessMessage("学生更新成功");
 
         return ServerResponse.createByErrorMessage("学生更新失败");
     }

@@ -47,7 +47,7 @@ public class MajorController {
     @Permission
     public ServerResponse create(@RequestBody @NonNull Major major) {
         majorService.create(major);
-        return ServerResponse.createBySuccess("专业添加成功");
+        return ServerResponse.createBySuccessMessage("专业添加成功");
     }
 
     /**
@@ -63,7 +63,7 @@ public class MajorController {
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = majorService.removeById(id);
         if (result)
-            return ServerResponse.createBySuccess("专业删除成功");
+            return ServerResponse.createBySuccessMessage("专业删除成功");
 
         return ServerResponse.createByErrorMessage("专业删除失败");
     }
@@ -81,7 +81,7 @@ public class MajorController {
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = majorService.removeByIds(ids);
         if (result)
-            return ServerResponse.createBySuccess("专业批量删除成功");
+            return ServerResponse.createBySuccessMessage("专业批量删除成功");
 
         return ServerResponse.createByErrorMessage("专业批量删除失败");
     }
@@ -103,7 +103,7 @@ public class MajorController {
         majorService.checkCode(major.getCode(),id);
         boolean result = majorService.updateById(major);
         if (result)
-            return ServerResponse.createBySuccess("专业更新成功");
+            return ServerResponse.createBySuccessMessage("专业更新成功");
 
         return ServerResponse.createByErrorMessage("专业更新失败");
     }

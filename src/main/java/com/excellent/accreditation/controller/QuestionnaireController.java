@@ -48,7 +48,7 @@ public class QuestionnaireController {
     @Permission
     public ServerResponse create(@RequestBody @NonNull Questionnaire questionnaire) {
         questionnaireService.create(questionnaire);
-        return ServerResponse.createBySuccess("问卷添加成功");
+        return ServerResponse.createBySuccessMessage("问卷添加成功");
     }
 
     /**
@@ -64,7 +64,7 @@ public class QuestionnaireController {
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = questionnaireService.removeById(id);
         if (result)
-            return ServerResponse.createBySuccess("问卷删除成功");
+            return ServerResponse.createBySuccessMessage("问卷删除成功");
 
         return ServerResponse.createByErrorMessage("问卷删除失败");
     }
@@ -82,7 +82,7 @@ public class QuestionnaireController {
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = questionnaireService.removeByIds(ids);
         if (result)
-            return ServerResponse.createBySuccess("问卷批量删除成功");
+            return ServerResponse.createBySuccessMessage("问卷批量删除成功");
 
         return ServerResponse.createByErrorMessage("问卷批量删除失败");
     }
@@ -103,7 +103,7 @@ public class QuestionnaireController {
         questionnaire.setUpdateTime(LocalDateTime.now());
         boolean result = questionnaireService.updateById(questionnaire);
         if (result)
-            return ServerResponse.createBySuccess("问卷更新成功");
+            return ServerResponse.createBySuccessMessage("问卷更新成功");
 
         return ServerResponse.createByErrorMessage("问卷更新失败");
     }
@@ -135,11 +135,24 @@ public class QuestionnaireController {
      **/
     @GetMapping("/list")
     @ApiOperation("分页查询问卷")
-    @Permission
+    @Permission(roles = "admin")
     public ServerResponse queryQuestionnaire(QuestionnaireQuery questionnaireQuery) {
         PageInfo<QuestionnaireVo> list = questionnaireService.pageByQuery(questionnaireQuery);
-        if (list != null)
-            return ServerResponse.createBySuccess(list);
-        return ServerResponse.createByErrorMessage("问卷不存在");
+        return ServerResponse.createBySuccess(list);
+    }
+
+    /**
+     * @Author 安羽兮
+     * @Description 分页查询问卷
+     * @Date 16:52 2019/12/3
+     * @Param [questionnaireQuery]
+     * @Return com.excellent.accreditation.common.domain.ServerResponse
+     **/
+    @GetMapping("/getMyQuestionnaire")
+    @ApiOperation("分页查询问卷")
+    @Permission(roles ={"teacher","student"})
+    public ServerResponse getMyQuestionnaire(QuestionnaireQuery questionnaireQuery) {
+        PageInfo<QuestionnaireVo> list = questionnaireService.getMyQuestionnaire(questionnaireQuery);
+        return ServerResponse.createBySuccess(list);
     }
 }

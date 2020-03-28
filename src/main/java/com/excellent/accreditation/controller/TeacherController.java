@@ -47,7 +47,7 @@ public class   TeacherController {
     @ApiOperation("添加教师")
     public ServerResponse create(@RequestBody @NonNull Teacher teacher) {
         teacherService.create(teacher);
-        return ServerResponse.createBySuccess("教师添加成功");
+        return ServerResponse.createBySuccessMessage("教师添加成功");
     }
 
     /**
@@ -63,7 +63,7 @@ public class   TeacherController {
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = teacherService.removeById(id);
         if (result)
-            return ServerResponse.createBySuccess("教师删除成功");
+            return ServerResponse.createBySuccessMessage("教师删除成功");
 
         return ServerResponse.createByErrorMessage("教师删除失败");
     }
@@ -81,7 +81,7 @@ public class   TeacherController {
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = teacherService.removeByIds(ids);
         if (result)
-            return ServerResponse.createBySuccess("教师批量删除成功");
+            return ServerResponse.createBySuccessMessage("教师批量删除成功");
 
         return ServerResponse.createByErrorMessage("教师批量删除失败");
     }
@@ -102,7 +102,7 @@ public class   TeacherController {
         teacher.setUpdateTime(LocalDateTime.now());
         boolean result = teacherService.updateById(teacher);
         if (result)
-            return ServerResponse.createBySuccess("教师更新成功");
+            return ServerResponse.createBySuccessMessage("教师更新成功");
 
         return ServerResponse.createByErrorMessage("教师更新失败");
     }

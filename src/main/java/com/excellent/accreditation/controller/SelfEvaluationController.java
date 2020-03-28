@@ -47,7 +47,7 @@ public class SelfEvaluationController {
     @Permission
     public ServerResponse create(@RequestBody @NonNull SelfEvaluation selfEvaluation) {
         selfEvaluationService.create(selfEvaluation);
-        return ServerResponse.createBySuccess("评价添加成功");
+        return ServerResponse.createBySuccessMessage("评价添加成功");
     }
 
     /**
@@ -63,7 +63,7 @@ public class SelfEvaluationController {
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = selfEvaluationService.removeById(id);
         if (result)
-            return ServerResponse.createBySuccess("评价删除成功");
+            return ServerResponse.createBySuccessMessage("评价删除成功");
 
         return ServerResponse.createByErrorMessage("评价删除失败");
     }
@@ -81,7 +81,7 @@ public class SelfEvaluationController {
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = selfEvaluationService.removeByIds(ids);
         if (result)
-            return ServerResponse.createBySuccess("评价批量删除成功");
+            return ServerResponse.createBySuccessMessage("评价批量删除成功");
 
         return ServerResponse.createByErrorMessage("评价批量删除失败");
     }
@@ -102,7 +102,7 @@ public class SelfEvaluationController {
         selfEvaluation.setUpdateTime(LocalDateTime.now());
         boolean result = selfEvaluationService.updateById(selfEvaluation);
         if (result)
-            return ServerResponse.createBySuccess("评价更新成功");
+            return ServerResponse.createBySuccessMessage("评价更新成功");
 
         return ServerResponse.createByErrorMessage("评价更新失败");
     }

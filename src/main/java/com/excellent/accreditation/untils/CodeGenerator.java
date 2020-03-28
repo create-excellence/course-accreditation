@@ -139,8 +139,8 @@ public class CodeGenerator {
         // 写于父类中的公共字段
         strategy.setSuperEntityColumns("id", "update_time", "create_time");
         strategy.setSuperEntityClass("com.excellent.accreditation.common.domain.BaseEntity");
-//        strategy.setInclude(scanner("请输入表名(多个表名用逗号分割)").split(","));
-        strategy.setInclude(TABLE_NAMES.split(","));
+        strategy.setInclude(scanner("请输入表名(多个表名用逗号分割)").split(","));
+//        strategy.setInclude(TABLE_NAMES.split(","));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);

@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.excellent.accreditation.common.domain.ExcelResult;
 import com.excellent.accreditation.model.entity.CourseClass;
 import com.excellent.accreditation.model.form.CourseClassQuery;
-import com.excellent.accreditation.model.form.MyCourseQuery;
 import com.excellent.accreditation.model.vo.CourseClassVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +19,7 @@ public interface ICourseClassService extends IService<CourseClass> {
 
     PageInfo<CourseClassVo> pageByQuery(CourseClassQuery query);
 
-    PageInfo<CourseClass> getMyCourse(MyCourseQuery myCourseQuery);
+    PageInfo<CourseClassVo> getMyCourse(CourseClassQuery query);
 
     boolean create(CourseClass courseClass);
 

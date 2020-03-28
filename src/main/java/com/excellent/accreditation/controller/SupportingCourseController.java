@@ -50,7 +50,7 @@ public class SupportingCourseController {
     @Permission
     public ServerResponse create(@RequestBody @NonNull SupportingCourse supportingCourse) {
         supportingCourseService.create(supportingCourse);
-        return ServerResponse.createBySuccess("支撑课程加成功");
+        return ServerResponse.createBySuccessMessage("支撑课程加成功");
     }
 
     /**
@@ -67,7 +67,7 @@ public class SupportingCourseController {
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = supportingCourseService.removeById(id);
         if (result)
-            return ServerResponse.createBySuccess("支撑课程删除成功");
+            return ServerResponse.createBySuccessMessage("支撑课程删除成功");
 
         return ServerResponse.createByErrorMessage("支撑课程删除失败");
     }
@@ -85,7 +85,7 @@ public class SupportingCourseController {
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = supportingCourseService.removeByIds(ids);
         if (result)
-            return ServerResponse.createBySuccess("支撑课程批量删除成功");
+            return ServerResponse.createBySuccessMessage("支撑课程批量删除成功");
 
         return ServerResponse.createByErrorMessage("支撑课程批量删除失败");
     }
@@ -107,7 +107,7 @@ public class SupportingCourseController {
         supportingCourseService.check(supportingCourse, Const.UPDATE);
         boolean result = supportingCourseService.updateById(supportingCourse);
         if (result)
-            return ServerResponse.createBySuccess("支撑课程更新成功");
+            return ServerResponse.createBySuccessMessage("支撑课程更新成功");
 
         return ServerResponse.createByErrorMessage("支撑课程更新失败");
     }

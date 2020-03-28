@@ -1,9 +1,11 @@
 package com.excellent.accreditation.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.dao.QuestionnaireMapper;
+import com.excellent.accreditation.manage.UserManage;
 import com.excellent.accreditation.model.entity.Questionnaire;
 import com.excellent.accreditation.model.form.QuestionnaireQuery;
 import com.excellent.accreditation.model.vo.QuestionnaireVo;
@@ -23,8 +25,11 @@ public class QuestionnaireServiceImpl extends ServiceImpl<QuestionnaireMapper, Q
 
     private final QuestionnaireMapper questionnaireMapper;
 
-    public QuestionnaireServiceImpl(QuestionnaireMapper questionnaireMapper) {
+    private final UserManage userManage;
+
+    public QuestionnaireServiceImpl(QuestionnaireMapper questionnaireMapper,UserManage userManage) {
         this.questionnaireMapper = questionnaireMapper;
+        this.userManage = userManage;
     }
 
     @Override
@@ -41,8 +46,27 @@ public class QuestionnaireServiceImpl extends ServiceImpl<QuestionnaireMapper, Q
     @Override
     public PageInfo<QuestionnaireVo> pageByQuery(QuestionnaireQuery query) {
         PageHelper.startPage(query.getPage(), query.getPageSize());
-        List<QuestionnaireVo> list =questionnaireMapper.pageByQuery(query.getTotalScore(),query.getName());
+        List<QuestionnaireVo> list =questionnaireMapper.pageByQuery(query.getTotalScore(),query.getName(),query.getCourseClassId(),null);
         return new PageInfo<>(list);
+    }
+
+    @Override
+    public PageInfo<QuestionnaireVo> getMyQuestionnaire(QuestionnaireQuery query) {
+        List<String> roles = userManage.getRolesByCode(userManage.getCodeByToken());
+        for (String role :roles) {
+            if(role.equals(Const.TEACHER)){
+                PageHelper.startPage(query.getPage(), query.getPageSize());
+                Integer teacherId = userManage.getUserInfo().getId();
+                List<QuestionnaireVo> list =questionnaireMapper.pageByQuery(query.getTotalScore(),query.getName(),query.getCourseClassId(),teacherId);
+                return new PageInfo<>(list);
+            }
+            if(role.equals(Const.STUDENT)){
+                //TODO
+            }
+        }
+
+
+        return null;
     }
 
     @Override

@@ -10,9 +10,7 @@ import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.CourseClassMapper;
 import com.excellent.accreditation.manage.UserManage;
 import com.excellent.accreditation.model.entity.CourseClass;
-import com.excellent.accreditation.model.entity.Major;
 import com.excellent.accreditation.model.form.CourseClassQuery;
-import com.excellent.accreditation.model.form.MyCourseQuery;
 import com.excellent.accreditation.model.vo.CourseClassVo;
 import com.excellent.accreditation.service.ICourseClassService;
 import com.excellent.accreditation.service.ICourseService;
@@ -67,19 +65,18 @@ public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, Cours
     @Override
     public PageInfo<CourseClassVo> pageByQuery(CourseClassQuery query) {
         PageHelper.startPage(query.getPage(), query.getPageSize());
-        List<CourseClassVo> list = courseClassMapper.pageByQuery(query.getCourse(), query.getTeacher(), query.getSemester(),query.getCourseId());
+        List<CourseClassVo> list = courseClassMapper.pageByQuery(query.getCourse(), query.getTeacher(), query.getSemester(),query.getCourseId(),null,query.getSemesterId());
         return new PageInfo<>(list);
     }
 
     @Override
-    public PageInfo<CourseClass> getMyCourse(MyCourseQuery myCourseQuery) {
+    public PageInfo<CourseClassVo> getMyCourse(CourseClassQuery query) {
         List<String> roles = userManage.getRolesByCode(userManage.getCodeByToken());
         for (String role :roles) {
             if(role.equals(Const.TEACHER)){
-                LambdaQueryWrapper<CourseClass> queryWrapper = new LambdaQueryWrapper<>();
-                queryWrapper.eq(CourseClass::getTeacherId,userManage.getUserInfo().getId());
-                PageHelper.startPage(myCourseQuery.getPage(), myCourseQuery.getPageSize());
-                List<CourseClass> list = this.list(queryWrapper);
+                PageHelper.startPage(query.getPage(), query.getPageSize());
+                query.setTeacherId(userManage.getUserInfo().getId());
+                List<CourseClassVo> list = courseClassMapper.pageByQuery(query.getCourse(), null, null,null,query.getTeacherId(),query.getSemesterId());
                 return new PageInfo<>(list);
             }
             if(role.equals(Const.STUDENT)){
