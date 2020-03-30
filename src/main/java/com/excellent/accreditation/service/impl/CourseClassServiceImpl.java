@@ -75,8 +75,7 @@ public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, Cours
         for (String role :roles) {
             if(role.equals(Const.TEACHER)){
                 PageHelper.startPage(query.getPage(), query.getPageSize());
-                query.setTeacherId(userManage.getUserInfo().getId());
-                List<CourseClassVo> list = courseClassMapper.pageByQuery(query.getCourse(), null, null,null,query.getTeacherId(),query.getSemesterId());
+                List<CourseClassVo> list = courseClassMapper.pageByQuery(query.getCourse(), null, null,null,userManage.getUserInfo().getId(),query.getSemesterId());
                 return new PageInfo<>(list);
             }
             if(role.equals(Const.STUDENT)){

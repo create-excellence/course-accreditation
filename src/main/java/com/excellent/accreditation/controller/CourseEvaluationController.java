@@ -6,6 +6,7 @@ import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity. CourseEvaluation;
 import com.excellent.accreditation.model.form. CourseEvaluationQuery;
+import com.excellent.accreditation.model.vo.CourseEvaluationVo;
 import com.excellent.accreditation.service.ICourseEvaluationService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
@@ -95,8 +96,8 @@ public class CourseEvaluationController {
     @GetMapping("/list")
     @ApiOperation("分页查询课程评价")
     @Permission
-    public ServerResponse queryCourse( CourseEvaluationQuery  courseEvaluationQuery) {
-        PageInfo<CourseEvaluation> list = courseEvaluationService.pageByQuery( courseEvaluationQuery);
+    public ServerResponse queryCourse(CourseEvaluationQuery  courseEvaluationQuery) {
+        PageInfo<CourseEvaluationVo> list = courseEvaluationService.pageByQuery( courseEvaluationQuery);
         return ServerResponse.createBySuccess(list);
     }
 
@@ -110,8 +111,8 @@ public class CourseEvaluationController {
     @GetMapping("/getMyCourseEvaluation")
     @ApiOperation("获取用户参与的所有课程评价")
     @Permission
-    public ServerResponse getMyCourseEvaluation() {
-        PageInfo<CourseEvaluation> list = courseEvaluationService.getMyCourseEvaluation( );
+    public ServerResponse getMyCourseEvaluation(CourseEvaluationQuery  courseEvaluationQuery) {
+        PageInfo<CourseEvaluationVo> list = courseEvaluationService.getMyCourseEvaluation(courseEvaluationQuery);
         return ServerResponse.createBySuccess(list);
     }
 
