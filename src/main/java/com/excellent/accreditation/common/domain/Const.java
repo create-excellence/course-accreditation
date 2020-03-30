@@ -41,6 +41,18 @@ public class Const {
 
     public static final Integer UPDATE = 1;
 
+    /**
+     * @Description:课程评价状态
+     * @Author: ashe
+     * @Date: 2019/12/6
+     */
+
+    public static final Integer NOT_STARTED = 0;
+
+    public static final Integer IN_PROGRESS = 1;
+
+    public static final Integer THE_END = 2;
+
 
 
     public enum BATCH_STUDENT_STATUS {

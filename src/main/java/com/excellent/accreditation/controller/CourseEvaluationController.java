@@ -44,7 +44,7 @@ public class CourseEvaluationController {
     @ApiOperation("添加课程评价")
     @Permission
     public ServerResponse create(@RequestBody @NonNull  CourseEvaluation  courseEvaluation) {
-        courseEvaluationService.create( courseEvaluation);
+        courseEvaluationService.create(courseEvaluation);
         return ServerResponse.createBySuccessMessage("发布成功");
     }
 
@@ -97,9 +97,22 @@ public class CourseEvaluationController {
     @Permission
     public ServerResponse queryCourse( CourseEvaluationQuery  courseEvaluationQuery) {
         PageInfo<CourseEvaluation> list = courseEvaluationService.pageByQuery( courseEvaluationQuery);
-        if (list != null)
-            return ServerResponse.createBySuccess(list);
-        return ServerResponse.createByErrorMessage("课程评价不存在");
+        return ServerResponse.createBySuccess(list);
+    }
+
+    /**
+     *@Description: 获取用户参与的所有课程评价
+     *@Param: [ courseEvaluationQuery]
+     *@Return: com.excellent.accreditation.common.domain.ServerResponse
+     *@Author: ashe
+     *@Date: 2019/12/6
+     */
+    @GetMapping("/getMyCourseEvaluation")
+    @ApiOperation("获取用户参与的所有课程评价")
+    @Permission
+    public ServerResponse getMyCourseEvaluation() {
+        PageInfo<CourseEvaluation> list = courseEvaluationService.getMyCourseEvaluation( );
+        return ServerResponse.createBySuccess(list);
     }
 
 }

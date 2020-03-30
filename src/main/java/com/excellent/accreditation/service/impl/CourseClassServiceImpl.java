@@ -56,7 +56,7 @@ public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, Cours
         LambdaQueryWrapper<CourseClass> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(CourseClass::getNo, no);
         CourseClass courseClass = super.getOne(queryWrapper);
-        if (courseClass != null && !courseClass.getCourseId().equals(courseClassId)) {
+        if (courseClass != null && !courseClass.getId().equals(courseClassId)) {
             // 如果code已存在还要检查是否当前更新的是否为同一条记录,若不同则抛出异常
             throw new UniqueException("课程编号不能重复");
         }

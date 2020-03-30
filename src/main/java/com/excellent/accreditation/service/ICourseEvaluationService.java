@@ -17,6 +17,7 @@ public interface ICourseEvaluationService extends IService<CourseEvaluation> {
 
     void checkCourseEvaluation(Integer CourseEvaluationId);
 
+    PageInfo<CourseEvaluation>  getMyCourseEvaluation();
 
     PageInfo<CourseEvaluation> pageByQuery(CourseEvaluationQuery query);
 

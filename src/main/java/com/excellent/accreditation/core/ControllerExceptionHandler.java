@@ -1,9 +1,7 @@
 package com.excellent.accreditation.core;
 
 import com.excellent.accreditation.common.domain.ServerResponse;
-import com.excellent.accreditation.common.exception.ConflictException;
-import com.excellent.accreditation.common.exception.EmptyException;
-import com.excellent.accreditation.common.exception.UniqueException;
+import com.excellent.accreditation.common.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
@@ -28,9 +26,9 @@ public class ControllerExceptionHandler {
         return ServerResponse.createByErrorCodeMessage(HttpStatus.CONFLICT.value(), e.getMessage());
     }
 
-    @ExceptionHandler({UniqueException.class, EmptyException.class})
+    @ExceptionHandler({UniqueException.class, EmptyException.class, TimeException.class})
     @ResponseStatus(HttpStatus.OK)
-    public ServerResponse handleUniqueException(UniqueException e) {
+    public ServerResponse handleUniqueException(CommonException e) {
         return ServerResponse.createByErrorCodeMessage(HttpStatus.NOT_ACCEPTABLE.value(), e.getMessage());
     }
 

@@ -1,6 +1,7 @@
 package com.excellent.accreditation.model.entity;
 
 import com.excellent.accreditation.common.domain.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -28,10 +29,12 @@ public class CourseEvaluation extends BaseEntity {
 
     private Integer questionnaireId;
 
+    private Integer status;
+
     private String describes;
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
 
