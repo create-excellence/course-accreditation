@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.excellent.accreditation.common.domain.ExcelResult;
 import com.excellent.accreditation.model.entity.CourseClass;
 import com.excellent.accreditation.model.entity.CourseTarget;
+import com.excellent.accreditation.model.entity.GraduationPoint;
 import com.excellent.accreditation.model.form.CourseClassQuery;
 import com.excellent.accreditation.model.form.CourseTargetQuery;
 import com.excellent.accreditation.model.vo.CourseTargetVo;
@@ -27,4 +28,6 @@ public interface ICourseTargetService extends IService<CourseTarget> {
     List<ExcelResult> saveBachByExcel(MultipartFile file);
 
     void check(CourseTarget courseTarget, Integer type);
+
+    List<GraduationPoint> point(Integer questionnaireId);
 }

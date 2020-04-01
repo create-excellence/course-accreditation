@@ -5,6 +5,7 @@ import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.model.entity.CourseTarget;
+import com.excellent.accreditation.model.entity.GraduationPoint;
 import com.excellent.accreditation.model.form.CourseTargetQuery;
 import com.excellent.accreditation.model.vo.CourseTargetVo;
 import com.excellent.accreditation.service.ICourseTargetService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -143,6 +145,14 @@ public class CourseTargetController {
         if (list != null)
             return ServerResponse.createBySuccess(list);
         return ServerResponse.createByErrorMessage("课程目标不存在");
+    }
+
+    @GetMapping("/point")
+    @ApiOperation("查询对应指标点")
+//    @Permission
+    public ServerResponse  point (Integer questionnaireId){
+        List<GraduationPoint> list = courseTargetService.point(questionnaireId);
+        return ServerResponse.createBySuccess(list);
     }
 
 

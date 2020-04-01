@@ -9,7 +9,6 @@ import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.dao.CourseTargetMapper;
 import com.excellent.accreditation.model.base.Options;
-import com.excellent.accreditation.model.entity.CourseClass;
 import com.excellent.accreditation.model.entity.CourseTarget;
 import com.excellent.accreditation.model.entity.GraduationPoint;
 import com.excellent.accreditation.model.entity.Questionnaire;
@@ -38,10 +37,13 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
 
     private final IGraduationPointService graduationPointService;
 
+    private final CourseTargetMapper courseTargetMapper;
+
     @Autowired
-    public CourseTargetServiceImpl(IQuestionnaireService questionnaireService,IGraduationPointService graduationPointService) {
+    public CourseTargetServiceImpl(IQuestionnaireService questionnaireService, IGraduationPointService graduationPointService, CourseTargetMapper courseTargetMapper) {
         this.questionnaireService = questionnaireService;
         this.graduationPointService = graduationPointService;
+        this.courseTargetMapper = courseTargetMapper;
     }
 
 
@@ -90,6 +92,12 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
         if(type.equals(Const.CREATE)||courseTarget.getPointId()!=null){
             graduationPointService.checkGraduationPoint(courseTarget.getPointId());
         }
+    }
+
+    @Override
+    public List<GraduationPoint> point(Integer questionnaireId) {
+        List<GraduationPoint> list = courseTargetMapper.point(questionnaireId);
+        return list;
     }
 
     public  List<CourseTargetVo> convert (List<CourseTarget> courseTargets){

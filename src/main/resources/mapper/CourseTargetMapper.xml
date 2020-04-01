@@ -22,4 +22,16 @@
         id, questionnaire_id, title, point_id, options, describes, options_score, total_score, sequence, create_time, update_time
     </sql>
 
+    <select id="point" resultType="com.excellent.accreditation.model.entity.GraduationPoint">
+        SELECT graduation_point.*
+        from questionnaire,course_class,course,supporting_course,graduation_point
+        WHERE
+        questionnaire.course_class_id=course_class.id
+        and course_class.course_id = course.id and supporting_course.course_id = course.id
+        and supporting_course.graduation_point_id = graduation_point.id
+        <if test="questionnaireId != null">
+            and questionnaire.id = #{questionnaireId}
+        </if>
+    </select>
+
 </mapper>
