@@ -135,7 +135,7 @@ public class SemesterController {
      **/
     @GetMapping("/list")
     @ApiOperation("分页查询学期")
-    @Permission
+//    @Permission
     public ServerResponse querySemester(SemesterQuery semesterQuery) {
         PageInfo<Semester> list = semesterService.pageByQuery(semesterQuery);
         if (list != null)

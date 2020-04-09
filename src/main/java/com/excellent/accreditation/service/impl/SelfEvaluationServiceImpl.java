@@ -12,6 +12,7 @@ import com.excellent.accreditation.service.ISelfEvaluationService;
 import com.excellent.accreditation.service.IStudentService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -56,5 +57,20 @@ public class SelfEvaluationServiceImpl extends ServiceImpl<SelfEvaluationMapper,
         List<SelfEvaluation> list = this.list(queryWrapper);
         PageInfo<SelfEvaluation> pageInfo = new PageInfo<>(list);
         return pageInfo;
+    }
+
+    @Override
+    public List<SelfEvaluation> getByStudentId(@NonNull int studentId) {
+        LambdaQueryWrapper<SelfEvaluation> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.ge(SelfEvaluation::getStudentId, studentId);
+        List<SelfEvaluation> list = this.list(queryWrapper);
+        return list;
+    }
+
+    @Override
+    public int countSelfEvaluationById(int selfEvaluationId) {
+        LambdaQueryWrapper<SelfEvaluation> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SelfEvaluation::getId, selfEvaluationId);
+        return this.baseMapper.selectCount(queryWrapper);
     }
 }

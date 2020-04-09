@@ -65,6 +65,50 @@
         </where>
     </select>
 
+    <select id="pageByQueryStudent" resultType="com.excellent.accreditation.model.vo.CourseClassVo">
+        SELECT
+        s.`name` AS semester,
+        t.`name` AS teacher,
+        c.`code` AS courseCode,
+        c.`name` AS course,
+        cc.id,
+        cc.`no`,
+        cc.semester_id,
+        cc.course_id,
+        cc.teacher_id,
+        cc.start_week,
+        cc.end_week,
+        cc.`status`,
+        cc.create_time,
+        cc.update_time
+        FROM
+        course_class AS cc
+        INNER JOIN select_course AS sc ON sc.course_class_id = cc.id
+        INNER JOIN semester AS s ON cc.semester_id = s.id
+        INNER JOIN teacher AS t ON cc.teacher_id = t.id
+        INNER JOIN course AS c ON cc.course_id = c.id
+        <where>
+            <if test="course != null and course != ''">
+                and c.`name` like "%" #{course,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="teacher != null and teacher != ''">
+                and t.`name`like "%" #{teacher,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="semester != null and semester != ''">
+                and s.`name` like "%" #{semester,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
+            <if test="studentId != null">
+                and sc.student_id = #{studentId}
+            </if>
+            <if test="semesterId != null">
+                and semester_id = #{semesterId}
+            </if>
+        </where>
+    </select>
+
     <select id="queryCourseClassById" resultType="com.excellent.accreditation.model.vo.CourseClassVo">
         SELECT
         s.`name` AS semester,

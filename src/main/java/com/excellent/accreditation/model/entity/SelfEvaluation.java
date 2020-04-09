@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author evildoer
@@ -23,6 +23,8 @@ public class SelfEvaluation extends BaseEntity {
     private Integer studentId;
 
     private Integer courseTargetId;
+
+    private Integer courseEvaluationId;
 
     /**
      * 评价档次

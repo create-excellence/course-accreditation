@@ -16,12 +16,18 @@ public class CourseEvaluationVo extends CourseEvaluation {
 
     private String questionnaire;
 
-    public CourseEvaluationVo(){
+    // 学生是否评价
+    private Boolean isEvaluation;
+
+    // 学生评价人数
+    private Integer count;
+
+    public CourseEvaluationVo() {
 
     }
 
-    public CourseEvaluationVo(CourseEvaluation courseEvaluation){
-        BeanUtils.copyProperties(courseEvaluation,this);
+    public CourseEvaluationVo(CourseEvaluation courseEvaluation) {
+        BeanUtils.copyProperties(courseEvaluation, this);
     }
 
 }

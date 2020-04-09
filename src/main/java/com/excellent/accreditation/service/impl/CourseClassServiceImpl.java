@@ -65,21 +65,23 @@ public class CourseClassServiceImpl extends ServiceImpl<CourseClassMapper, Cours
     @Override
     public PageInfo<CourseClassVo> pageByQuery(CourseClassQuery query) {
         PageHelper.startPage(query.getPage(), query.getPageSize());
-        List<CourseClassVo> list = courseClassMapper.pageByQuery(query.getCourse(), query.getTeacher(), query.getSemester(),query.getCourseId(),null,query.getSemesterId());
+        List<CourseClassVo> list = courseClassMapper.pageByQuery(query.getCourse(), query.getTeacher(), query.getSemester(), query.getCourseId(), null, query.getSemesterId());
         return new PageInfo<>(list);
     }
 
     @Override
     public PageInfo<CourseClassVo> getMyCourse(CourseClassQuery query) {
         List<String> roles = userManage.getRolesByCode(userManage.getCodeByToken());
-        for (String role :roles) {
-            if(role.equals(Const.TEACHER)){
+        for (String role : roles) {
+            if (role.equals(Const.TEACHER)) {
                 PageHelper.startPage(query.getPage(), query.getPageSize());
-                List<CourseClassVo> list = courseClassMapper.pageByQuery(query.getCourse(), null, null,null,userManage.getUserInfo().getId(),query.getSemesterId());
+                List<CourseClassVo> list = courseClassMapper.pageByQuery(query.getCourse(), null, null, null, userManage.getUserInfo().getId(), query.getSemesterId());
                 return new PageInfo<>(list);
             }
-            if(role.equals(Const.STUDENT)){
-                //TODO
+            if (role.equals(Const.STUDENT)) {
+                PageHelper.startPage(query.getPage(), query.getPageSize());
+                List<CourseClassVo> list = courseClassMapper.pageByQueryStudent(query.getCourse(), null, null, null, userManage.getUserInfo().getId(), query.getSemesterId());
+                return new PageInfo<>(list);
             }
         }
         return null;
