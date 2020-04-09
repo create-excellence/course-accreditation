@@ -1,6 +1,7 @@
 package com.excellent.accreditation.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ExcelResult;
@@ -9,7 +10,10 @@ import com.excellent.accreditation.common.exception.EmptyException;
 import com.excellent.accreditation.common.exception.ExcelException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.SelectCourseMapper;
+import com.excellent.accreditation.model.entity.CourseClass;
 import com.excellent.accreditation.model.entity.SelectCourse;
+import com.excellent.accreditation.model.entity.Student;
+import com.excellent.accreditation.model.form.CourseEvaluationStudentQuery;
 import com.excellent.accreditation.model.form.SelectCourseQuery;
 import com.excellent.accreditation.model.vo.SelectCourseVo;
 import com.excellent.accreditation.service.ICourseClassService;
@@ -27,6 +31,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @Author evildoer
@@ -162,5 +167,26 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
         PageHelper.startPage(selectCourseQuery.getPage(), selectCourseQuery.getPageSize());
         List<SelectCourseVo> list = selectCourseMapper.pageSelectByStudentId(selectCourseQuery.getStudentId(), selectCourseQuery.getTeacher(), selectCourseQuery.getSemester(), selectCourseQuery.getCourse());
         return new PageInfo<>(list);
+    }
+
+    @Override
+    public Integer countClassStudent(Integer courseClassId) {
+        LambdaQueryWrapper<SelectCourse> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(SelectCourse::getCourseClassId,courseClassId);
+        return  baseMapper.selectCount(queryWrapper);
+    }
+
+    @Override
+    public List<Student> selectClassStudent(CourseEvaluationStudentQuery query) {
+        LambdaQueryWrapper<SelectCourse> queryWrapper=new LambdaQueryWrapper<>();
+        queryWrapper.eq(SelectCourse::getCourseClassId,query.getCourseEvaluationId());
+        List<Integer> studentIdList =  this.list(queryWrapper).stream().map(SelectCourse::getStudentId).collect(Collectors.toList());
+        LambdaQueryWrapper<Student> studentQueryWrapper=new LambdaQueryWrapper<>();
+        studentQueryWrapper.in(Student::getId,studentIdList);
+        if(StringUtils.isNotEmpty(query.getStudent())){
+            studentQueryWrapper.like(Student::getName,query.getStudent());
+        }
+        PageHelper.startPage(query.getPage(), query.getPageSize());
+        return studentService.list(studentQueryWrapper);
     }
 }

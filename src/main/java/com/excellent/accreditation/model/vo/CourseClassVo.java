@@ -45,16 +45,6 @@ public class CourseClassVo extends CourseClass {
         courseClassVo.setCourse(course);
         courseClassVo.setTeacher(teacher);
         courseClassVo.setSemester(semester);
-//        courseClassVo.setTeacher(course);
-//        courseClassVo.setCourse(teacher);
-//        courseClassVo.setSemester(semester);
-//        courseClassVo.setId(courseClass.getId());
-//        courseClassVo.setNo(courseClass.getNo());
-//        courseClassVo.setSemesterId(courseClass.getSemesterId());
-//        courseClassVo.setEndWeek(courseClass.getEndWeek());
-//        courseClassVo.setStatus(courseClass.getStatus());
-//        courseClassVo.setUpdateTime(courseClass.getUpdateTime());
-//        courseClassVo.setCreateTime(courseClass.getCreateTime());
         return courseClassVo;
     }
 }

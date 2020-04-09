@@ -6,7 +6,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.dao.SelfEvaluationMapper;
 import com.excellent.accreditation.model.entity.SelfEvaluation;
+import com.excellent.accreditation.model.form.CourseEvaluationStudentQuery;
 import com.excellent.accreditation.model.form.SelfEvaluationQuery;
+import com.excellent.accreditation.model.vo.CourseEvaluationStudentVo;
 import com.excellent.accreditation.service.ICourseTargetService;
 import com.excellent.accreditation.service.ISelfEvaluationService;
 import com.excellent.accreditation.service.IStudentService;
@@ -68,9 +70,19 @@ public class SelfEvaluationServiceImpl extends ServiceImpl<SelfEvaluationMapper,
     }
 
     @Override
-    public int countSelfEvaluationById(int selfEvaluationId) {
+          public int countSelfEvaluationById(int selfEvaluationId) {
         LambdaQueryWrapper<SelfEvaluation> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SelfEvaluation::getId, selfEvaluationId);
         return this.baseMapper.selectCount(queryWrapper);
+    }
+
+    @Override
+        public SelfEvaluation selectOneSelfEvaluation(Integer courseEvaluationId,Integer studentId) {
+        LambdaQueryWrapper<SelfEvaluation> queryWrapper =new LambdaQueryWrapper<>();
+        queryWrapper.eq(SelfEvaluation::getCourseEvaluationId,courseEvaluationId);
+        queryWrapper.eq(SelfEvaluation::getStudentId,studentId);
+        List<SelfEvaluation> list =  this.baseMapper.selectList(queryWrapper);
+        return  list==null?null:list.get(0);
+
     }
 }

@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.excellent.m.mapper.SelfEvaluationMapper">
+<mapper namespace="com.excellent.accreditation.dao.SelfEvaluationMapper">
+    <select id="selectCourseEvaluationStudent" resultType="com.excellent.accreditation.model.vo.CourseEvaluationStudentVo">
+        SELECT
+        DISTINCT
+        student.sno,
+        student.`name`
+        FROM
+        student
+        INNER JOIN self_evaluation ON self_evaluation.student_id = student.id
+        WHERE
+        self_evaluation.course_evaluation_id = #{courseEvaluationId}
+        <if test="student != null and student != ''">
+            and student.`name` like "%" #{student,jdbcType=VARCHAR}"%"
+        </if>
 
+    </select>
 </mapper>

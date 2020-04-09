@@ -3,8 +3,12 @@ package com.excellent.accreditation.controller;
 
 import com.excellent.accreditation.common.annotation.Permission;
 import com.excellent.accreditation.common.domain.ServerResponse;
+
 import com.excellent.accreditation.model.entity.CourseEvaluation;
 import com.excellent.accreditation.model.form.CourseEvaluationQuery;
+import com.excellent.accreditation.model.form.CourseEvaluationStudentQuery;
+import com.excellent.accreditation.model.vo.CourseEvaluationStudentVo;
+
 import com.excellent.accreditation.model.vo.CourseEvaluationVo;
 import com.excellent.accreditation.service.ICourseEvaluationService;
 import com.github.pagehelper.PageInfo;
@@ -114,4 +118,18 @@ public class CourseEvaluationController {
         return ServerResponse.createBySuccess(list);
     }
 
+    /**
+     *@Description: 获取已参与课程评价的所有学生
+     *@Param: [ courseEvaluationQuery]
+     *@Return: com.excellent.accreditation.common.domain.ServerResponse
+     *@Author: ashe
+     *@Date: 2019/12/6
+     */
+    @GetMapping("/getCourseEvaluationStudent")
+    @ApiOperation("获取已参与课程评价的所有学生")
+//    @Permission
+    public ServerResponse getMyCourseEvaluation(CourseEvaluationStudentQuery courseEvaluationStudentQuery) {
+        PageInfo<CourseEvaluationStudentVo> list = courseEvaluationService.getCourseEvaluationStudent(courseEvaluationStudentQuery);
+        return ServerResponse.createBySuccess(list);
+    }
 }

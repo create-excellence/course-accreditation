@@ -12,6 +12,8 @@ import com.excellent.accreditation.manage.UserManage;
 import com.excellent.accreditation.model.entity.*;
 import com.excellent.accreditation.model.form.CourseClassQuery;
 import com.excellent.accreditation.model.form.CourseEvaluationQuery;
+import com.excellent.accreditation.model.form.CourseEvaluationStudentQuery;
+import com.excellent.accreditation.model.vo.CourseEvaluationStudentVo;
 import com.excellent.accreditation.model.vo.CourseEvaluationVo;
 import com.excellent.accreditation.service.*;
 import com.github.pagehelper.PageHelper;
@@ -39,6 +41,8 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
     // 正在进行的课程评价状态码
     private final int PROCESSINGCODE = 1;
 
+
+
     private final IQuestionnaireService questionnaireService;
 
     private final ICourseClassService courseClassService;
@@ -47,15 +51,18 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
 
     private final ISelfEvaluationService selfEvaluationService;
 
+    private final ISelectCourseService selectCourseService;
+
     private final UserManage userManage;
 
     @Autowired
-    public CourseEvaluationServiceImpl(IQuestionnaireService questionnaireService, UserManage userManage, ICourseClassService courseClassService, ICourseService courseService, ISelfEvaluationService selfEvaluationService) {
+    public CourseEvaluationServiceImpl(IQuestionnaireService questionnaireService, UserManage userManage, ICourseClassService courseClassService, ICourseService courseService, ISelfEvaluationService selfEvaluationService,ISelectCourseService selectCourseService) {
         this.questionnaireService = questionnaireService;
         this.userManage = userManage;
         this.courseClassService = courseClassService;
         this.courseService = courseService;
         this.selfEvaluationService = selfEvaluationService;
+        this.selectCourseService = selectCourseService;
     }
 
 
@@ -67,48 +74,6 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
     }
 
 
-//    @Override
-//    public PageInfo<CourseEvaluationVo> getMyCourseEvaluation(CourseEvaluationQuery query) {
-//        List<String> roles = userManage.getRolesByCode(userManage.getCodeByToken());
-//        for (String role : roles) {
-//            if (role.equals(Const.TEACHER)) {
-//                List<Integer> courseClassIds = courseClassService.getMyCourse(new CourseClassQuery()).getList().stream().map(CourseClass::getId).collect(Collectors.toList());
-//                LambdaQueryWrapper<CourseEvaluation> queryWrapper = new LambdaQueryWrapper<>();
-//                switch (query.getTimeOrder()) {
-//                    case 0:
-//                        queryWrapper.ge(CourseEvaluation::getUpdateTime, LocalDateTime.now().plusWeeks(-1));
-//                    case 1:
-//                        queryWrapper.ge(CourseEvaluation::getUpdateTime, LocalDateTime.now().plusMonths(-1));
-//                    case 2:
-//                        queryWrapper.ge(CourseEvaluation::getUpdateTime, LocalDateTime.now().plusYears(-1));
-//                }
-//                if (query.getStatus() != null && query.getStatus() != -1) {
-//                    queryWrapper.eq(CourseEvaluation::getStatus, query.getStatus());
-//                }
-//                if (StringUtils.isNotEmpty(query.getName())) {
-//                    queryWrapper.like(CourseEvaluation::getName, query.getName());
-//                }
-//                queryWrapper.in(CourseEvaluation::getCourseClassId, courseClassIds);
-//                PageHelper.startPage(query.getPage(), query.getPageSize());
-//                List<CourseEvaluation> list = this.list(queryWrapper);
-//                List<CourseEvaluationVo> data = new ArrayList<>();
-//                for (CourseEvaluation item : list) {
-//                    CourseClass courseClass = courseClassService.getById(item.getCourseClassId());
-//                    Course course = courseService.getById(courseClass.getCourseId());
-//                    Questionnaire questionnaire = questionnaireService.getById(item.getQuestionnaireId());
-//                    CourseEvaluationVo courseEvaluationVo = new CourseEvaluationVo(item);
-//                    courseEvaluationVo.setCourse(courseClass.getNo() + course.getName());
-//                    courseEvaluationVo.setQuestionnaire(questionnaire.getName());
-//                    data.add(courseEvaluationVo);
-//                }
-//                return new PageInfo<>(data);
-//            }
-//            if (role.equals(Const.STUDENT)) {
-//                //TODO
-//            }
-//        }
-//        return null;
-//    }
 
     @Override
     public PageInfo<CourseEvaluationVo> getMyCourseEvaluation(CourseEvaluationQuery query) {
@@ -162,6 +127,30 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
     }
 
     @Override
+    public PageInfo<CourseEvaluationStudentVo> getCourseEvaluationStudent(CourseEvaluationStudentQuery courseEvaluationStudentQuery) {
+        CourseEvaluation courseEvaluation=this.getById(courseEvaluationStudentQuery.getCourseEvaluationId());
+        if(courseEvaluation!=null){
+            List<Student> studentList=selectCourseService.selectClassStudent(courseEvaluationStudentQuery);
+            List<CourseEvaluationStudentVo> data = new ArrayList<>();
+            for (Student student :studentList) {
+                CourseEvaluationStudentVo courseEvaluationStudentVo =new CourseEvaluationStudentVo();
+                courseEvaluationStudentVo.setName(student.getName());
+                courseEvaluationStudentVo.setSno(student.getSno());
+                courseEvaluationStudentVo.setIsEvaluation(Boolean.FALSE);
+                SelfEvaluation selfEvaluation=selfEvaluationService.selectOneSelfEvaluation(courseEvaluation.getId(),student.getId());
+                if(selfEvaluation!=null){
+                    courseEvaluationStudentVo.setSubmitTime(selfEvaluation.getUpdateTime());
+                    courseEvaluationStudentVo.setIsEvaluation(Boolean.TRUE);
+                }
+                data.add(courseEvaluationStudentVo);
+            }
+            return new PageInfo<>(data);
+
+        }
+        return  null;
+    }
+
+    @Override
     public PageInfo<CourseEvaluationVo> pageByQuery(CourseEvaluationQuery query) {
         LambdaQueryWrapper<CourseEvaluation> queryWrapper = new LambdaQueryWrapper<>();
         if (query.getStatus() != null && query.getStatus() != -1 && query.getStatus() != -2) {
@@ -202,7 +191,10 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
             CourseEvaluationVo courseEvaluationVo = new CourseEvaluationVo(item);
             courseEvaluationVo.setCourse(courseClass.getNo() + course.getName());
             courseEvaluationVo.setQuestionnaire(questionnaire.getName());
-            courseEvaluationVo.setCount(this.selfEvaluationService.countSelfEvaluationById(item.getId()));
+            Integer count = this.selfEvaluationService.countSelfEvaluationById(item.getId());
+            Integer classStudentNum = this.selectCourseService.countClassStudent(item.getCourseClassId());
+            courseEvaluationVo.setCount(count);
+            courseEvaluationVo.setCourseClassCount(classStudentNum);
             data.add(courseEvaluationVo);
         }
         return data;

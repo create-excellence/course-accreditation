@@ -2,7 +2,9 @@ package com.excellent.accreditation.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.excellent.accreditation.model.entity.SelfEvaluation;
+import com.excellent.accreditation.model.form.CourseEvaluationStudentQuery;
 import com.excellent.accreditation.model.form.SelfEvaluationQuery;
+import com.excellent.accreditation.model.vo.CourseEvaluationStudentVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -19,4 +21,7 @@ public interface ISelfEvaluationService extends IService<SelfEvaluation> {
     List<SelfEvaluation> getByStudentId(int studentId);
 
     int countSelfEvaluationById(int selfEvaluationId);
+
+    SelfEvaluation selectOneSelfEvaluation(Integer courseEvaluationId,Integer studentId);
+
 }

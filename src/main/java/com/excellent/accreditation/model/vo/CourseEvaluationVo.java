@@ -22,8 +22,12 @@ public class CourseEvaluationVo extends CourseEvaluation {
     // 学生评价人数
     private Integer count;
 
-    public CourseEvaluationVo() {
 
+    // 班级人数
+    private Integer courseClassCount;
+
+
+    public CourseEvaluationVo(){
     }
 
     public CourseEvaluationVo(CourseEvaluation courseEvaluation) {
