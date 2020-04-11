@@ -17,4 +17,8 @@ public interface CourseTargetMapper extends BaseMapper<CourseTarget> {
 
     List<GraduationPoint> point (@Param("questionnaireId") Integer questionnaireId);
 
+    Integer partSequenceIncrease(@Param("questionnaireId") Integer questionnaireId,@Param("sequence") Integer sequence);
+
+    Integer partSequenceReduce(@Param("questionnaireId") Integer questionnaireId,@Param("sequence") Integer sequence);
+
 }

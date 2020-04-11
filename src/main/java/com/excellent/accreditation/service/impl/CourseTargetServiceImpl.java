@@ -20,8 +20,10 @@ import com.excellent.accreditation.service.IQuestionnaireService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.sf.json.JSONArray;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -32,12 +34,19 @@ import java.util.List;
  * @Author evildoer
  */
 @Service
+@Transactional
 public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, CourseTarget> implements ICourseTargetService {
     private final IQuestionnaireService questionnaireService;
 
     private final IGraduationPointService graduationPointService;
 
     private final CourseTargetMapper courseTargetMapper;
+
+    private  final Integer UP= 0;
+
+    private  final Integer DOWN= 1;
+
+    private  final Integer MIN_SEQUENCE= 1;
 
     @Autowired
     public CourseTargetServiceImpl(IQuestionnaireService questionnaireService, IGraduationPointService graduationPointService, CourseTargetMapper courseTargetMapper) {
@@ -52,6 +61,18 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
         if (this.getById(courseTargetId) == null) {
             throw new ConflictException("课程目标不存在");
         }
+    }
+
+    @Override
+    public boolean delete(Integer courseTargetId) {
+        CourseTarget courseTarget=this.getById(courseTargetId);
+        if(courseTarget!=null){
+            this.baseMapper.partSequenceReduce(courseTarget.getQuestionnaireId(),courseTarget.getSequence());
+            if(this.removeById(courseTargetId)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public PageInfo<CourseTargetVo> pageByQuery(CourseTargetQuery query) {
@@ -71,8 +92,10 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
     @Override
     public boolean create(CourseTarget courseTarget) {
         this.check(courseTarget, Const.CREATE);
+        courseTarget.setSequence(this.getMax(courseTarget.getQuestionnaireId())+1);
         courseTarget.setCreateTime(LocalDateTime.now());
         courseTarget.setUpdateTime(LocalDateTime.now());
+
         if (this.save(courseTarget)){
             return true;
         }
@@ -95,6 +118,66 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
     }
 
     @Override
+    public boolean moveQuestion(Integer courseTargetId, Integer operate) {
+        if(UP.equals(operate)||DOWN.equals(operate)){
+            CourseTarget courseTarget= this.getById(courseTargetId);
+            if(courseTarget!=null){
+                if(UP.equals(operate)){
+                    //如果序号为最小
+                    if(MIN_SEQUENCE.equals(courseTarget.getSequence())){
+                        return true;
+                    }
+                    CourseTarget aboveCourseTarget = this.getBySequence(courseTarget.getQuestionnaireId(),courseTarget.getSequence()-1);
+                    courseTarget.setUpdateTime(LocalDateTime.now());
+                    courseTarget.setSequence(courseTarget.getSequence()-1);
+                    aboveCourseTarget.setUpdateTime(LocalDateTime.now());
+                    aboveCourseTarget.setSequence(aboveCourseTarget.getSequence()+1);
+                    this.saveOrUpdate(aboveCourseTarget);
+                }else{
+                    //如果序号为最大
+                    if(this.getMax(courseTarget.getQuestionnaireId()).equals(courseTarget.getSequence())){
+                        return true;
+                    }
+                    CourseTarget belowCourseTarget = this.getBySequence(courseTarget.getQuestionnaireId(),courseTarget.getSequence()+1);
+                    courseTarget.setUpdateTime(LocalDateTime.now());
+                    courseTarget.setSequence(courseTarget.getSequence()+1);
+                    belowCourseTarget.setUpdateTime(LocalDateTime.now());
+                    belowCourseTarget.setSequence(belowCourseTarget.getSequence()-1);
+                    this.saveOrUpdate(belowCourseTarget);
+                }
+                this.saveOrUpdate(courseTarget);
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    @Override
+    public boolean copyQuestion(Integer courseTargetId) {
+        CourseTarget courseTarget = this.getById(courseTargetId);
+        if(courseTarget!=null){
+            courseTarget.setId(null);
+            courseTarget.setSequence(courseTarget.getSequence()+1);
+            courseTarget.setCreateTime(LocalDateTime.now());
+            courseTarget.setUpdateTime(LocalDateTime.now());
+            this.baseMapper.partSequenceIncrease(courseTarget.getQuestionnaireId(),courseTarget.getSequence());
+            if(this.save(courseTarget)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public CourseTarget getBySequence(Integer questionnaireId, Integer sequence) {
+        LambdaQueryWrapper<CourseTarget> queryWrapper= new LambdaQueryWrapper<>();
+        queryWrapper.eq(CourseTarget::getQuestionnaireId,questionnaireId);
+        queryWrapper.eq(CourseTarget::getSequence,sequence);
+        return this.getOne(queryWrapper);
+    }
+
+    @Override
     public List<GraduationPoint> point(Integer questionnaireId) {
         List<GraduationPoint> list = courseTargetMapper.point(questionnaireId);
         return list;
@@ -104,17 +187,18 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
         List<CourseTargetVo> courseTargetVoList = new ArrayList<>();
         for(int i=0;i<courseTargets.size();i++){
             CourseTargetVo courseTargetVo = new CourseTargetVo();
-            courseTargetVo.setId(courseTargets.get(i).getId());
-            courseTargetVo.setDescribes(courseTargets.get(i).getDescribes());
-            courseTargetVo.setQuestionnaireId(courseTargets.get(i).getQuestionnaireId());
-            courseTargetVo.setTitle(courseTargets.get(i).getTitle());
-            courseTargetVo.setOptionsScore(courseTargets.get(i).getOptionsScore());
-            courseTargetVo.setPointId(courseTargets.get(i).getPointId());
-            courseTargetVo.setOptions(courseTargets.get(i).getOptions());
-            courseTargetVo.setTotalScore(courseTargets.get(i).getTotalScore());
-            courseTargetVo.setSequence(courseTargets.get(i).getSequence());
-            courseTargetVo.setCreateTime(courseTargets.get(i).getCreateTime());
-            courseTargetVo.setUpdateTime(courseTargets.get(i).getUpdateTime());
+//            courseTargetVo.setId(courseTargets.get(i).getId());
+////            courseTargetVo.setDescribes(courseTargets.get(i).getDescribes());
+////            courseTargetVo.setQuestionnaireId(courseTargets.get(i).getQuestionnaireId());
+////            courseTargetVo.setTitle(courseTargets.get(i).getTitle());
+////            courseTargetVo.setOptionsScore(courseTargets.get(i).getOptionsScore());
+////            courseTargetVo.setPointId(courseTargets.get(i).getPointId());
+////            courseTargetVo.setOptions(courseTargets.get(i).getOptions());
+////            courseTargetVo.setTotalScore(courseTargets.get(i).getTotalScore());
+////            courseTargetVo.setSequence(courseTargets.get(i).getSequence());
+////            courseTargetVo.setCreateTime(courseTargets.get(i).getCreateTime());
+////            courseTargetVo.setUpdateTime(courseTargets.get(i).getUpdateTime());
+            BeanUtils.copyProperties(courseTargets.get(i),courseTargetVo);
             Questionnaire questionnaire = questionnaireService.getById(courseTargets.get(i).getQuestionnaireId());
             GraduationPoint graduationPoint = graduationPointService.getById(courseTargets.get(i).getPointId());
             courseTargetVo.setQuestionnaire(questionnaire);
@@ -126,6 +210,15 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
             courseTargetVoList.add(courseTargetVo);
         }
         return  courseTargetVoList;
+    }
+
+
+
+
+    private Integer getMax(Integer questionnaireId){
+        LambdaQueryWrapper<CourseTarget> queryWrapper= new LambdaQueryWrapper<>();
+        queryWrapper.eq(CourseTarget::getQuestionnaireId,questionnaireId);
+        return  this.count(queryWrapper);
     }
 
 }

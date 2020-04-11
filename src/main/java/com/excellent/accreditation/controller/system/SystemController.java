@@ -79,7 +79,6 @@ public class SystemController {
     }
 
     /**
-<<<<<<< Updated upstream
      * @Author 安羽兮
      * @Description //TODO
      * @Date 10:55 2020/3/26

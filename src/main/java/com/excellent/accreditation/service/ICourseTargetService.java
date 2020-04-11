@@ -11,6 +11,7 @@ import com.excellent.accreditation.model.vo.CourseTargetVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ public interface ICourseTargetService extends IService<CourseTarget> {
 
     void checkCourseTarget(Integer courseTargetId);
 
+    boolean delete(Integer courseTargetId);
 
     PageInfo<CourseTargetVo> pageByQuery(CourseTargetQuery query);
 
@@ -28,6 +30,12 @@ public interface ICourseTargetService extends IService<CourseTarget> {
     List<ExcelResult> saveBachByExcel(MultipartFile file);
 
     void check(CourseTarget courseTarget, Integer type);
+
+    boolean moveQuestion(Integer courseTargetId, Integer operate);
+
+    boolean copyQuestion(Integer courseTargetId);
+
+    CourseTarget getBySequence(Integer questionnaireId, Integer sequence);
 
     List<GraduationPoint> point(Integer questionnaireId);
 }

@@ -33,5 +33,20 @@
             and questionnaire.id = #{questionnaireId}
         </if>
     </select>
+    <update id="partSequenceReduce">
+    UPDATE course_target
+    SET sequence = sequence - 1
+    WHERE
+	questionnaire_id = #{questionnaireId}
+	AND sequence > #{sequence}
+    </update>
+    <update id="partSequenceIncrease">
+    UPDATE course_target
+    SET sequence = sequence + 1
+    WHERE
+	questionnaire_id = #{questionnaireId}
+	AND sequence > #{sequence}
+    </update>
+
 
 </mapper>

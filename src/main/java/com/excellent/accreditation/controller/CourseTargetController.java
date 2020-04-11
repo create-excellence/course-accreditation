@@ -65,7 +65,7 @@ public class CourseTargetController {
     @ApiOperation("通过id删除课程目标")
     @Permission
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
-        boolean result = courseTargetService.removeById(id);
+        boolean result = courseTargetService.delete(id);
         if (result)
             return ServerResponse.createBySuccessMessage("课程目标删除成功");
 
@@ -132,7 +132,7 @@ public class CourseTargetController {
 
     /**
      *@Description: 分页查询课程目标
-     *@Param: [courseClassQuery]
+     *@Param: [courseTargetQuery]
      *@Return: com.excellent.accreditation.common.domain.ServerResponse
      *@Author: ashe
      *@Date: 2019/12/6
@@ -140,19 +140,53 @@ public class CourseTargetController {
     @GetMapping("/list")
     @ApiOperation("分页查询课程目标")
     @Permission
-    public ServerResponse queryCourse(CourseTargetQuery courseClassQuery) {
-        PageInfo<CourseTargetVo> list = courseTargetService.pageByQuery(courseClassQuery);
-        if (list != null)
-            return ServerResponse.createBySuccess(list);
-        return ServerResponse.createByErrorMessage("课程目标不存在");
+    public ServerResponse queryCourse(CourseTargetQuery courseTargetQuery) {
+        PageInfo<CourseTargetVo> list = courseTargetService.pageByQuery(courseTargetQuery);
+        return ServerResponse.createBySuccess(list);
     }
 
     @GetMapping("/point")
     @ApiOperation("查询对应指标点")
-//    @Permission
+    @Permission
     public ServerResponse  point (Integer questionnaireId){
         List<GraduationPoint> list = courseTargetService.point(questionnaireId);
         return ServerResponse.createBySuccess(list);
+    }
+
+
+    /**
+     *@Description: 问卷题目上移或下移
+     *@Param: [courseTargetId,operate]
+     *@Return: com.excellent.accreditation.common.domain.ServerResponse
+     *@Author: ashe
+     *@Date: 2019/12/6
+     */
+    @GetMapping("/move")
+    @ApiOperation("问卷题目上移或下移")
+    @Permission
+    public ServerResponse move(Integer courseTargetId,Integer operate) {
+        if(courseTargetService.moveQuestion(courseTargetId,operate)){
+            return ServerResponse.createBySuccess();
+        }
+         return ServerResponse.createByErrorMessage("操作失败");
+    }
+
+
+    /**
+     *@Description: 问卷题目复制
+     *@Param: [courseTargetId,operate]
+     *@Return: com.excellent.accreditation.common.domain.ServerResponse
+     *@Author: ashe
+     *@Date: 2019/12/6
+     */
+    @GetMapping("/copy")
+    @ApiOperation("问卷题目复制")
+    @Permission
+    public ServerResponse copy(Integer courseTargetId) {
+        if(courseTargetService.copyQuestion(courseTargetId)){
+            return ServerResponse.createBySuccess();
+        }
+        return ServerResponse.createByErrorMessage("操作失败");
     }
 
 
