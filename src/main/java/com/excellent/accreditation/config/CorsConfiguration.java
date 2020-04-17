@@ -13,7 +13,10 @@ public class CorsConfiguration implements WebMvcConfigurer {
     private  String uploadPicturePath;
 
     @Value("/${server.version}/img/**")
-    private  String path;
+    private  String imgPath;
+
+    @Value("/${server.version}/img/**")
+    private  String excelPath;
 
 
     @Override
@@ -32,7 +35,7 @@ public class CorsConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
-        registry.addResourceHandler(path).addResourceLocations("file:"+uploadPicturePath);
+        registry.addResourceHandler(excelPath).addResourceLocations("classpath:/excel/");
+        registry.addResourceHandler(imgPath).addResourceLocations("file:"+uploadPicturePath);
     }
 }

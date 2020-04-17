@@ -63,6 +63,7 @@
                 and semester_id = #{semesterId}
             </if>
         </where>
+        order by update_time DESC
     </select>
 
     <select id="pageByQueryStudent" resultType="com.excellent.accreditation.model.vo.CourseClassVo">

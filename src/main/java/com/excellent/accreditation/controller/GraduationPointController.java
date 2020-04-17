@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -143,5 +144,13 @@ public class GraduationPointController {
             return ServerResponse.createBySuccess(list);
 
         return ServerResponse.createByErrorMessage("指标点不存在");
+    }
+
+
+    @PostMapping("/batchSave")
+    @ApiOperation("批量添加毕业指标点")
+    @Permission
+    public ServerResponse batchSave(MultipartFile file) {
+        return ServerResponse.createBySuccess(graduationPointService.saveBachByExcel(file));
     }
 }

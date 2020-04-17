@@ -17,6 +17,8 @@ public interface ICourseClassService extends IService<CourseClass> {
 
     void checkNo(String No, Integer courseClassId);
 
+   CourseClass getByNo(String no);
+
     PageInfo<CourseClassVo> pageByQuery(CourseClassQuery query);
 
     PageInfo<CourseClassVo> getMyCourse(CourseClassQuery query);

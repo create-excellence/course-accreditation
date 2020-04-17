@@ -18,6 +18,8 @@ public interface IMajorService extends IService<Major> {
 
     void checkMajor(Integer majorId);
 
+    Major getByCode(String code);
+
     PageInfo<Major> pageByQuery(MajorQuery majorQuery);
 
     boolean create(Major major);

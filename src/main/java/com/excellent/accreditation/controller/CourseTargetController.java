@@ -101,11 +101,13 @@ public class CourseTargetController {
     @ApiOperation("通过id更新课程目标")
     @Permission
     public ServerResponse updateById(@PathVariable("id") Integer id,
-                                     @RequestBody CourseTarget courseClass) {
-        courseClass.setId(id);
-        courseClass.setUpdateTime(LocalDateTime.now());
-        courseTargetService.check(courseClass, Const.UPDATE);
-        boolean result = courseTargetService.updateById(courseClass);
+                                     @RequestBody CourseTarget courseTarget) {
+        courseTarget.setId(id);
+        courseTarget.setUpdateTime(LocalDateTime.now());
+        courseTarget.setSequence(null);
+        courseTargetService.check(courseTarget, Const.UPDATE);
+
+        boolean result = courseTargetService.updateById(courseTarget);
         if (result)
             return ServerResponse.createBySuccessMessage("课程目标更新成功");
 

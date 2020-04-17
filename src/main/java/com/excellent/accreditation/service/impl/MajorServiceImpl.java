@@ -34,7 +34,7 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
     public void checkCode(String code,Integer majorId) {
         LambdaQueryWrapper<Major> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Major::getCode, code);
-        Major major=this.getOne(queryWrapper);
+        Major major=this.getByCode(code);
         if ( major!= null&&!major.getId().equals(majorId)) {
             throw new UniqueException("专业代码已存在");
         }
@@ -45,6 +45,13 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
         if (this.getById(majorId) == null) {
             throw new ConflictException("专业不存在");
         }
+    }
+
+    @Override
+    public Major getByCode(String code) {
+        LambdaQueryWrapper<Major> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Major::getCode, code);
+        return this.getOne(queryWrapper);
     }
 
     @Override

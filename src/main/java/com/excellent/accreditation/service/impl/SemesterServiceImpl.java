@@ -32,11 +32,10 @@ import java.util.Map;
 public class SemesterServiceImpl extends ServiceImpl<SemesterMapper, Semester> implements ISemesterService {
 
     @Override
-    public void checkName(@NonNull String name) {
-        LambdaQueryWrapper<Semester> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Semester::getName, name);
-        if (super.getOne(queryWrapper) != null) {
-            throw new UniqueException("课程代码不能重复");
+    public void checkName(@NonNull String name,Integer semesterId) {
+        Semester semester=this.getByName(name);
+        if ( semester!= null&&!semester.getId().equals(semester)) {
+            throw new UniqueException("学期名称不能重复");
         }
     }
 
@@ -44,7 +43,7 @@ public class SemesterServiceImpl extends ServiceImpl<SemesterMapper, Semester> i
     public boolean create(@NonNull Semester semester) {
         semester.setCreateTime(LocalDateTime.now());
         semester.setUpdateTime(LocalDateTime.now());
-        this.checkName(semester.getName());                  // 学期名称必须唯一
+        this.checkName(semester.getName(),null);                  // 学期名称必须唯一
         boolean result = this.save(semester);
         // 操作成功
         if (result)
@@ -68,6 +67,13 @@ public class SemesterServiceImpl extends ServiceImpl<SemesterMapper, Semester> i
         if (this.getById(semester) == null) {
             throw new ConflictException("学期不存在");
         }
+    }
+
+    @Override
+    public Semester getByName(String name) {
+        LambdaQueryWrapper<Semester> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Semester::getName, name);
+        return this.getOne(queryWrapper);
     }
 
     @Override

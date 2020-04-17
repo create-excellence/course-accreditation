@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +71,8 @@ public class UserManage {
             queryWrapper.eq("sno", code)       // 通过学号登录
                     .eq("password", password);
             Student s = studentService.getOne(queryWrapper);
+            s.setLoginTime(LocalDateTime.now());
+            studentService.saveOrUpdate(s);
             String token = JWTUtil.encryptToken(JWTUtil.sign(code, password));
             UserVo userVo = UserVo.convert(s, token);
             userVo.setRole(this.getRolesByCode(code));
@@ -79,6 +82,8 @@ public class UserManage {
             queryWrapper.eq("jno", code)       // 通过工号登录
                     .eq("password", password);
             Teacher t = teacherService.getOne(queryWrapper);
+            t.setLoginTime(LocalDateTime.now());
+            teacherService.saveOrUpdate(t);
             String token = JWTUtil.encryptToken(JWTUtil.sign(code, password));
             UserVo userVo = UserVo.convert(t, token);
             userVo.setRole(this.getRolesByCode(code));

@@ -13,13 +13,15 @@ import java.util.List;
  * @Author evildoer
  */
 public interface ISemesterService extends IService<Semester> {
-    void checkName(String name);
+    void checkName(String name,Integer semesterId);
 
     boolean create(Semester semester);
 
     PageInfo<Semester> pageByQuery(SemesterQuery semesterQuery);
 
     void  checkSemester(Integer semester);
+
+    Semester getByName(String name);
 
     List<ExcelResult> saveBachByExcel(MultipartFile file);
 }

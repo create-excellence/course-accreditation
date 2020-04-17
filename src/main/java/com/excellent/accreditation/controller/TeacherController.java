@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -142,5 +143,12 @@ public class   TeacherController {
             return ServerResponse.createBySuccess(list);
 
         return ServerResponse.createByErrorMessage("教师不存在");
+    }
+
+    @PostMapping("/batchSave")
+    @ApiOperation("批量添加老师")
+    @Permission
+    public ServerResponse batchSave(MultipartFile file) {
+        return ServerResponse.createBySuccess(teacherService.saveBachByExcel(file));
     }
 }

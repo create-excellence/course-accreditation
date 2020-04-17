@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -195,5 +196,12 @@ public class StudentController {
     public ServerResponse queryStudentByCourseClassId(StudentQuery studentQuery) {
         PageInfo<StudentVo> list = studentService.getStudentByCourseClassId(studentQuery);
         return ServerResponse.createBySuccess(list);
+    }
+
+    @PostMapping("/batchSave")
+    @ApiOperation("批量添加学生")
+    @Permission
+    public ServerResponse batchSave(MultipartFile file) {
+        return ServerResponse.createBySuccess(studentService.saveBachByExcel(file));
     }
 }

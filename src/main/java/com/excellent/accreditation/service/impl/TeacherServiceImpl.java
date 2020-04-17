@@ -5,20 +5,27 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
+import com.excellent.accreditation.common.domain.ExcelResult;
+import com.excellent.accreditation.common.exception.CommonException;
 import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.TeacherMapper;
+import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.model.entity.Teacher;
 import com.excellent.accreditation.model.form.TeacherQuery;
 import com.excellent.accreditation.service.ITeacherService;
+import com.excellent.accreditation.untils.EmptyCheckUtils;
+import com.excellent.accreditation.untils.ExcelUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author evildoer
@@ -61,6 +68,37 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         });
         pageInfo.setList(list);
         return pageInfo;
+    }
+
+    @Override
+    public List<ExcelResult> saveBachByExcel(MultipartFile file) {
+        List<Map<Integer, String>> list = ExcelUtils.readExcelGetList(file);
+        List<ExcelResult> excelResults = new ArrayList<>();
+        list.forEach(data -> {
+            ExcelResult excelResult = new ExcelResult();
+            try {
+                EmptyCheckUtils.checkExcelMapAndSetNo(data, excelResult, 4);
+                String jno = data.get(1);
+                String name = data.get(2);
+                String password = data.get(3);
+                String sex = data.get(4);
+                Teacher teacher =new Teacher();
+                teacher.setJno(jno);
+                teacher.setName(name);
+                teacher.setSex(sex);
+                teacher.setPassword(password);
+                if (this.create(teacher)) {
+                    excelResult.setStatus(Const.SUCCESS_INCREASE);
+                    excelResult.setMessage("添加成功");
+                }
+            } catch (NumberFormatException e) {
+                excelResult.setMessage("无法将部分字段转为数字类型");
+            } catch (CommonException e) {
+                excelResult.setMessage(e.getMessage());
+            }
+            excelResults.add(excelResult);
+        });
+        return excelResults;
     }
 
     @Override

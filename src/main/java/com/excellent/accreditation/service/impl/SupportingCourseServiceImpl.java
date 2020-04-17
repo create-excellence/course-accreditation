@@ -60,7 +60,7 @@ public class SupportingCourseServiceImpl extends ServiceImpl<SupportingCourseMap
         }
         throw new DatabaseException("未知异常, 数据库操作失败");
     }
-    //TODO 待完成
+
     @Override
     public List<ExcelResult> saveBachByExcel(MultipartFile file) {
         List<Map<Integer, String>> list= ExcelUtils.readExcelGetList(file);
@@ -75,6 +75,12 @@ public class SupportingCourseServiceImpl extends ServiceImpl<SupportingCourseMap
                 SupportingCourse supportingCourse =new SupportingCourse();
                 Course course=courseService.getByCode(courseCode);
                 GraduationPoint graduationPoint=graduationPointService.getByNo(graduationPointNo);
+                if(course==null){
+                    throw new ConflictException("课程不存在");
+                }
+                if(graduationPoint==null){
+                    throw new ConflictException("毕业指标点不存在");
+                }
                 supportingCourse.setCourseId(course.getId());
                 supportingCourse.setGraduationPointId(graduationPoint.getId());
                 supportingCourse.setWeight(weight);

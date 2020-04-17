@@ -101,6 +101,7 @@ public class SemesterController {
                                      @RequestBody Semester semester) {
         semester.setId(id);
         semester.setUpdateTime(LocalDateTime.now());
+        semesterService.checkName(semester.getName(),semester.getId());
         boolean result = semesterService.updateById(semester);
         if (result)
             return ServerResponse.createBySuccessMessage("学期更新成功");

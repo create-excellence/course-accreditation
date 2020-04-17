@@ -5,11 +5,9 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ExcelResult;
-import com.excellent.accreditation.common.exception.DatabaseException;
-import com.excellent.accreditation.common.exception.EmptyException;
-import com.excellent.accreditation.common.exception.ExcelException;
-import com.excellent.accreditation.common.exception.UniqueException;
+import com.excellent.accreditation.common.exception.*;
 import com.excellent.accreditation.dao.SelectCourseMapper;
+import com.excellent.accreditation.model.entity.Course;
 import com.excellent.accreditation.model.entity.CourseClass;
 import com.excellent.accreditation.model.entity.SelectCourse;
 import com.excellent.accreditation.model.entity.Student;
@@ -73,17 +71,18 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
             ExcelResult excelResult = new ExcelResult();
             try {
                 EmptyCheckUtils.checkExcelMapAndSetNo(data, excelResult, 2);
-                String courseClassId = data.get(1);
-                String studentId = data.get(2);
-                Integer courseClassId1 = Integer.valueOf(courseClassId);
-                Integer studentId1 = Integer.valueOf(studentId);
-                this.checkSelectCourse(courseClassId1, studentId1);
+                CourseClass courseClass = courseClassService.getByNo(data.get(1));
+                Student student = studentService.getByCode(data.get(2));
+                if(courseClass==null){
+                    throw new ConflictException("开课班级不存在");
+                }
+                if(student==null){
+                    throw new ConflictException("学生不存在");
+                }
                 SelectCourse selectCourse = new SelectCourse();
-                selectCourse.setCourseClassId(courseClassId1);
-                selectCourse.setStudentId(studentId1);
-                selectCourse.setCreateTime(LocalDateTime.now());
-                selectCourse.setUpdateTime(LocalDateTime.now());
-                if (super.save(selectCourse)) {
+                selectCourse.setCourseClassId(courseClass.getId());
+                selectCourse.setStudentId(student.getId());
+                if (this.create(selectCourse)) {
                     excelResult.setStatus(Const.SUCCESS_INCREASE);
                     excelResult.setMessage("添加成功");
                 }

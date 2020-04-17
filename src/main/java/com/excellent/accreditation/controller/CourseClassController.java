@@ -13,6 +13,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -160,5 +161,12 @@ public class CourseClassController {
     public ServerResponse getMyCourse(CourseClassQuery query) {
         PageInfo<CourseClassVo> list = courseClassService.getMyCourse(query);
         return ServerResponse.createBySuccess(list);
+    }
+
+    @PostMapping("/batchSave")
+    @ApiOperation("批量添加开课班级")
+    @Permission
+    public ServerResponse batchSave(MultipartFile file) {
+        return ServerResponse.createBySuccess(courseClassService.saveBachByExcel(file));
     }
 }
