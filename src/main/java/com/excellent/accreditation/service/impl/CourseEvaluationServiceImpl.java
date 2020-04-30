@@ -227,6 +227,55 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
     }
 
     @Override
+    public boolean saveAnswer(List<CourseTargetVo> answers) {
+        if(answers.size()==0){
+            return false;
+        }
+        List<SelfEvaluation> updateData = new ArrayList<>();
+        Integer studentId = userManage.getUserInfo().getId();
+        for (CourseTargetVo ct:answers) {
+            SelfEvaluation selfEvaluation =selfEvaluationService.getById(ct.getSelfEvaluationId());
+            if(selfEvaluation==null||!studentId.equals(selfEvaluation.getStudentId())){
+                continue;
+            }
+            this.checkStudentEvaluation(selfEvaluation.getCourseEvaluationId());
+            selfEvaluation.setUpdateTime(LocalDateTime.now());
+            selfEvaluation.setAnswer(ct.getChoose());
+            selfEvaluation.setScore(calcScore(ct.getId(),ct.getChoose()));
+            updateData.add(selfEvaluation);
+        }
+        return selfEvaluationService.updateBatchById(updateData);
+    }
+
+    private Integer calcScore(Integer courseTargetId,String choose){
+        CourseTarget courseTarget=courseTargetService.getById(courseTargetId);
+        String options=courseTarget.getOptions();
+        JSONArray jsonArray = JSONArray.fromObject(options);
+        List<Options> optionsList = (List<Options>)JSONArray.toCollection(jsonArray,Options.class);
+        for (Options op:optionsList) {
+            if(op.getPrefix().equals(choose)){
+              return Integer.valueOf(op.getScore());
+            }
+        }
+
+        return 0;
+    }
+
+    private void checkStudentEvaluation(Integer courseEvaluationId){
+        CourseEvaluation courseEvaluation =this.getById(courseEvaluationId);
+        if(courseEvaluation!=null) {
+            if (courseEvaluation.getStatus() == 0) {
+                throw new TimeException("未到达课程评价开放时间");
+            } else if (courseEvaluation.getStatus() == 2) {
+                throw new TimeException("课程评价已结束");
+            }
+        }else {
+            throw new EmptyException("不存在课程评价");
+        }
+
+    }
+
+    @Override
     public boolean startEvaluation(Integer courseEvaluationId) {
         CourseEvaluation courseEvaluation =this.getById(courseEvaluationId);
         if(courseEvaluation!=null){
@@ -252,10 +301,11 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
     @Override
     public List<CourseTargetVo> getQuestions(Integer courseEvaluationId) {
         Integer studentId =userManage.getUserInfo().getId();
+        this.checkStudentEvaluation(courseEvaluationId);
         CourseEvaluation courseEvaluation = this.getById(courseEvaluationId);
-        if(courseEvaluation==null){ return null;}
-        SelfEvaluation selfEvaluation=selfEvaluationService.selectOneSelfEvaluation(courseEvaluationId,studentId);
         List<CourseTargetVo> data =new ArrayList<>();
+        if(courseEvaluation==null){ return data;}
+        SelfEvaluation selfEvaluation=selfEvaluationService.selectOneSelfEvaluation(courseEvaluationId,studentId);
         if(selfEvaluation!=null){
             List<CourseTarget> courseTargetList=courseTargetService.getByQuestionnaire(courseEvaluation.getQuestionnaireId());
             List<SelfEvaluation> selfEvaluationList =selfEvaluationService.getByStudentIdAndEvaluation(studentId,courseEvaluationId);
@@ -272,7 +322,10 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
                 }
                 courseTargetVo.setOptionsList(optionsList);
                 courseTargetVo.setTotalScore(0);
+                courseTargetVo.setCreateTime(null);
+                courseTargetVo.setUpdateTime(null);
                 courseTargetVo.setOptions("");
+                data.add(courseTargetVo);
             }
         }
         return data;
@@ -288,8 +341,8 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
         if (startTime.compareTo(endTime) > 0) {
             throw new TimeException("开始时间必须早于结束时间");
         }
-        if (Duration.between(startTime, endTime).toMinutes() < 10) {
-            throw new TimeException("开始时间必须与结束时间有十分钟以上的间隔");
+        if (Duration.between(startTime, endTime).toMinutes() < 30) {
+            throw new TimeException("开始时间必须与结束时间有三十分钟以上的间隔");
         }
         questionnaireService.checkQuestionnaire(courseEvaluation.getQuestionnaireId());
     }

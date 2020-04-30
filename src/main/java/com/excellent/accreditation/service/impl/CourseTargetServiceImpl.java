@@ -109,7 +109,7 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
     public List<CourseTarget> getByQuestionnaire(Integer questionnaireId) {
         LambdaQueryWrapper<CourseTarget> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.orderByAsc(CourseTarget::getSequence);
-        queryWrapper.eq(CourseTarget::getQuestionnaireId,queryWrapper);
+        queryWrapper.eq(CourseTarget::getQuestionnaireId,questionnaireId);
         return this.list(queryWrapper);
     }
 

@@ -10,12 +10,15 @@ import com.excellent.accreditation.model.form.CourseEvaluationStudentQuery;
 import com.excellent.accreditation.model.vo.CourseEvaluationStudentVo;
 
 import com.excellent.accreditation.model.vo.CourseEvaluationVo;
+import com.excellent.accreditation.model.vo.CourseTargetVo;
 import com.excellent.accreditation.service.ICourseEvaluationService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 /**
@@ -159,7 +162,20 @@ public class CourseEvaluationController {
     @ApiOperation("获得问卷问题")
     @Permission(roles = "student")
     public ServerResponse getQuestions(Integer courseEvaluationId) {
-        courseEvaluationService.getQuestions(courseEvaluationId);
-        return ServerResponse.createBySuccess();
+        return ServerResponse.createBySuccess(courseEvaluationService.getQuestions(courseEvaluationId));
+    }
+
+    /**
+     *@Description: 提交答卷
+     *@Param: [ courseEvaluationQuery]
+     *@Return: com.excellent.accreditation.common.domain.ServerResponse
+     *@Author: ashe
+     *@Date: 2019/12/6
+     */
+    @PostMapping("/submit")
+    @ApiOperation("提交答卷")
+    @Permission(roles = "student")
+    public ServerResponse submit(@RequestBody  List<CourseTargetVo> answers) {
+        return ServerResponse.createBySuccess(courseEvaluationService.saveAnswer(answers));
     }
 }

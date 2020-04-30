@@ -32,6 +32,8 @@ public interface ICourseEvaluationService extends IService<CourseEvaluation> {
 
     boolean create(CourseEvaluation courseEvaluation);
 
+    boolean saveAnswer(List<CourseTargetVo> answers);
+
     boolean startEvaluation(Integer courseEvaluationId);
 
    List<CourseTargetVo> getQuestions(Integer courseEvaluationId );

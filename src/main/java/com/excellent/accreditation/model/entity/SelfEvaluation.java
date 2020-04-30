@@ -39,7 +39,6 @@ public class SelfEvaluation extends BaseEntity {
     private Integer score;
 
     public SelfEvaluation(){
-        this.setCreateTime(LocalDateTime.now());
         this.setUpdateTime(LocalDateTime.now());
     }
 

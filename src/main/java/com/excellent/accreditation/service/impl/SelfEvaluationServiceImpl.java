@@ -103,6 +103,7 @@ public class SelfEvaluationServiceImpl extends ServiceImpl<SelfEvaluationMapper,
         List<SelfEvaluation> selfEvaluationList =new ArrayList<>();
         for (int i = 0; i <courseTargets.size() ; i++) {
             SelfEvaluation selfEvaluation =new SelfEvaluation();
+            selfEvaluation.setCreateTime(LocalDateTime.now());
             selfEvaluation.setStudentId(studentId);
             selfEvaluation.setCourseEvaluationId(courseEvaluationId);
             selfEvaluation.setCourseTargetId(courseTargets.get(i).getId());

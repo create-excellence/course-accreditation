@@ -46,7 +46,7 @@
     </select>
     <select id="pageSelectByStudentId" resultType="com.excellent.accreditation.model.vo.SelectCourseVo">
         SELECT sc.*,stu.`name` student, t.`name` teacher, c.`name` course, s.`name`
-        semester,stu.sno,cc.teacher_id,cc.semester_id,cc.`status`,cc.start_week,cc.end_week
+        semester,stu.sno,cc.teacher_id,cc.semester_id,cc.`status`,cc.start_week,cc.end_week,cc.no
         FROM select_course sc, course_class cc, student stu,teacher t, course c, semester s
         WHERE
         sc.course_class_id = cc.id and cc.course_id = c.id and cc.teacher_id = t.id and sc.student_id = stu.id and
