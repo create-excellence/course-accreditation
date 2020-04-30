@@ -127,13 +127,11 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
     }
 
     @Override
-    public void checkSelectCourse(Integer courseClassId, Integer studentId) {
+    public SelectCourse getSelectCourse(Integer studentId, Integer courseClassId) {
         LambdaQueryWrapper<SelectCourse> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SelectCourse::getCourseClassId, courseClassId);
         queryWrapper.eq(SelectCourse::getStudentId, studentId);
-        if (this.getOne(queryWrapper) != null) {
-            throw new UniqueException("选课已存在");
-        }
+        return  this.getOne(queryWrapper);
     }
 
     @Override
@@ -176,10 +174,14 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
     }
 
     @Override
-    public List<Student> selectClassStudent(CourseEvaluationStudentQuery query) {
+    public List<Student> selectClassStudent(CourseEvaluationStudentQuery query,Integer courseClassId) {
         LambdaQueryWrapper<SelectCourse> queryWrapper=new LambdaQueryWrapper<>();
-        queryWrapper.eq(SelectCourse::getCourseClassId,query.getCourseEvaluationId());
+        queryWrapper.eq(SelectCourse::getCourseClassId,courseClassId);
         List<Integer> studentIdList =  this.list(queryWrapper).stream().map(SelectCourse::getStudentId).collect(Collectors.toList());
+
+        if(studentIdList.size()==0){
+           return  new ArrayList<>();
+        }
         LambdaQueryWrapper<Student> studentQueryWrapper=new LambdaQueryWrapper<>();
         studentQueryWrapper.in(Student::getId,studentIdList);
         if(StringUtils.isNotEmpty(query.getStudent())){

@@ -112,7 +112,7 @@ public class CourseEvaluationController {
      */
     @GetMapping("/getMyCourseEvaluation")
     @ApiOperation("获取用户参与的所有课程评价")
-//    @Permission
+    @Permission
     public ServerResponse getMyCourseEvaluation(CourseEvaluationQuery courseEvaluationQuery) {
         PageInfo<CourseEvaluationVo> list = courseEvaluationService.getMyCourseEvaluation(courseEvaluationQuery);
         return ServerResponse.createBySuccess(list);
@@ -127,9 +127,39 @@ public class CourseEvaluationController {
      */
     @GetMapping("/getCourseEvaluationStudent")
     @ApiOperation("获取已参与课程评价的所有学生")
-//    @Permission
+    @Permission
     public ServerResponse getMyCourseEvaluation(CourseEvaluationStudentQuery courseEvaluationStudentQuery) {
         PageInfo<CourseEvaluationStudentVo> list = courseEvaluationService.getCourseEvaluationStudent(courseEvaluationStudentQuery);
         return ServerResponse.createBySuccess(list);
+    }
+
+    /**
+     *@Description: 开始进行课程评价
+     *@Param: [ courseEvaluationQuery]
+     *@Return: com.excellent.accreditation.common.domain.ServerResponse
+     *@Author: ashe
+     *@Date: 2019/12/6
+     */
+    @GetMapping("/startEvaluation")
+    @ApiOperation("开始进行课程评价")
+    @Permission(roles = "student")
+    public ServerResponse startEvaluation(Integer courseEvaluationId) {
+          courseEvaluationService.startEvaluation(courseEvaluationId);
+        return ServerResponse.createBySuccess();
+    }
+
+    /**
+     *@Description: 获得问卷问题
+     *@Param: [ courseEvaluationQuery]
+     *@Return: com.excellent.accreditation.common.domain.ServerResponse
+     *@Author: ashe
+     *@Date: 2019/12/6
+     */
+    @GetMapping("/getQuestions")
+    @ApiOperation("获得问卷问题")
+    @Permission(roles = "student")
+    public ServerResponse getQuestions(Integer courseEvaluationId) {
+        courseEvaluationService.getQuestions(courseEvaluationId);
+        return ServerResponse.createBySuccess();
     }
 }

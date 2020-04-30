@@ -35,6 +35,7 @@ public class UserVo {
 
     private String title;
 
+
     private LocalDate birth;
 
     private String graduateSchool;

@@ -20,8 +20,11 @@ public interface ISelfEvaluationService extends IService<SelfEvaluation> {
 
     List<SelfEvaluation> getByStudentId(int studentId);
 
+    List<SelfEvaluation> getByStudentIdAndEvaluation(Integer studentId,Integer evaluationId);
+
     int countSelfEvaluationById(int selfEvaluationId);
 
     SelfEvaluation selectOneSelfEvaluation(Integer courseEvaluationId,Integer studentId);
 
+    boolean createEvaluations(Integer studentId,Integer courseEvaluationId,Integer questionnaireId);
 }

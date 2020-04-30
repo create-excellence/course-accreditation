@@ -17,4 +17,6 @@ public class CourseEvaluationStudentQuery extends BasePage {
 
     @Size(max = 12, message = "课程评价Id的字符长度不能超过 {max}")
     Integer courseEvaluationId;
+
+    Integer status;
 }

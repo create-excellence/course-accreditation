@@ -6,18 +6,23 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
+import com.excellent.accreditation.common.exception.EmptyException;
 import com.excellent.accreditation.common.exception.TimeException;
 import com.excellent.accreditation.dao.CourseEvaluationMapper;
 import com.excellent.accreditation.manage.UserManage;
+import com.excellent.accreditation.model.base.Options;
 import com.excellent.accreditation.model.entity.*;
 import com.excellent.accreditation.model.form.CourseClassQuery;
 import com.excellent.accreditation.model.form.CourseEvaluationQuery;
 import com.excellent.accreditation.model.form.CourseEvaluationStudentQuery;
 import com.excellent.accreditation.model.vo.CourseEvaluationStudentVo;
 import com.excellent.accreditation.model.vo.CourseEvaluationVo;
+import com.excellent.accreditation.model.vo.CourseTargetVo;
 import com.excellent.accreditation.service.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.sf.json.JSONArray;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,16 +58,19 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
 
     private final ISelectCourseService selectCourseService;
 
+    private final ICourseTargetService courseTargetService;
+
     private final UserManage userManage;
 
     @Autowired
-    public CourseEvaluationServiceImpl(IQuestionnaireService questionnaireService, UserManage userManage, ICourseClassService courseClassService, ICourseService courseService, ISelfEvaluationService selfEvaluationService,ISelectCourseService selectCourseService) {
+    public CourseEvaluationServiceImpl(IQuestionnaireService questionnaireService, UserManage userManage, ICourseClassService courseClassService, ICourseService courseService, ISelfEvaluationService selfEvaluationService,ISelectCourseService selectCourseService,ICourseTargetService courseTargetService) {
         this.questionnaireService = questionnaireService;
         this.userManage = userManage;
         this.courseClassService = courseClassService;
         this.courseService = courseService;
         this.selfEvaluationService = selfEvaluationService;
         this.selectCourseService = selectCourseService;
+        this.courseTargetService=courseTargetService;
     }
 
 
@@ -95,16 +103,21 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
             if (role.equals(Const.STUDENT)) {
                 List<Integer> selfEvaluationIds = selfEvaluationService.getByStudentId(userManage.getUserInfo().getId()).stream().map(SelfEvaluation::getCourseEvaluationId).collect(Collectors.toList());
                 // 解决selfEvaluationIds为空报错的bug
-                if (selfEvaluationIds == null || selfEvaluationIds.size() == 0) {
-                    return null;
-                }
+//                if (selfEvaluationIds == null || selfEvaluationIds.size() == 0) {
+//                    return null;
+//                }
 
                 // 学生端只显示选课班级发布的课程评价
                 // queryWrapper.eq(CourseEvaluation::getStatus, PROCESSINGCODE);
                 if (query.getStatus() != null && query.getStatus() != -1 && query.getStatus() != -2) {
                     queryWrapper.eq(CourseEvaluation::getStatus, query.getStatus());
                 } else if (query.getStatus() == -2) {  // 显示学生已经评价的
+                if ( selfEvaluationIds.size()> 0) {
                     queryWrapper.in(CourseEvaluation::getId, selfEvaluationIds);
+                }else {
+                   return new PageInfo<>(new ArrayList<>());
+                }
+
                 }
                 queryWrapper.in(CourseEvaluation::getCourseClassId, courseClassIds);
                 List<CourseEvaluationVo> data = this.filterAndToVo(queryWrapper, query);
@@ -130,7 +143,7 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
     public PageInfo<CourseEvaluationStudentVo> getCourseEvaluationStudent(CourseEvaluationStudentQuery courseEvaluationStudentQuery) {
         CourseEvaluation courseEvaluation=this.getById(courseEvaluationStudentQuery.getCourseEvaluationId());
         if(courseEvaluation!=null){
-            List<Student> studentList=selectCourseService.selectClassStudent(courseEvaluationStudentQuery);
+            List<Student> studentList=selectCourseService.selectClassStudent(courseEvaluationStudentQuery,courseEvaluation.getCourseClassId());
             List<CourseEvaluationStudentVo> data = new ArrayList<>();
             for (Student student :studentList) {
                 CourseEvaluationStudentVo courseEvaluationStudentVo =new CourseEvaluationStudentVo();
@@ -142,7 +155,8 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
                     courseEvaluationStudentVo.setSubmitTime(selfEvaluation.getUpdateTime());
                     courseEvaluationStudentVo.setIsEvaluation(Boolean.TRUE);
                 }
-                data.add(courseEvaluationStudentVo);
+
+
             }
             return new PageInfo<>(data);
 
@@ -210,6 +224,58 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
             return true;
         }
         throw new DatabaseException("未知异常, 数据库操作失败");
+    }
+
+    @Override
+    public boolean startEvaluation(Integer courseEvaluationId) {
+        CourseEvaluation courseEvaluation =this.getById(courseEvaluationId);
+        if(courseEvaluation!=null){
+            if(courseEvaluation.getStatus()==0){
+                throw new TimeException("未到达课程评价开放时间");
+            }else if (courseEvaluation.getStatus()==2){
+                throw new TimeException("课程评价已结束");
+            }
+           Integer studentId =  userManage.getUserInfo().getId();
+           CourseClass courseClass =courseClassService.getById(courseEvaluation.getCourseClassId());
+           SelectCourse selectCourse=  selectCourseService.getSelectCourse(studentId,courseClass.getId());
+           if(selectCourse==null){
+               throw new EmptyException("你不能参与此场课程评价");
+           }
+          if(selfEvaluationService.selectOneSelfEvaluation(courseEvaluationId,studentId)!=null){
+              return true;
+          }
+            return selfEvaluationService.createEvaluations(studentId,courseEvaluationId,courseEvaluation.getQuestionnaireId());
+        }
+        return false;
+    }
+
+    @Override
+    public List<CourseTargetVo> getQuestions(Integer courseEvaluationId) {
+        Integer studentId =userManage.getUserInfo().getId();
+        CourseEvaluation courseEvaluation = this.getById(courseEvaluationId);
+        if(courseEvaluation==null){ return null;}
+        SelfEvaluation selfEvaluation=selfEvaluationService.selectOneSelfEvaluation(courseEvaluationId,studentId);
+        List<CourseTargetVo> data =new ArrayList<>();
+        if(selfEvaluation!=null){
+            List<CourseTarget> courseTargetList=courseTargetService.getByQuestionnaire(courseEvaluation.getQuestionnaireId());
+            List<SelfEvaluation> selfEvaluationList =selfEvaluationService.getByStudentIdAndEvaluation(studentId,courseEvaluationId);
+            for (int i = 0; i <courseTargetList.size() ; i++) {
+                CourseTargetVo courseTargetVo=new CourseTargetVo();
+                BeanUtils.copyProperties(courseTargetList.get(i),courseTargetVo);
+                courseTargetVo.setChoose(selfEvaluationList.get(i).getAnswer());
+                courseTargetVo.setSelfEvaluationId(selfEvaluationList.get(i).getId());
+                String options=courseTargetList.get(i).getOptions();
+                JSONArray jsonArray = JSONArray.fromObject(options);
+                List<Options> optionsList = (List<Options>)JSONArray.toCollection(jsonArray,Options.class);
+                for (Options op:optionsList) {
+                     op.setScore("");
+                }
+                courseTargetVo.setOptionsList(optionsList);
+                courseTargetVo.setTotalScore(0);
+                courseTargetVo.setOptions("");
+            }
+        }
+        return data;
     }
 
     @Override

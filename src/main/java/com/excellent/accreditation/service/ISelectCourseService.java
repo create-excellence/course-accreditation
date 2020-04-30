@@ -25,7 +25,7 @@ public interface ISelectCourseService extends IService<SelectCourse> {
 
     void check(SelectCourse selectCourse, Integer checkType);
 
-    void checkSelectCourse(Integer courseClassId, Integer studentId);
+    SelectCourse getSelectCourse(Integer studentId, Integer courseClassId);
 
     SelectCourseVo selectCourseId(Integer id);
 
@@ -33,5 +33,5 @@ public interface ISelectCourseService extends IService<SelectCourse> {
 
     Integer countClassStudent(Integer courseClassId);
 
-    List<Student> selectClassStudent(CourseEvaluationStudentQuery courseEvaluationStudentQuery);
+    List<Student> selectClassStudent(CourseEvaluationStudentQuery query,Integer courseClassId);
 }

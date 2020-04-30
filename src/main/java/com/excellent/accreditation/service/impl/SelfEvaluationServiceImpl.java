@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.dao.SelfEvaluationMapper;
+import com.excellent.accreditation.model.entity.CourseTarget;
 import com.excellent.accreditation.model.entity.SelfEvaluation;
 import com.excellent.accreditation.model.form.CourseEvaluationStudentQuery;
 import com.excellent.accreditation.model.form.SelfEvaluationQuery;
@@ -16,14 +17,17 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @Author evildoer
  */
 @Service
+@Transactional
 public class SelfEvaluationServiceImpl extends ServiceImpl<SelfEvaluationMapper, SelfEvaluation> implements ISelfEvaluationService {
 
     private final IStudentService studentService;
@@ -57,16 +61,23 @@ public class SelfEvaluationServiceImpl extends ServiceImpl<SelfEvaluationMapper,
             queryWrapper.ge(SelfEvaluation::getScore, query.getScore());
         PageHelper.startPage(query.getPage(), query.getPageSize());
         List<SelfEvaluation> list = this.list(queryWrapper);
-        PageInfo<SelfEvaluation> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        return new PageInfo<>(list);
     }
 
     @Override
     public List<SelfEvaluation> getByStudentId(@NonNull int studentId) {
         LambdaQueryWrapper<SelfEvaluation> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.ge(SelfEvaluation::getStudentId, studentId);
-        List<SelfEvaluation> list = this.list(queryWrapper);
-        return list;
+            queryWrapper.eq(SelfEvaluation::getStudentId, studentId);
+        return this.list(queryWrapper);
+    }
+
+    @Override
+    public List<SelfEvaluation> getByStudentIdAndEvaluation(Integer studentId, Integer evaluationId) {
+        LambdaQueryWrapper<SelfEvaluation> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SelfEvaluation::getStudentId, studentId);
+        queryWrapper.eq(SelfEvaluation::getCourseEvaluationId, evaluationId);
+        queryWrapper.orderByAsc(SelfEvaluation::getId);
+        return this.list(queryWrapper);
     }
 
     @Override
@@ -82,7 +93,24 @@ public class SelfEvaluationServiceImpl extends ServiceImpl<SelfEvaluationMapper,
         queryWrapper.eq(SelfEvaluation::getCourseEvaluationId,courseEvaluationId);
         queryWrapper.eq(SelfEvaluation::getStudentId,studentId);
         List<SelfEvaluation> list =  this.baseMapper.selectList(queryWrapper);
-        return  list==null?null:list.get(0);
+        return  list.size()>0?list.get(0):null;
 
     }
+
+    @Override
+    public boolean createEvaluations(Integer studentId, Integer courseEvaluationId, Integer questionnaireId) {
+        List<CourseTarget> courseTargets =courseTargetService.getByQuestionnaire(questionnaireId);
+        List<SelfEvaluation> selfEvaluationList =new ArrayList<>();
+        for (int i = 0; i <courseTargets.size() ; i++) {
+            SelfEvaluation selfEvaluation =new SelfEvaluation();
+            selfEvaluation.setStudentId(studentId);
+            selfEvaluation.setCourseEvaluationId(courseEvaluationId);
+            selfEvaluation.setCourseTargetId(courseTargets.get(i).getId());
+            selfEvaluation.setScore(0);
+            selfEvaluationList.add(selfEvaluation);
+        }
+        return  this.saveOrUpdateBatch(selfEvaluationList);
+    }
+
+
 }

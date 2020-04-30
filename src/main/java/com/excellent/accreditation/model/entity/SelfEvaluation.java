@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  *
@@ -35,6 +37,11 @@ public class SelfEvaluation extends BaseEntity {
      * 得分
      */
     private Integer score;
+
+    public SelfEvaluation(){
+        this.setCreateTime(LocalDateTime.now());
+        this.setUpdateTime(LocalDateTime.now());
+    }
 
 
 }

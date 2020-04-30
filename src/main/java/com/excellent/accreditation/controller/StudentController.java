@@ -55,7 +55,7 @@ public class StudentController {
     @Permission
     public ServerResponse getStudentInfo() {
         UserVo userVo = userManage.getUserInfo();
-        return this.query(userVo.getId());
+        return ServerResponse.createBySuccess(studentService.getStudentInfo(userVo.getId()  ));
     }
 
     /**

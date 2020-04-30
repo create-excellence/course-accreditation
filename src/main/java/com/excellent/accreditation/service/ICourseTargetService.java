@@ -27,7 +27,8 @@ public interface ICourseTargetService extends IService<CourseTarget> {
 
     boolean create(CourseTarget courseTarget);
 
-    List<ExcelResult> saveBachByExcel(MultipartFile file);
+    List<CourseTarget> getByQuestionnaire(Integer questionnaireId);
+
 
     void check(CourseTarget courseTarget, Integer type);
 

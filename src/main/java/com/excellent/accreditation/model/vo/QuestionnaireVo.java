@@ -8,4 +8,6 @@ public class QuestionnaireVo extends Questionnaire {
 
 
     private String no;
+
+    private String className;
 }

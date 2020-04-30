@@ -17,15 +17,13 @@
         id, name, course_class_id, total_score, describes, create_time, update_time
     </sql>
     <select id="pageByQuery" resultType="com.excellent.accreditation.model.vo.QuestionnaireVo">
-        SELECT questionnaire.*,course_class.no
-        FROM `questionnaire`,course_class
+        SELECT questionnaire.*,course_class.no,course.name as className
+        FROM `questionnaire`,course_class,course
         where
         questionnaire.course_class_id = course_class.id
-        <if test="totalScore != null" >
-            and total_score = #{totalScore}
-        </if>
+        and course_class.course_id = course.id
         <if test="name != null" >
-            and `name` like "%"#{name,jdbcType=VARCHAR} "%"
+            and questionnaire.`name` like "%"#{name,jdbcType=VARCHAR} "%"
         </if>
         <if test="courseClassId != null" >
             and course_class.id =#{courseClassId}

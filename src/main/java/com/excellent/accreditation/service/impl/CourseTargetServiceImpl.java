@@ -8,15 +8,15 @@ import com.excellent.accreditation.common.domain.ExcelResult;
 import com.excellent.accreditation.common.exception.ConflictException;
 import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.dao.CourseTargetMapper;
+import com.excellent.accreditation.manage.UserManage;
 import com.excellent.accreditation.model.base.Options;
-import com.excellent.accreditation.model.entity.CourseTarget;
-import com.excellent.accreditation.model.entity.GraduationPoint;
-import com.excellent.accreditation.model.entity.Questionnaire;
+import com.excellent.accreditation.model.entity.*;
 import com.excellent.accreditation.model.form.CourseTargetQuery;
 import com.excellent.accreditation.model.vo.CourseTargetVo;
 import com.excellent.accreditation.service.ICourseTargetService;
 import com.excellent.accreditation.service.IGraduationPointService;
 import com.excellent.accreditation.service.IQuestionnaireService;
+import com.excellent.accreditation.service.ISelfEvaluationService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.sf.json.JSONArray;
@@ -40,7 +40,9 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
 
     private final IGraduationPointService graduationPointService;
 
-    private final CourseTargetMapper courseTargetMapper;
+
+    private  final  UserManage userManage;
+
 
     private  final Integer UP= 0;
 
@@ -49,10 +51,10 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
     private  final Integer MIN_SEQUENCE= 1;
 
     @Autowired
-    public CourseTargetServiceImpl(IQuestionnaireService questionnaireService, IGraduationPointService graduationPointService, CourseTargetMapper courseTargetMapper) {
+    public CourseTargetServiceImpl(IQuestionnaireService questionnaireService, IGraduationPointService graduationPointService,  UserManage userManage) {
         this.questionnaireService = questionnaireService;
         this.graduationPointService = graduationPointService;
-        this.courseTargetMapper = courseTargetMapper;
+        this.userManage=userManage;
     }
 
 
@@ -83,6 +85,7 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
         if(query.getQuestionnaireId()!=-1){
             queryWrapper.like(CourseTarget::getQuestionnaireId, query.getQuestionnaireId());
         }
+        queryWrapper.orderByAsc(CourseTarget::getSequence);
         PageHelper.startPage(query.getPage(), query.getPageSize());
         List<CourseTarget> list = this.list(queryWrapper);
         List<CourseTargetVo> lists = convert(list);
@@ -103,9 +106,14 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
     }
 
     @Override
-    public List<ExcelResult> saveBachByExcel(MultipartFile file) {
-        return null;
+    public List<CourseTarget> getByQuestionnaire(Integer questionnaireId) {
+        LambdaQueryWrapper<CourseTarget> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.orderByAsc(CourseTarget::getSequence);
+        queryWrapper.eq(CourseTarget::getQuestionnaireId,queryWrapper);
+        return this.list(queryWrapper);
     }
+
+
 
     @Override
     public void check(CourseTarget courseTarget, Integer type) {
@@ -179,7 +187,7 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
 
     @Override
     public List<GraduationPoint> point(Integer questionnaireId) {
-        List<GraduationPoint> list = courseTargetMapper.point(questionnaireId);
+        List<GraduationPoint> list = baseMapper.point(questionnaireId);
         return list;
     }
 
@@ -187,17 +195,6 @@ public class CourseTargetServiceImpl extends ServiceImpl<CourseTargetMapper, Cou
         List<CourseTargetVo> courseTargetVoList = new ArrayList<>();
         for(int i=0;i<courseTargets.size();i++){
             CourseTargetVo courseTargetVo = new CourseTargetVo();
-//            courseTargetVo.setId(courseTargets.get(i).getId());
-////            courseTargetVo.setDescribes(courseTargets.get(i).getDescribes());
-////            courseTargetVo.setQuestionnaireId(courseTargets.get(i).getQuestionnaireId());
-////            courseTargetVo.setTitle(courseTargets.get(i).getTitle());
-////            courseTargetVo.setOptionsScore(courseTargets.get(i).getOptionsScore());
-////            courseTargetVo.setPointId(courseTargets.get(i).getPointId());
-////            courseTargetVo.setOptions(courseTargets.get(i).getOptions());
-////            courseTargetVo.setTotalScore(courseTargets.get(i).getTotalScore());
-////            courseTargetVo.setSequence(courseTargets.get(i).getSequence());
-////            courseTargetVo.setCreateTime(courseTargets.get(i).getCreateTime());
-////            courseTargetVo.setUpdateTime(courseTargets.get(i).getUpdateTime());
             BeanUtils.copyProperties(courseTargets.get(i),courseTargetVo);
             Questionnaire questionnaire = questionnaireService.getById(courseTargets.get(i).getQuestionnaireId());
             GraduationPoint graduationPoint = graduationPointService.getById(courseTargets.get(i).getPointId());

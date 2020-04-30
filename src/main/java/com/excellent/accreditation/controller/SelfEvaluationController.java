@@ -42,10 +42,11 @@ public class SelfEvaluationController {
      * @Param [selfEvaluation]
      * @Return com.excellent.accreditation.common.domain.ServerResponse
      **/
-    @PostMapping
+//    @PostMapping
     @ApiOperation("添加评价")
     @Permission
     public ServerResponse create(@RequestBody @NonNull SelfEvaluation selfEvaluation) {
+        selfEvaluation.setScore(null);
         selfEvaluationService.create(selfEvaluation);
         return ServerResponse.createBySuccessMessage("评价添加成功");
     }
@@ -57,9 +58,9 @@ public class SelfEvaluationController {
      * @Param [id]
      * @Return com.excellent.accreditation.common.domain.ServerResponse
      **/
-    @DeleteMapping("/{id:\\d+}")
+//    @DeleteMapping("/{id:\\d+}")
     @ApiOperation("通过id删除评价")
-    @Permission
+    @Permission(roles = "admin")
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = selfEvaluationService.removeById(id);
         if (result)
@@ -75,9 +76,9 @@ public class SelfEvaluationController {
      * @Param [ids]
      * @Return com.excellent.accreditation.common.domain.ServerResponse
      **/
-    @DeleteMapping("/deleteByIds")
+//    @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除评价")
-    @Permission
+    @Permission(roles = "admin")
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = selfEvaluationService.removeByIds(ids);
         if (result)
@@ -93,11 +94,12 @@ public class SelfEvaluationController {
      * @Param [id, selfEvaluation]
      * @Return com.excellent.accreditation.common.domain.ServerResponse
      **/
-    @PutMapping("/{id:\\d+}")
+//    @PutMapping("/{id:\\d+}")
     @ApiOperation("通过id更新评价")
     @Permission
     public ServerResponse updateById(@PathVariable("id") Integer id,
                                      @RequestBody SelfEvaluation selfEvaluation) {
+        selfEvaluation.setScore(null);
         selfEvaluation.setId(id);
         selfEvaluation.setUpdateTime(LocalDateTime.now());
         boolean result = selfEvaluationService.updateById(selfEvaluation);

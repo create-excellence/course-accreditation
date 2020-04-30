@@ -45,7 +45,7 @@
     SET sequence = sequence + 1
     WHERE
 	questionnaire_id = #{questionnaireId}
-	AND sequence > #{sequence}
+	AND sequence >= #{sequence}
     </update>
 
 

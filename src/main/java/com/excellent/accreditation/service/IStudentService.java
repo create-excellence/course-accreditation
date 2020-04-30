@@ -17,6 +17,8 @@ public interface IStudentService extends IService<Student> {
 
     void checkStudent(Integer studentId);
 
+    StudentVo  getStudentInfo(Integer studentId);
+
     Student getByCode(String code);
 
     void checkCode(String sno);

@@ -36,6 +36,7 @@ public class SystemController {
 
     @PostMapping("login")
     @ApiOperation("登录")
+
     public ServerResponse login(@RequestBody @NonNull LoginForm loginForm) {
         UserVo userVo = userManage.login(loginForm.getCode(), loginForm.getPassword());
         // 操作成功
@@ -47,6 +48,7 @@ public class SystemController {
 
     @GetMapping("getUserInfo")
     @ApiOperation("获取用户信息")
+    @Permission
     public ServerResponse getUserInfo() {
         UserVo userVo = userManage.getUserInfo();
         // 操作成功
@@ -58,6 +60,7 @@ public class SystemController {
 
     @PutMapping("updateUserInfo")
     @ApiOperation("用户修改信息")
+    @Permission
     public ServerResponse getUserInfo(@RequestBody UserVo userVo) {
         if (userManage.updateUserInfo(userVo))
             return ServerResponse.createBySuccessMessage("修改成功");
@@ -91,6 +94,7 @@ public class SystemController {
             @ApiImplicitParam(name = "oldPassword", value = "旧密码", required = true, paramType = "form"),
             @ApiImplicitParam(name = "newPassword", value = "新密码", required = true, paramType = "form")
     })
+    @Permission
     public ServerResponse changePassword(@RequestBody @NonNull PasswordForm passwordForm) {
         return userManage.changePassword(passwordForm.getOldPassword(), passwordForm.getNewPassword());
     }

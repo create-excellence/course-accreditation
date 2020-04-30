@@ -6,16 +6,19 @@ import com.excellent.accreditation.common.authentication.JWTUtil;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.common.exception.AuthenticationException;
+import com.excellent.accreditation.model.entity.Major;
 import com.excellent.accreditation.model.entity.Role;
 import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.entity.Teacher;
 import com.excellent.accreditation.model.vo.UserVo;
+import com.excellent.accreditation.service.IMajorService;
 import com.excellent.accreditation.service.IRoleService;
 import com.excellent.accreditation.service.IStudentService;
 import com.excellent.accreditation.service.ITeacherService;
 import com.excellent.accreditation.untils.FileUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -35,6 +38,7 @@ import java.util.List;
  * @Date 2019/11/2516:22
  * @Version 1.0
  **/
+@Component
 public class UserManage {
 
     private final IRoleService roleService;
@@ -43,6 +47,9 @@ public class UserManage {
 
     private final ITeacherService teacherService;
 
+    private final IMajorService majorService;
+
+
     @Value("${upload.picture.path}")
     private String uploadPicturePath;
 
@@ -50,9 +57,10 @@ public class UserManage {
 
     public UserManage(IRoleService roleService,
                       IStudentService studentService,
-                      ITeacherService teacherService) {
+                      ITeacherService teacherService, IMajorService majorService) {
         this.roleService = roleService;
         this.studentService = studentService;
+        this.majorService=majorService;
         this.teacherService = teacherService;
     }
 
@@ -75,6 +83,7 @@ public class UserManage {
             studentService.saveOrUpdate(s);
             String token = JWTUtil.encryptToken(JWTUtil.sign(code, password));
             UserVo userVo = UserVo.convert(s, token);
+
             userVo.setRole(this.getRolesByCode(code));
             return userVo;
         } else if (teacher != null) {  // 教师登录
@@ -106,9 +115,9 @@ public class UserManage {
         Teacher teacher = teacherService.getByCode(code);
         boolean result = false;
         if (student != null) {          // 学生
-            result = studentService.updatePassword(code, oldPassword, newPassword);
+            studentService.updatePassword(code, oldPassword, newPassword);
         } else if (teacher != null) {  // 教师
-            result = teacherService.updatePassword(code, oldPassword, newPassword);
+            teacherService.updatePassword(code, oldPassword, newPassword);
         }
         return ServerResponse.createBySuccessMessage("密码修改成功");
     }

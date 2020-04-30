@@ -50,6 +50,21 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
+    public StudentVo getStudentInfo(Integer studentId) {
+        Student student = this.getById(studentId);
+        if(student!=null){
+            StudentVo studentVo =  StudentVo.convert(student);
+
+            Major major = majorService.getById(student.getMajorId());
+            if(major!=null){
+                studentVo.setMajor(major.getName());
+            }
+            return  studentVo;
+        }
+        return null;
+    }
+
+    @Override
     public Student getByCode(String code) {
         LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Student::getSno, code);       // 通过学号查询
@@ -150,6 +165,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
             LambdaUpdateWrapper<Student> updateWrapper = new LambdaUpdateWrapper<>();
             updateWrapper.eq(Student::getSno, code);
             this.baseMapper.update(student, updateWrapper);
+            return true;
         }
         throw new ConflictException("密码错误，修改失败");
     }

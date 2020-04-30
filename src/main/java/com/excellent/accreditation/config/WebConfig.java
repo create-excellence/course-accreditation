@@ -3,6 +3,7 @@ package com.excellent.accreditation.config;
 
 import com.excellent.accreditation.config.properties.SwaggerProperties;
 import com.excellent.accreditation.manage.UserManage;
+import com.excellent.accreditation.service.IMajorService;
 import com.excellent.accreditation.service.IRoleService;
 import com.excellent.accreditation.service.IStudentService;
 import com.excellent.accreditation.service.ITeacherService;
@@ -34,12 +35,12 @@ public class WebConfig {
     @Autowired
     private WebProperties properties;
 
-    @Bean
-    public UserManage userManage(IRoleService roleService,
-                                 IStudentService studentService,
-                                 ITeacherService teacherService) {
-        return new UserManage(roleService, studentService, teacherService);
-    }
+//    @Bean
+//    public UserManage userManage(IRoleService roleService,
+//                                 IStudentService studentService,
+//                                 ITeacherService teacherService, IMajorService majorService) {
+//        return new UserManage(roleService, studentService, teacherService,majorService);
+//    }
 
     @Bean
     public Docket swaggerApi() {
