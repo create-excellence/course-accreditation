@@ -6,6 +6,7 @@ import com.excellent.accreditation.common.authentication.JWTUtil;
 import com.excellent.accreditation.common.domain.Const;
 import com.excellent.accreditation.common.domain.ServerResponse;
 import com.excellent.accreditation.common.exception.AuthenticationException;
+import com.excellent.accreditation.common.exception.EmptyException;
 import com.excellent.accreditation.model.entity.Major;
 import com.excellent.accreditation.model.entity.Role;
 import com.excellent.accreditation.model.entity.Student;
@@ -79,6 +80,7 @@ public class UserManage {
             queryWrapper.eq("sno", code)       // 通过学号登录
                     .eq("password", password);
             Student s = studentService.getOne(queryWrapper);
+            if(s==null) throw new EmptyException("账号或密码错误");
             s.setLoginTime(LocalDateTime.now());
             studentService.saveOrUpdate(s);
             String token = JWTUtil.encryptToken(JWTUtil.sign(code, password));
@@ -91,6 +93,7 @@ public class UserManage {
             queryWrapper.eq("jno", code)       // 通过工号登录
                     .eq("password", password);
             Teacher t = teacherService.getOne(queryWrapper);
+            if(t==null) throw new EmptyException("账号或密码错误");
             t.setLoginTime(LocalDateTime.now());
             teacherService.saveOrUpdate(t);
             String token = JWTUtil.encryptToken(JWTUtil.sign(code, password));

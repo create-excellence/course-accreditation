@@ -71,8 +71,10 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
             ExcelResult excelResult = new ExcelResult();
             try {
                 EmptyCheckUtils.checkExcelMapAndSetNo(data, excelResult, 2);
-                CourseClass courseClass = courseClassService.getByNo(data.get(1));
-                Student student = studentService.getByCode(data.get(2));
+                Student student = studentService.getByCode(data.get(1));
+
+                CourseClass courseClass = courseClassService.getByNo(data.get(2));
+
                 if(courseClass==null){
                     throw new ConflictException("开课班级不存在");
                 }
@@ -88,7 +90,7 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
                 }
             } catch (NumberFormatException e) {
                 excelResult.setMessage("无法将部分字段转为数字类型");
-            } catch (UniqueException | ExcelException e) {
+            } catch (CommonException e) {
                 excelResult.setMessage(e.getMessage());
             }
             excelResults.add(excelResult);
@@ -174,13 +176,13 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
     }
 
     @Override
-    public List<Student> selectClassStudent(CourseEvaluationStudentQuery query,Integer courseClassId) {
+    public PageInfo<Student> selectClassStudent(CourseEvaluationStudentQuery query,Integer courseClassId) {
         LambdaQueryWrapper<SelectCourse> queryWrapper=new LambdaQueryWrapper<>();
         queryWrapper.eq(SelectCourse::getCourseClassId,courseClassId);
         List<Integer> studentIdList =  this.list(queryWrapper).stream().map(SelectCourse::getStudentId).collect(Collectors.toList());
 
         if(studentIdList.size()==0){
-           return  new ArrayList<>();
+           return  new PageInfo<>(new ArrayList<>());
         }
         LambdaQueryWrapper<Student> studentQueryWrapper=new LambdaQueryWrapper<>();
         studentQueryWrapper.in(Student::getId,studentIdList);
@@ -188,6 +190,6 @@ public class SelectCourseServiceImpl extends ServiceImpl<SelectCourseMapper, Sel
             studentQueryWrapper.like(Student::getName,query.getStudent());
         }
         PageHelper.startPage(query.getPage(), query.getPageSize());
-        return studentService.list(studentQueryWrapper);
+        return new PageInfo<>(studentService.list(studentQueryWrapper));
     }
 }

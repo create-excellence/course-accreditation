@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 8880
   version: v1
 
 spring:
@@ -12,6 +12,7 @@ spring:
       datasource:
         primary:
           username: root
+#          password: huangpei120
           password: 123456
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://localhost:3306/course_accreditation?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=UTF-8
@@ -47,7 +48,8 @@ mybatis-plus:
 
 upload:
   picture:
-    path: D:/create-excellence/upload/
+#    path: D:/create-excellence/upload/
+     path: /usr/local/course-accreditation/upload/img/
 
 ##配置日志
 #logging:

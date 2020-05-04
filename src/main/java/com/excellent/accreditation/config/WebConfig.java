@@ -35,12 +35,6 @@ public class WebConfig {
     @Autowired
     private WebProperties properties;
 
-//    @Bean
-//    public UserManage userManage(IRoleService roleService,
-//                                 IStudentService studentService,
-//                                 ITeacherService teacherService, IMajorService majorService) {
-//        return new UserManage(roleService, studentService, teacherService,majorService);
-//    }
 
     @Bean
     public Docket swaggerApi() {

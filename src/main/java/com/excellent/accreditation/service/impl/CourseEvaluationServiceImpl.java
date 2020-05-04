@@ -87,6 +87,9 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
     public PageInfo<CourseEvaluationVo> getMyCourseEvaluation(CourseEvaluationQuery query) {
         List<String> roles = userManage.getRolesByCode(userManage.getCodeByToken());
         List<Integer> courseClassIds = courseClassService.getMyCourse(new CourseClassQuery()).getList().stream().map(CourseClass::getId).collect(Collectors.toList());
+        if(courseClassIds.size()==0){
+            return new PageInfo<>(new ArrayList<>());
+        }
         LambdaQueryWrapper<CourseEvaluation> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.in(CourseEvaluation::getCourseClassId, courseClassIds);
         if (StringUtils.isNotEmpty(query.getName())) {
@@ -143,7 +146,8 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
     public PageInfo<CourseEvaluationStudentVo> getCourseEvaluationStudent(CourseEvaluationStudentQuery courseEvaluationStudentQuery) {
         CourseEvaluation courseEvaluation=this.getById(courseEvaluationStudentQuery.getCourseEvaluationId());
         if(courseEvaluation!=null){
-            List<Student> studentList=selectCourseService.selectClassStudent(courseEvaluationStudentQuery,courseEvaluation.getCourseClassId());
+            PageInfo<Student> studentPageInfo=selectCourseService.selectClassStudent(courseEvaluationStudentQuery,courseEvaluation.getCourseClassId());
+            List<Student> studentList =studentPageInfo.getList();
             List<CourseEvaluationStudentVo> data = new ArrayList<>();
             for (Student student :studentList) {
                 CourseEvaluationStudentVo courseEvaluationStudentVo =new CourseEvaluationStudentVo();
@@ -155,10 +159,12 @@ public class CourseEvaluationServiceImpl extends ServiceImpl<CourseEvaluationMap
                     courseEvaluationStudentVo.setSubmitTime(selfEvaluation.getUpdateTime());
                     courseEvaluationStudentVo.setIsEvaluation(Boolean.TRUE);
                 }
-
+                data.add(courseEvaluationStudentVo);
 
             }
-            return new PageInfo<>(data);
+            PageInfo<CourseEvaluationStudentVo> result = new PageInfo<>(data);
+            BeanUtils.copyProperties(studentPageInfo,result);
+            return result;
 
         }
         return  null;

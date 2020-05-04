@@ -66,6 +66,7 @@ public class CourseEvaluationController {
     @ApiOperation("通过id删除课程评价")
     @Permission
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
+
         boolean result = courseEvaluationService.removeById(id);
         if (result)
             return ServerResponse.createBySuccessMessage("课程评价删除成功");

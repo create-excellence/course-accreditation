@@ -26,6 +26,7 @@ import java.util.Collection;
  */
 @RestController
 @RequestMapping("/${server.version}/teacher")
+@Permission(roles = "admin")
 public class   TeacherController {
 
     private final ITeacherService teacherService;
@@ -46,6 +47,7 @@ public class   TeacherController {
      **/
     @PostMapping
     @ApiOperation("添加教师")
+    @Permission(roles = "admin")
     public ServerResponse create(@RequestBody @NonNull Teacher teacher) {
         teacherService.create(teacher);
         return ServerResponse.createBySuccessMessage("教师添加成功");
@@ -61,6 +63,7 @@ public class   TeacherController {
      **/
     @DeleteMapping("/{id:\\d+}")
     @ApiOperation("通过id删除教师")
+    @Permission(roles = "admin")
     public ServerResponse deleteById(@PathVariable("id") Integer id) {
         boolean result = teacherService.removeById(id);
         if (result)
@@ -79,6 +82,7 @@ public class   TeacherController {
      **/
     @DeleteMapping("/deleteByIds")
     @ApiOperation("通过id列表批量删除教师")
+    @Permission(roles = "admin")
     public ServerResponse deleteByIds(@RequestBody @NonNull Collection<Integer> ids) {
         boolean result = teacherService.removeByIds(ids);
         if (result)
@@ -97,6 +101,7 @@ public class   TeacherController {
      **/
     @PutMapping("/{id:\\d+}")
     @ApiOperation("通过id更新教师")
+    @Permission(roles = "admin")
     public ServerResponse updateById(@PathVariable("id") Integer id,
                                      @RequestBody Teacher teacher) {
         teacher.setId(id);
@@ -118,7 +123,7 @@ public class   TeacherController {
      **/
     @GetMapping
     @ApiOperation("通过id查找教师")
-    @Permission
+    @Permission(roles = "admin")
     public ServerResponse<Teacher> query(Integer id) {
         Teacher teacher = teacherService.getById(id);
         if (teacher != null)
@@ -137,6 +142,7 @@ public class   TeacherController {
      **/
     @GetMapping("/list")
     @ApiOperation("分页查询教师")
+//    @Permission(roles = "admin")
     public ServerResponse queryTeacher(TeacherQuery teacherQuery) {
         PageInfo<Teacher> list = teacherService.pageByQuery(teacherQuery);
         if (list != null)
@@ -147,7 +153,7 @@ public class   TeacherController {
 
     @PostMapping("/batchSave")
     @ApiOperation("批量添加老师")
-    @Permission
+    @Permission(roles = "admin")
     public ServerResponse batchSave(MultipartFile file) {
         return ServerResponse.createBySuccess(teacherService.saveBachByExcel(file));
     }

@@ -33,5 +33,5 @@ public interface ISelectCourseService extends IService<SelectCourse> {
 
     Integer countClassStudent(Integer courseClassId);
 
-    List<Student> selectClassStudent(CourseEvaluationStudentQuery query,Integer courseClassId);
+    PageInfo<Student> selectClassStudent(CourseEvaluationStudentQuery query,Integer courseClassId);
 }

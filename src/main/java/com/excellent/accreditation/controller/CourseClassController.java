@@ -149,7 +149,7 @@ public class CourseClassController {
     }
 
     /**
-     * @Description: 分页查询课程对应的开课班级
+     * @Description: 获取用户的所有开课班级
      * @Param: [courseClassQuery]
      * @Return: com.excellent.accreditation.common.domain.ServerResponse
      * @Author: ashe

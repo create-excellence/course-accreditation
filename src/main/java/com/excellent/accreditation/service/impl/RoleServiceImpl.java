@@ -32,14 +32,14 @@ import java.util.List;
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
 
-    private final IStudentService studentService;
-
-    private final ITeacherService teacherService;
-
-    public RoleServiceImpl(IStudentService studentService, ITeacherService teacherService) {
-        this.studentService = studentService;
-        this.teacherService = teacherService;
-    }
+//    private final IStudentService studentService;
+//
+//    private final ITeacherService teacherService;
+//
+//    public RoleServiceImpl(IStudentService studentService, ITeacherService teacherService) {
+//        this.studentService = studentService;
+//        this.teacherService = teacherService;
+//    }
 
     /**
      * @Author 安羽兮
@@ -65,25 +65,26 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
      * @Return String
      **/
     public String checkCode(String code) {
-        Student student = studentService.getByCode(code);
-        Teacher teacher = teacherService.getByCode(code);
-        // 只要存在一个用户即可
-        if (student != null)
-            return Const.STUDENT;
-        if (teacher != null)
-            return Const.TEACHER;
-        throw new ConflictException("用户不存在！");
+//        Student student = studentService.getByCode(code);
+//        Teacher teacher = teacherService.getByCode(code);
+//        // 只要存在一个用户即可
+//        if (student != null)
+//            return Const.STUDENT;
+//        if (teacher != null)
+//            return Const.TEACHER;
+//        throw new ConflictException("用户不存在！");
+        return "";
     }
 
     @Override
     public boolean create(Role role) {
         // 外键约束
-        String expect = checkCode(role.getCode());
+//        String expect = checkCode(role.getCode());
         checkRole(role.getRole());
         // 防止给学生分配老师角色
-        if (!expect.equals(role.getRole()) && !Const.ADMIN.equals(role.getRole())) {
-            throw new ConflictException("用户角色分配异常！");
-        }
+//        if (!expect.equals(role.getRole()) && !Const.ADMIN.equals(role.getRole())) {
+//            throw new ConflictException("用户角色分配异常！");
+//        }
 
         role.setCreateTime(LocalDateTime.now());
         role.setUpdateTime(LocalDateTime.now());

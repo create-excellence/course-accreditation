@@ -12,10 +12,12 @@ import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.StudentMapper;
 import com.excellent.accreditation.model.entity.Major;
+import com.excellent.accreditation.model.entity.Role;
 import com.excellent.accreditation.model.entity.Student;
 import com.excellent.accreditation.model.form.StudentQuery;
 import com.excellent.accreditation.model.vo.StudentVo;
 import com.excellent.accreditation.service.IMajorService;
+import com.excellent.accreditation.service.IRoleService;
 import com.excellent.accreditation.service.IStudentService;
 import com.excellent.accreditation.untils.EmptyCheckUtils;
 import com.excellent.accreditation.untils.ExcelUtils;
@@ -38,8 +40,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     private final IMajorService majorService;
 
-    public StudentServiceImpl(IMajorService majorService) {
+    private final IRoleService roleService;
+
+    public StudentServiceImpl(IMajorService majorService,IRoleService roleService) {
         this.majorService = majorService;
+        this.roleService=roleService;
     }
 
     @Override
@@ -109,7 +114,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         student.setStatus(0);
         this.checkCode(student.getSno());                   // 学号必须唯一
         majorService.checkMajor(student.getMajorId());     // 查看对应专业是否存在
-        boolean result = this.save(student);
+         Role role =new Role();
+         role.setRole("student");
+         role.setCode(student.getSno());
+         roleService.create(role);
+         boolean result = this.save(student);
         // 操作成功
         if (result)
             return result;

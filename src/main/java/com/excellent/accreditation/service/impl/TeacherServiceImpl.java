@@ -12,13 +12,16 @@ import com.excellent.accreditation.common.exception.DatabaseException;
 import com.excellent.accreditation.common.exception.UniqueException;
 import com.excellent.accreditation.dao.TeacherMapper;
 import com.excellent.accreditation.model.entity.Course;
+import com.excellent.accreditation.model.entity.Role;
 import com.excellent.accreditation.model.entity.Teacher;
 import com.excellent.accreditation.model.form.TeacherQuery;
+import com.excellent.accreditation.service.IRoleService;
 import com.excellent.accreditation.service.ITeacherService;
 import com.excellent.accreditation.untils.EmptyCheckUtils;
 import com.excellent.accreditation.untils.ExcelUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +35,13 @@ import java.util.Map;
  */
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements ITeacherService {
+
+   private final IRoleService roleService;
+    @Autowired
+   public TeacherServiceImpl(IRoleService roleService){
+        this.roleService=roleService;
+    }
+
 
     @Override
     public Teacher getByCode(String code) {
@@ -107,7 +117,10 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         teacher.setUpdateTime(LocalDateTime.now());
         this.checkJno(teacher.getJno());            // 工号必须唯一
         boolean result = this.save(teacher);
-
+        Role role = new Role();
+        role.setCode(teacher.getJno());
+        role.setRole(Const.TEACHER);
+        roleService.create(role);
         // 操作成功
         if (result)
             return true;

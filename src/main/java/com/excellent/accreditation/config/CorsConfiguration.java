@@ -15,7 +15,7 @@ public class CorsConfiguration implements WebMvcConfigurer {
     @Value("/${server.version}/img/**")
     private  String imgPath;
 
-    @Value("/${server.version}/img/**")
+    @Value("/${server.version}/excel/**")
     private  String excelPath;
 
 
@@ -35,7 +35,7 @@ public class CorsConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(excelPath).addResourceLocations("classpath:/excel/");
+        registry.addResourceHandler(excelPath).addResourceLocations("file:/usr/local/course-accreditation/upload/excel/");
         registry.addResourceHandler(imgPath).addResourceLocations("file:"+uploadPicturePath);
     }
 }
